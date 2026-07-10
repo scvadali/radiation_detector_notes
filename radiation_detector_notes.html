@@ -1,0 +1,1627 @@
+* * * * * * * *                                                                             
+
+<!DOCTYPE html> 
+<html lang='en-US' xml:lang='en-US'> 
+<head><title>Radiation Detection and Detector Hardware Notes</title> 
+<meta charset='utf-8' /> 
+<meta content='TeX4ht (https://tug.org/tex4ht/)' name='generator' /> 
+<meta content='width=device-width,initial-scale=1' name='viewport' /> 
+<link href='radiation_detector_notes.css' rel='stylesheet' type='text/css' /> 
+<meta content='radiation_detector_notes.tex' name='src' /> 
+<script>window.MathJax = { tex: { tags: "ams", }, }; </script> 
+ <script async='async' id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js' type='text/javascript'></script>  
+</head><body>
+   <div class='maketitle'>
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+
+<h2 class='titleHead'>Radiation Detection and Detector Hardware Notes</h2>
+ <div class='author'><span class='cmr-12'>Chandrahaas Vadali</span></div>
+<br />
+<div class='date'><span class='cmr-12'>July 10, 2026</span></div>
+   </div>
+   <h3 class='likesectionHead' id='contents'><a id='x1-1000'></a>Contents</h3>
+   <div class='tableofcontents'>
+   <span class='sectionToc'>1 <a href='#basics-of-radioactivity' id='QQ2-1-2'>Basics of Radioactivity</a></span>
+<br />   <span class='subsectionToc'>1.1 <a href='#xrays' id='QQ2-1-3'>X-Rays</a></span>
+<br />   <span class='subsectionToc'>1.2 <a href='#gamma-rays' id='QQ2-1-4'>Gamma Rays</a></span>
+<br />   <span class='subsectionToc'>1.3 <a href='#activity' id='QQ2-1-6'>Activity</a></span>
+<br />   <span class='subsectionToc'>1.4 <a href='#radiation-interaction' id='QQ2-1-8'>Radiation Interaction</a></span>
+<br />   <span class='subsubsectionToc'>1.4.1 <a href='#interaction-of-fast-electrons' id='QQ2-1-9'>Interaction of Fast Electrons</a></span>
+<br />   <span class='subsubsectionToc'>1.4.2 <a href='#interaction-of-gamma-rays' id='QQ2-1-10'>Interaction of Gamma Rays</a></span>
+<br />   <span class='subsubsectionToc'>1.4.3 <a href='#mass-attenuation-coefficient' id='QQ2-1-11'>Mass Attenuation Coefficient</a></span>
+<br />   <span class='subsectionToc'>1.5 <a href='#dose' id='QQ2-1-13'>Dose</a></span>
+<br />   <span class='subsubsectionToc'>1.5.1 <a href='#exposure-and-exposure-rate' id='QQ2-1-14'>Exposure and Exposure Rate</a></span>
+<br />   <span class='subsubsectionToc'>1.5.2 <a href='#absorbed-dose' id='QQ2-1-15'>Absorbed Dose</a></span>
+<br />   <span class='subsubsectionToc'>1.5.3 <a href='#dose-equivalent' id='QQ2-1-16'>Dose Equivalent</a></span>
+<br />   <span class='subsubsectionToc'>1.5.4 <a href='#converting-activity-to-absorbed-dose' id='QQ2-1-17'>Converting Activity to Absorbed Dose</a></span>
+<br />   <span class='subsectionToc'>1.6 <a href='#kerma' id='QQ2-1-18'>Kerma</a></span>
+<br />   <span class='subsubsectionToc'>1.6.1 <a href='#mass-energy-transfer-coefficient' id='QQ2-1-20'>Mass Energy Transfer Coefficient</a></span>
+<br />   <span class='subsubsectionToc'>1.6.2 <a href='#mass-energy-absorption-coefficient' id='QQ2-1-21'>Mass Energy Absorption Coefficient</a></span>
+<br />   <span class='subsectionToc'>1.7 <a href='#stopping-power' id='QQ2-1-22'>Stopping Power</a></span>
+<br />   <span class='subsectionToc'>1.8 <a href='#burlin-cavity-theory' id='QQ2-1-23'>Burlin Cavity Theory</a></span>
+<br />   <span class='subsectionToc'>1.9 <a href='#modeling' id='QQ2-1-25'>Modeling</a></span>
+<br />   <span class='subsubsectionToc'>1.9.1 <a href='#si-properties' id='QQ2-1-27'>Si Properties</a></span>
+<br />   <span class='subsubsectionToc'>1.9.2 <a href='#model-results-' id='QQ2-1-29'>Model Results </a></span>
+<br />   <span class='subsubsectionToc'>1.9.3 <a href='#signal-at-the-pixel' id='QQ2-1-31'>Signal at the Pixel</a></span>
+<br />   <span class='subsubsectionToc'>1.9.4 <a href='#topas-modeling-and-simulation' id='QQ2-1-34'>TOPAS Modeling and Simulation</a></span>
+                                                                                               
+                                                                                               
+<br />   <span class='subsectionToc'>1.10 <a href='#example-problem' id='QQ2-1-37'>Example Problem</a></span>
+<br />   <span class='sectionToc'>2 <a href='#gamma-spectroscopy-considerations' id='QQ2-1-38'>Gamma Spectroscopy Considerations</a></span>
+<br />   <span class='subsectionToc'>2.1 <a href='#photoelectric-effect' id='QQ2-1-39'>Photoelectric Effect</a></span>
+<br />   <span class='subsectionToc'>2.2 <a href='#compton-scattering' id='QQ2-1-40'>Compton Scattering</a></span>
+<br />   <span class='subsectionToc'>2.3 <a href='#detector-sizing' id='QQ2-1-42'>Detector Sizing</a></span>
+<br />   <span class='subsubsectionToc'>2.3.1 <a href='#loss-mechanisms' id='QQ2-1-44'>Loss Mechanisms</a></span>
+<br />   <span class='subsectionToc'>2.4 <a href='#example-problem1' id='QQ2-1-45'>Example Problem</a></span>
+<br />   <span class='subsectionToc'>2.5 <a href='#generic-detector-model' id='QQ2-1-46'>Generic Detector Model</a></span>
+<br />   <span class='subsubsectionToc'>2.5.1 <a href='#pulse-mode' id='QQ2-1-47'>Pulse Mode</a></span>
+<br />   <span class='subsubsectionToc'>2.5.2 <a href='#current-mode' id='QQ2-1-49'>Current Mode</a></span>
+<br />   <span class='subsectionToc'>2.6 <a href='#pulse-height-spectra' id='QQ2-1-51'>Pulse Height Spectra</a></span>
+<br />   <span class='subsectionToc'>2.7 <a href='#energy-resolution' id='QQ2-1-53'>Energy Resolution</a></span>
+<br />   <span class='subsectionToc'>2.8 <a href='#dead-time' id='QQ2-1-55'>Dead Time</a></span>
+<br />   <span class='sectionToc'>3 <a href='#semiconductor-detectors' id='QQ2-1-57'>Semiconductor Detectors</a></span>
+<br />   <span class='subsectionToc'>3.1 <a href='#charge-carriers' id='QQ2-1-58'>Charge Carriers</a></span>
+<br />   <span class='subsectionToc'>3.2 <a href='#interaction-with-charged-particles' id='QQ2-1-59'>Interaction with Charged Particles</a></span>
+<br />   <span class='subsubsectionToc'>3.2.1 <a href='#pulse-formation' id='QQ2-1-60'>Pulse Formation</a></span>
+<br />   <span class='subsectionToc'>3.3 <a href='#reverse-biasing' id='QQ2-1-62'>Reverse Biasing</a></span>
+<br />   <span class='subsectionToc'>3.4 <a href='#conventional-semiconductor-detectors' id='QQ2-1-63'>Conventional Semiconductor Detectors</a></span>
+<br />   <span class='subsubsectionToc'>3.4.1 <a href='#pin-diodes' id='QQ2-1-65'>p-i-n Diodes</a></span>
+<br />   <span class='subsubsectionToc'>3.4.2 <a href='#avalanche-detectors' id='QQ2-1-66'>Avalanche Detectors</a></span>
+<br />   <span class='subsubsectionToc'>3.4.3 <a href='#drift-detectors' id='QQ2-1-67'>Drift Detectors</a></span>
+<br />   <span class='subsubsectionToc'>3.4.4 <a href='#ccds' id='QQ2-1-69'>CCDs</a></span>
+<br />   <span class='subsubsectionToc'>3.4.5 <a href='#ge-detectors' id='QQ2-1-71'>Ge Detectors</a></span>
+<br />   <span class='subsubsectionToc'>3.4.6 <a href='#lidrifted-si-detectors' id='QQ2-1-72'>Li-drifted Si Detectors</a></span>
+<br />   <span class='subsubsectionToc'>3.4.7 <a href='#other-semiconductors' id='QQ2-1-73'>Other Semiconductors</a></span>
+<br />   <span class='subsectionToc'>3.5 <a href='#cmos-image-sensors' id='QQ2-1-74'>CMOS Image Sensors</a></span>
+<br />   <span class='subsubsectionToc'>3.5.1 <a href='#issue-with-pmos-devices' id='QQ2-1-76'>Issue with PMOS Devices</a></span>
+<br />   <span class='subsubsectionToc'>3.5.2 <a href='#t-and-t-pixels' id='QQ2-1-79'>3T and 4T Pixels</a></span>
+<br />   <span class='subsubsectionToc'>3.5.3 <a href='#case-studies' id='QQ2-1-81'>Case Studies</a></span>
+<br />   <span class='sectionToc'>4 <a href='#math-refresher' id='QQ2-1-85'>Math Refresher</a></span>
+<br />   <span class='subsectionToc'>4.1 <a href='#frequency-distribution-mean-variance' id='QQ2-1-86'>Frequency Distribution, Mean, Variance</a></span>
+<br />   <span class='subsectionToc'>4.2 <a href='#statistical-models' id='QQ2-1-87'>Statistical Models</a></span>
+<br />   <span class='subsubsectionToc'>4.2.1 <a href='#binomial-distribution' id='QQ2-1-88'>Binomial Distribution</a></span>
+<br />   <span class='subsubsectionToc'>4.2.2 <a href='#poisson-distribution' id='QQ2-1-89'>Poisson Distribution</a></span>
+<br />   <span class='subsubsectionToc'>4.2.3 <a href='#gaussian-distribution' id='QQ2-1-90'>Gaussian Distribution</a></span>
+<br />   <span class='subsubsectionToc'>4.2.4 <a href='#chisquared-test' id='QQ2-1-91'>Chi-Squared Test</a></span>
+<br />   <span class='subsectionToc'>4.3 <a href='#examples-studies' id='QQ2-1-92'>Examples Studies</a></span>
+                                                                                               
+                                                                                               
+<br />   <span class='subsubsectionToc'>4.3.1 <a href='#optimizing-counting-experiments' id='QQ2-1-93'>Optimizing Counting Experiments</a></span>
+<br />   <span class='subsubsectionToc'>4.3.2 <a href='#distribution-of-time-intervals-between-decays' id='QQ2-1-94'>Distribution of Time Intervals between Decays</a></span>
+<br />   <span class='sectionToc'>5 <a href='#cmos-frontends-for-radiation-detectors' id='QQ2-1-97'>CMOS Front-ends for Radiation Detectors</a></span>
+<br />   <span class='subsectionToc'>5.1 <a href='#input-model' id='QQ2-1-98'>Input Model</a></span>
+<br />   <span class='subsectionToc'>5.2 <a href='#direct-detection-of-current' id='QQ2-1-99'>Direct Detection of Current</a></span>
+<br />   <span class='subsectionToc'>5.3 <a href='#tia' id='QQ2-1-101'>TIA</a></span>
+<br />   <span class='sectionToc'>6 <a href='#readout-schemes' id='QQ2-1-102'>Readout Schemes</a></span>
+<br />   <span class='sectionToc'>7 <a href='#analog-frontends-for-radiation-detectors' id='QQ2-1-103'>Analog Front-ends for Radiation Detectors</a></span>
+<br />   <span class='sectionToc'>8 <a href='#medipix-and-timepix' id='QQ2-1-104'>MediPix and TimePix</a></span>
+<br />   <span class='sectionToc'>9 <a href='#questions-' id='QQ2-1-105'>Questions </a></span>
+<br />   <span class='sectionToc'><a href='#references' id='QQ2-1-106'>References</a></span>
+   </div>
+<!-- l. 36 --><p class='indent'>
+                                                                                               
+                                                                                               
+</p>
+   <h3 class='sectionHead' id='basics-of-radioactivity'><span class='titlemark'>1   </span> <a id='x1-20001'></a>Basics of Radioactivity</h3>
+<!-- l. 41 --><p class='noindent'>We’re interested in electromagnetic radiation that is generally emitted from either electron transitions within the shells of
+an atom (X-rays), or transitions due to nuclear decay (gamma rays) [<a id='x1-2001'></a><a href='#cite.0_NationalToxicologyProgram2021'>1</a>],[<a id='x1-2002'></a><a href='#cite.0_Knoll2000'>2</a>]. We will not discuss too much about charged
+particles.
+</p><!-- l. 44 --><p class='noindent'>
+</p>
+   <h4 class='subsectionHead' id='xrays'><span class='titlemark'>1.1   </span> <a id='x1-30001.1'></a>X-Rays</h4>
+<!-- l. 46 --><p class='noindent'>Characteristic X-rays are a result of electronic transitions from higher energy to lower energy states (farther away from the
+nucleus to a closer shell to it). Bremsstrahlung or ‘braking radiation’ is when charged particles are deccelarated or deflected
+due to electronic or nuclear interactions within an atom [<a href='#cite.0_NationalToxicologyProgram2021'>1</a>]. The fraction of electron energy converted into bremsstrahlung
+increases with increasing incoming electron energy and increasing atomic number of the scattering material [<a href='#cite.0_Knoll2000'>2</a>]. In X-ray
+tubes, these continua of lower energy emissions are removed through filters, or materials that can absorb these
+photons.
+</p><!-- l. 52 --><p class='indent'>   There is a competing process to X-ray generation in atoms known as Auger electron emission. The vacancy in the inner
+shell is filled by an outer shell electron just like before, but this time the excess energy is absorbed by another outer shell
+electron and it is violently ejected out. We define ‘fluorescent yield’ as the fraction of all cases where an atom is excited
+emits a characteristic X-ray during de-excitation.
+</p><!-- l. 57 --><p class='indent'>   Low-energy X-rays penetrate only small thickness of materials and are called ‘soft radiations’.
+</p><!-- l. 62 --><p class='noindent'>
+</p>
+   <h4 class='subsectionHead' id='gamma-rays'><span class='titlemark'>1.2   </span> <a id='x1-40001.2'></a>Gamma Rays</h4>
+<!-- l. 65 --><p class='noindent'>Excited nuclear states decay to stabler nuclei and emit gamma rays. Let us look at an example to understand some
+more details. Figure <a href='#decay-scheme-for-co'>1<!-- tex4ht:ref: fig:co60_decay  --></a> shows the decay scheme for Co-60. Due to beta-decay, Co-60 nuclei have a half-life of
+around 5.26 years. When they initially decay, the Ni-60 nuclei are at an excited state corresponding to 2.505
+MeV. It is the de-excitation of Ni-60 that causes gamma ray emission, and not directly the Co-60 nuclei
+[<a href='#cite.0_Knoll2000'>2</a>].
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 72 --><p class='noindent' id='decay-scheme-for-co'><img alt='PIC' height='150' src='images/Co60_decay.png' width='150' /> <a id='x1-4001r1'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 1: </span><span class='content'>Decay Scheme for Co-60                                                                   </span></figcaption><!-- tex4ht:label?: x1-4001r1  -->
+                                                                                               
+                                                                                               
+   </figure>
+<!-- l. 77 --><p class='indent'>   Here, there are two emissions \(\gamma _1\) and \(\gamma _2\) for the Ni-60 nuclei to ground state. The half-life for gamma emission is tied to the
+beta decay of the Co-60 nucleus, however.
+</p><!-- l. 79 --><p class='indent'>   Another source of gamma ray emission is positron annihilation, also known as annihilation radiation. This occurs when a
+positron (due to a positron decay of a nucleus) combines with an electron to give a characteristic 511 keV emission. Na-22 is
+an example where the nucleus undergoes positron decay to an excited Ne-22. The Ne-22 de-excites and emits 1.274 MeV
+gamma photons while the positron from the nuclear decay combines with neighboring electrons in the source to emit 511
+keV gamma photons.
+</p>
+   <h4 class='subsectionHead' id='activity'><span class='titlemark'>1.3   </span> <a id='x1-50001.3'></a>Activity</h4>
+<!-- l. 85 --><p class='noindent'>The activity of a radioisotope is the number of disintegrations per second (DPS) and is given by eqn <a href='#x1-5001r1'>1<!-- tex4ht:ref: eqn:law_of_decay  --></a>
+</p><!-- l. 89 --><p class='indent'>   \begin {equation} \label {eqn:law_of_decay} \frac {d N}{dt} = -\lambda N  \end {equation}<a id='x1-5001r1'></a>
+</p><!-- l. 91 --><p class='indent'>   where \(N\) is the number of radioactive nuclei and \(\lambda \) is the decay constant. If we start with \(N_0\) nuclei at time \(t=0\), we see that \(N (t) = N_0 \exp (-\lambda t)\)
+remaining radioactive nuclei at time \(t\). Note that eqn <a href='#x1-5001r1'>1<!-- tex4ht:ref: eqn:law_of_decay  --></a> is the decay rate only. If the daughter products of the decay have
+their own activity, this is not captured by the above eqn.
+</p><!-- l. 95 --><p class='indent'>   The historical units of activity has been <span class='cmti-10'>Curie </span>(Ci) and is around \(3.7 \times 10^{10}\) DPS which is the available best estimate of 1 gm of
+pure Ra-226 [<a id='x1-5002'></a><a href='#cite.0_Knoll2000'>2</a>]. Becquerel (Bq) is the SI unit and is simply 1 DPS, or \(2.703\times 10^{-11}\) Ci.
+</p>
+   <div class='table'>
+                                                                                               
+                                                                                               
+<!-- l. 98 --><p class='indent'>   </p><figure class='float' id='x1-5003r1'><span id='radiation-activity-conversion-reference-tables'></span>
+                                                                                               
+                                                                                               
+
+<figcaption class='caption'><span class='id'>Table 1: </span><span class='content'>Radiation Activity Conversion Reference Tables                                                </span></figcaption><!-- tex4ht:label?: x1-5003r1  -->
+<div class='subfigure'>
+<!-- l. 104 --><p class='noindent'><a id='x1-5004r1'></a>
+</p>
+<div class='caption'><span class='id'><span class='cmr-9'>(a) </span></span><span class='content'><span class='cmr-9'>Curie to Becquerel</span>                            </span></div>
+<div class='tabular'> <table class='tabular' id='TBL-2'><colgroup id='TBL-2-1g'><col id='TBL-2-1' /></colgroup><colgroup id='TBL-2-2g'><col id='TBL-2-2' /></colgroup><tr class='hline'><td></td><td></td></tr><tr id='TBL-2-1-' style='vertical-align:baseline;'><td class='td11' id='TBL-2-1-1' style='white-space:nowrap; text-align:center;'> <span class='cmbx-10'>Input Activity (Ci)  </span></td><td class='td11' id='TBL-2-1-2' style='white-space:nowrap; text-align:center;'> <span class='cmbx-10'>Common SI Prefix  </span></td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-2-2-' style='vertical-align:baseline;'><td class='td11' id='TBL-2-2-1' style='white-space:nowrap; text-align:center;'>        0.1 \(\mu \)Ci             </td><td class='td11' id='TBL-2-2-2' style='white-space:nowrap; text-align:center;'>      3.70 kBq          </td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-2-3-' style='vertical-align:baseline;'><td class='td11' id='TBL-2-3-1' style='white-space:nowrap; text-align:center;'>        1.0 \(\mu \)Ci             </td><td class='td11' id='TBL-2-3-2' style='white-space:nowrap; text-align:center;'>      37.00 kBq         </td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-2-4-' style='vertical-align:baseline;'><td class='td11' id='TBL-2-4-1' style='white-space:nowrap; text-align:center;'>       100.0 \(\mu \)Ci           </td><td class='td11' id='TBL-2-4-2' style='white-space:nowrap; text-align:center;'>      3.70 MBq          </td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-2-5-' style='vertical-align:baseline;'><td class='td11' id='TBL-2-5-1' style='white-space:nowrap; text-align:center;'>       250.0 \(\mu \)Ci           </td><td class='td11' id='TBL-2-5-2' style='white-space:nowrap; text-align:center;'>      9.25 MBq          </td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-2-6-' style='vertical-align:baseline;'><td class='td11' id='TBL-2-6-1' style='white-space:nowrap; text-align:center;'>       500.0 \(\mu \)Ci           </td><td class='td11' id='TBL-2-6-2' style='white-space:nowrap; text-align:center;'>      18.50 MBq         </td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-2-7-' style='vertical-align:baseline;'><td class='td11' id='TBL-2-7-1' style='white-space:nowrap; text-align:center;'>       1.0 mCi            </td><td class='td11' id='TBL-2-7-2' style='white-space:nowrap; text-align:center;'>      37.00 MBq         </td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-2-8-' style='vertical-align:baseline;'><td class='td11' id='TBL-2-8-1' style='white-space:nowrap; text-align:center;'>       5.0 mCi            </td><td class='td11' id='TBL-2-8-2' style='white-space:nowrap; text-align:center;'>     185.00 MBq        </td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-2-9-' style='vertical-align:baseline;'><td class='td11' id='TBL-2-9-1' style='white-space:nowrap; text-align:center;'>        1.0 Ci             </td><td class='td11' id='TBL-2-9-2' style='white-space:nowrap; text-align:center;'>      37.00 GBq         </td>
+</tr><tr class='hline'><td></td><td></td></tr></table>                      </div><br /></div>                                                  <div class='subfigure'>
+<!-- l. 123 --><p class='noindent'><a id='x1-5005r2'></a>
+</p>
+<div class='caption'><span class='id'><span class='cmr-9'>(b) </span></span><span class='content'><span class='cmr-9'>Becquerel to Curie</span>                            </span></div>
+<div class='tabular'> <table class='tabular' id='TBL-3'><colgroup id='TBL-3-1g'><col id='TBL-3-1' /></colgroup><colgroup id='TBL-3-2g'><col id='TBL-3-2' /></colgroup><tr class='hline'><td></td><td></td></tr><tr id='TBL-3-1-' style='vertical-align:baseline;'><td class='td11' id='TBL-3-1-1' style='white-space:nowrap; text-align:center;'> <span class='cmbx-10'>Input (SI Prefix)  </span></td><td class='td11' id='TBL-3-1-2' style='white-space:nowrap; text-align:center;'> <span class='cmbx-10'>Converted Value (Ci)  </span></td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-3-2-' style='vertical-align:baseline;'><td class='td11' id='TBL-3-2-1' style='white-space:nowrap; text-align:center;'>        1 Bq            </td><td class='td11' id='TBL-3-2-2' style='white-space:nowrap; text-align:center;'>       27.03 pCi            </td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-3-3-' style='vertical-align:baseline;'><td class='td11' id='TBL-3-3-1' style='white-space:nowrap; text-align:center;'>       1 kBq           </td><td class='td11' id='TBL-3-3-2' style='white-space:nowrap; text-align:center;'>       27.03 nCi            </td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-3-4-' style='vertical-align:baseline;'><td class='td11' id='TBL-3-4-1' style='white-space:nowrap; text-align:center;'>       10 kBq           </td><td class='td11' id='TBL-3-4-2' style='white-space:nowrap; text-align:center;'>       270.27 nCi           </td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-3-5-' style='vertical-align:baseline;'><td class='td11' id='TBL-3-5-1' style='white-space:nowrap; text-align:center;'>       50 kBq           </td><td class='td11' id='TBL-3-5-2' style='white-space:nowrap; text-align:center;'>        1.35 \(\mu \)Ci             </td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-3-6-' style='vertical-align:baseline;'><td class='td11' id='TBL-3-6-1' style='white-space:nowrap; text-align:center;'>      100 kBq          </td><td class='td11' id='TBL-3-6-2' style='white-space:nowrap; text-align:center;'>        2.70 \(\mu \)Ci             </td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-3-7-' style='vertical-align:baseline;'><td class='td11' id='TBL-3-7-1' style='white-space:nowrap; text-align:center;'>      250 kBq          </td><td class='td11' id='TBL-3-7-2' style='white-space:nowrap; text-align:center;'>        6.76 \(\mu \)Ci             </td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-3-8-' style='vertical-align:baseline;'><td class='td11' id='TBL-3-8-1' style='white-space:nowrap; text-align:center;'>      500 kBq          </td><td class='td11' id='TBL-3-8-2' style='white-space:nowrap; text-align:center;'>        13.51 \(\mu \)Ci             </td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-3-9-' style='vertical-align:baseline;'><td class='td11' id='TBL-3-9-1' style='white-space:nowrap; text-align:center;'>       1 MBq           </td><td class='td11' id='TBL-3-9-2' style='white-space:nowrap; text-align:center;'>        27.03 \(\mu \)Ci             </td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-3-10-' style='vertical-align:baseline;'><td class='td11' id='TBL-3-10-1' style='white-space:nowrap; text-align:center;'>      10 MBq          </td><td class='td11' id='TBL-3-10-2' style='white-space:nowrap; text-align:center;'>        270.27 \(\mu \)Ci            </td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-3-11-' style='vertical-align:baseline;'><td class='td11' id='TBL-3-11-1' style='white-space:nowrap; text-align:center;'>      25 MBq          </td><td class='td11' id='TBL-3-11-2' style='white-space:nowrap; text-align:center;'>        675.68 \(\mu \)Ci            </td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-3-12-' style='vertical-align:baseline;'><td class='td11' id='TBL-3-12-1' style='white-space:nowrap; text-align:center;'>      100 MBq         </td><td class='td11' id='TBL-3-12-2' style='white-space:nowrap; text-align:center;'>        2.70 mCi            </td>
+</tr><tr class='hline'><td></td><td></td></tr></table>                         </div></div>
+                                                                                               
+                                                                                               
+   </figure>
+   </div>
+<!-- l. 146 --><p class='indent'>   Tables <a href='#radiation-activity-conversion-reference-tables'>1<!-- tex4ht:ref: tab:activity_conversions  --></a><a href='#x1-5004ra'>a<!-- tex4ht:ref: sub@tab:ci_bq_conversion  --></a>, <a href='#radiation-activity-conversion-reference-tables'>1<!-- tex4ht:ref: tab:activity_conversions  --></a><a href='#x1-5005rb'>b<!-- tex4ht:ref: sub@tab:bq_ci_conversion  --></a> show the conversion between some common values of activities.
+</p><!-- l. 148 --><p class='indent'>   Note that the soruce disintegration rate does NOT equal to the radiation emission rate. A given isotope can have
+different routes of decay with different probabilities of occurrence. Each route has its own radiation emission associated with
+it (could be X-ray, gamma, beta, alpha, etc.). These probabilities need to be taken into account when calculating a
+particular radiation emission rate.
+</p>
+   <h4 class='subsectionHead' id='radiation-interaction'><span class='titlemark'>1.4   </span> <a id='x1-60001.4'></a>Radiation Interaction</h4>
+<!-- l. 155 --><p class='noindent'>While we talk about gamma rays here, the same analysis is true for X-rays. When gamma rays interact with a medium,
+they can transfer a part of, or all of the energy to the electrons. The resulting secondary electrons act similar to beta
+particles (fast electrons) [<a id='x1-6001'></a><a href='#cite.0_Knoll2000'>2</a>]. Gamma ray detectors are designed to fully stop these secondary electrons so that their entire
+energy may contribute to the output signal.
+</p><!-- l. 159 --><p class='noindent'>
+</p>
+   <h5 class='subsubsectionHead' id='interaction-of-fast-electrons'><span class='titlemark'>1.4.1   </span> <a id='x1-70001.4.1'></a>Interaction of Fast Electrons</h5>
+<!-- l. 161 --><p class='noindent'>Electrons can interact with other electrons, or the nucleus inside a medium. They can lose a large fraction of energy even in
+a single electronic interaction due to their light weight. Radiative losses through bremsstrahlung mechanism increases as the
+mass of the charged particle decreases (electrons are more affected than, say alpha particles), incoming electron energy
+increases, and atomic number of the absorber increases. If the emitted bremsstrahlung photons are low enough in energy,
+they can be reabsorbed fairly close to the point of origin within the medium. [<a href='#cite.0_Knoll2000'>2</a>] notes that radiative losses are
+always a small fraction of the energy losses unless the atomic number of the absorber is very high, or the
+fast electron energy is very high. Most of the energy is lost in collisions where the energy is transferred to
+other electrons - which are then either excited (and then emit characteristic X-rays), or are ejected as Auger
+electrons.
+</p><!-- l. 167 --><p class='indent'>   To summarize, at lower electron energies we should see more characteristic X-rays and Auger electrons than
+bremsstrahlung radiation for low-\(Z\) absorbers. As the atomic number increases, or the beta particle energy increases, so does
+the radiative losses through bremsstrahlung mechanism. Bremsstrahlung production scales approximates as \(Z^2\) of the absorber
+[<a href='#cite.0_Knoll2000'>2</a>].
+</p><!-- l. 170 --><p class='noindent'>
+</p>
+   <h5 class='subsubsectionHead' id='interaction-of-gamma-rays'><span class='titlemark'>1.4.2   </span> <a id='x1-80001.4.2'></a>Interaction of Gamma Rays</h5>
+<!-- l. 172 --><p class='noindent'>Gamma rays interact with matter through photoelectric (PE) absorption, Compton scattering, and pair production. These
+interactions result in sudden and abrupt changes in the gamma photon - either the photon disappears completely, or is
+scattered through a significant angle. This is in contrast with the gradual slow down as seen with the charged particles
+above [<a href='#cite.0_Knoll2000'>2</a>].
+</p><!-- l. 175 --><p class='indent'>   In PE absorption, the gamma photon is completely absorbed by the atom (not the free electrons in the medium but
+the atom itself) and an electron from the innermost shell(s) is ejected out. The vacancy created due to the
+photoelectron generation is filled up by a free electron in the medium and leads to characteristic X-ray emission.
+These X-rays may be reabsorbed close to the site of generation. Auger electron emission can substitute the
+characteristic X-ray emission as usual. PE absorption is a very strong function of the atomic number of the absorber
+                                                                                               
+                                                                                               
+(\(\propto Z^{4-5}\)).
+</p><!-- l. 180 --><p class='indent'>   In Compton scattering, the gamma photon transfers a portion of its energy to an electron, which is assumed to be at
+rest initially. It is the predominant interaction mechanism in the range of energies from typical radioisotopes.
+The Klein-Nishina formula predicts the angular distribution as a function of the incoming energy, \(Z\) of the
+scattering material and a few other constants. The probability of Compton scattering per atom of the absorber
+depends on the number of electrons available as scattering targets, and therefore, increases linearly with
+\(Z\).
+</p><!-- l. 185 --><p class='indent'>   We ignore coherent scattering and pair production here.
+</p><!-- l. 187 --><p class='noindent'>
+</p>
+   <h5 class='subsubsectionHead' id='mass-attenuation-coefficient'><span class='titlemark'>1.4.3   </span> <a id='x1-90001.4.3'></a>Mass Attenuation Coefficient</h5>
+<!-- l. 189 --><p class='noindent'>The sum of the probabilities that a photon maybe absorbed or scattered away from the detector due to the processes
+mentioned above can be modeled as the linear attenuation coefficient.
+</p><!-- l. 192 --><p class='indent'>   \[\mu _{\text {LAC}} = \mu _{\text {PE}} + \mu _{\text {Compton}} + \mu _{\text {PP}}\]
+</p><!-- l. 194 --><p class='indent'>   If we start with \(N_0\) number of gamma photons initially, after passing through a scatterer of thickness \(t\), we see \(N\) photons at
+the detector
+</p><!-- l. 198 --><p class='indent'>   \begin {equation} \label {eqn:lac_collimated} N = N_0 \exp (-\mu _{\text {LAC}} t)  \end {equation}<a id='x1-9001r2'></a>
+</p><!-- l. 201 --><p class='indent'>   We can define a mass attenuation coefficient (MAC) from \(\mu _{\text {LAC}}\) and the density of the material \(\rho \)
+</p><!-- l. 203 --><p class='indent'>   \[\mu _{\text {MAC}} = \frac {\mu _{\text {LAC}}}{\rho }\]
+</p><!-- l. 205 --><p class='indent'>   It is interesting to note that the mass attenuation coefficient of a material does not change with the physical state of the
+material. For example, it is the same for water in liquid or vapor form [<a id='x1-9002'></a><a href='#cite.0_Knoll2000'>2</a>].
+</p><!-- l. 208 --><p class='indent'>   A point to note about eqn <a href='#x1-9001r2'>2<!-- tex4ht:ref: eqn:lac_collimated  --></a> is that the derivation assumes that the source beam was collimated. There are no gamma
+photons that can scatter into the detector from different parts of the scattering material as shown in figure
+<a href='#gamma-photons-can-now-scatter-into-the-detector-from-different-parts-of-the-scattering-material'>2<!-- tex4ht:ref: fig:direct_and_scattering_gamma  --></a>.
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 214 --><p class='noindent' id='gamma-photons-can-now-scatter-into-the-detector-from-different-parts-of-the-scattering-material'><img alt='PIC' height='150' src='images/direct_and_scattering_gamma.png' width='150' /> <a id='x1-9003r2'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 2: </span><span class='content'>Gamma photons can now scatter into the detector from different parts of the scattering material      </span></figcaption><!-- tex4ht:label?: x1-9003r2  -->
+                                                                                               
+                                                                                               
+   </figure>
+<!-- l. 219 --><p class='indent'>   Eqn <a href='#x1-9001r2'>2<!-- tex4ht:ref: eqn:lac_collimated  --></a> may not be valid anymore in this uncollimated or ‘broad beam’ scenario and we may see additional flux
+contributed by the scattering into the detector.
+</p>
+   <h4 class='subsectionHead' id='dose'><span class='titlemark'>1.5   </span> <a id='x1-100001.5'></a>Dose</h4>
+<!-- l. 227 --><p class='noindent'>
+</p>
+   <h5 class='subsubsectionHead' id='exposure-and-exposure-rate'><span class='titlemark'>1.5.1   </span> <a id='x1-110001.5.1'></a>Exposure and Exposure Rate</h5>
+<!-- l. 229 --><p class='noindent'>Exposure \(X\) is defined as the total charge \(dQ\) due to ionization created by secondary electrons that were created by one of the
+three interaction mechanisms between gamma rays and the medium in a mass \(dm\). The medium we usually measure this is
+air.
+</p><!-- l. 232 --><p class='indent'>   \[X = \frac {dQ}{dm}\]
+</p><!-- l. 234 --><p class='indent'>   The units are C/kg or roentgen (R) where 1 R = \(2.58 \times 10^{-4}\) C/kg.
+</p><!-- l. 236 --><p class='indent'>   Let us make the following assumptions
+</p><!-- l. 239 --><p class='indent'>
+     </p><dl class='enumerate-enumitem'><dt class='enumerate-enumitem'>
+  1. </dt><dd class='enumerate-enumitem'>The source is sufficiently small so that spherical approximation holds and we can assume the photon flux
+     diminishes as \(1/r^2\)
+     </dd><dt class='enumerate-enumitem'>
+  2. </dt><dd class='enumerate-enumitem'>No other attenuation/scattering occurs in the exposure measurement setup</dd></dl>
+<!-- l. 243 --><p class='indent'>   We can then define exposure rate \(\dot {X}\) as
+</p><!-- l. 247 --><p class='indent'>   \begin {equation} \label {eqn:exposure_rate} \dot {X} = \Gamma _{\delta } \frac {\alpha }{r^2}  \end {equation}<a id='x1-11003r3'></a>
+</p><!-- l. 249 --><p class='indent'>   where \(\alpha \) is the activity of the source, \(r\) is the distance from the point source, and \(\Gamma _{\delta }\) is the exposure rate constant of a
+given radioisotope source. The subscript \(\delta \) implies that we only consider the photons emitted by the source
+of energy greater than \(\delta \) to contribute to ionization. The units for the exposure rate constant are generally
+(R\(\cdot \)cm\(^2\))/(hr\(\cdot \)mCi).
+</p><!-- l. 253 --><p class='noindent'>
+</p>
+   <h5 class='subsubsectionHead' id='absorbed-dose'><span class='titlemark'>1.5.2   </span> <a id='x1-120001.5.2'></a>Absorbed Dose</h5>
+<!-- l. 255 --><p class='noindent'>The energy absorbed from any type of radiation per unit mass of the absorber is defined as the absorbed dose.
+The historical unit was rad and defined as 100 ergs/gm. The SI unit is gray (Gy) and is defined as 1 J/kg.
+Therefore,
+</p><!-- l. 258 --><p class='indent'>   \[1 \, \text {Gy} = 100 \, \text {rad}\]
+</p><!-- l. 260 --><p class='indent'>   The absorbed dose is important to us since chemical and physical effects due to radiation exposure in a medium is
+related to this. Careful measurements have shown that an exposure of 1 C/kg amounts to 33.8 Gy in air,
+and since air and water have nearly the same atomic number on average, we expect this value to be the
+same for water as well. Another way of saying this is that the average ionization energy of air is 33.8 eV
+                                                                                               
+                                                                                               
+[<a id='x1-12001'></a><a href='#cite.0_BNDHEPIrradiationApparatus'>3</a>].
+</p><!-- l. 265 --><p class='noindent'>
+</p>
+   <h5 class='subsubsectionHead' id='dose-equivalent'><span class='titlemark'>1.5.3   </span> <a id='x1-130001.5.3'></a>Dose Equivalent</h5>
+<!-- l. 267 --><p class='noindent'>In biological setting, even if the same amount of energy is absorbed by the tissue in two different settings such as
+irradiation through alpha particles, and gamma rays, the biological implications of this can be vastly different.
+The concept of dose equivalence captures this. If the absorbed dose is \(D\), then we define the dose equivalent \(H\)
+as
+</p><!-- l. 270 --><p class='indent'>   \[H = DQ\]
+</p><!-- l. 272 --><p class='indent'>   where \(Q\) is the quality factor of the specific radiation in a given medium. \(Q\) is related to linear energy transfer (LET) (or
+specific energy loss) which determines how much energy is lost per unit distance as the radiation passes through the
+medium (\(-dE/dx\)). The medium in these cases is usually water since tissue is predominantly water. [<a id='x1-13001'></a><a href='#cite.0_Knoll2000'>2</a>] notes that LET is
+sufficiently low for beta particles, and therefore for X-rays and gamma rays as well since they depend on
+secondary electrons to transfer energy. \(Q=1\) in water for most of the cases when these types of radiation are
+involved.
+</p><!-- l. 277 --><p class='indent'>   If \(D\) is expressed in rad, \(H\) is in rem. The SI unit is sievert (Sv).
+</p><!-- l. 279 --><p class='indent'>   \[1 \, \text {Sv} = 100 \, \text {rem}\]
+</p><!-- l. 281 --><p class='indent'>   Since \(Q=1\) in water/tissue, an absorbed dose of 1 Gy delivers a dose equivalent of 1 Sv.
+</p><!-- l. 283 --><p class='noindent'>
+</p>
+   <h5 class='subsubsectionHead' id='converting-activity-to-absorbed-dose'><span class='titlemark'>1.5.4   </span> <a id='x1-140001.5.4'></a>Converting Activity to Absorbed Dose</h5>
+<!-- l. 285 --><p class='noindent'>Assuming we have a point source of activity \(\alpha \) of a particular radioisotope, what is the absorbed dose in water (or tissue) at a
+distance \(d\) from the source? Since \(Q=1\) for gamma rays of interest and 1 C/kg of exposure amounts to 33.8 Gy of absorbed dose,
+we can write
+</p><!-- l. 290 --><p class='indent'>   \begin {equation} \label {eqn:activity_to_absorbed_dose} \dot {H} = \dot {D} Q = 33.8 \times \Gamma _{\delta } \frac {\alpha }{d^2} \cdot 1  \end {equation}<a id='x1-14001r4'></a>
+</p><!-- l. 292 --><p class='indent'>   In eqn <a href='#x1-14001r4'>4<!-- tex4ht:ref: eqn:activity_to_absorbed_dose  --></a>, all the quantities are in SI units. So \(\dot {D}\) and \(\dot {H}\) are in Gy/s and Sv/s respectively, and activity is in Bq. Be careful
+with units.
+</p><!-- l. 294 --><p class='indent'>   Often in literature, we directly get the dose equivalent rate constant as opposed to the exposure rate
+constant [<a id='x1-14002'></a><a href='#cite.0_Peplow2020'>4</a>], [<a id='x1-14003'></a><a href='#cite.0_IEMGammaConstants'>5</a>]. The specific gamma dose rate constant replaces the factor \(33.8 \times \Gamma _{\delta }\) and dependence on \(Q\), and replaces
+it with a single constant \(\Gamma \) that directly gives us the dose equivalent rate in Sv/s (or other equivalent units
+such as rem/hr) measured for an activity of 1 Ci at a distance 1 m in water [<a href='#cite.0_IEMGammaConstants'>5</a>]. Since the reported rates
+are at 1 m distance, we can scale them using our point source approximation, and eqn <a href='#x1-14001r4'>4<!-- tex4ht:ref: eqn:activity_to_absorbed_dose  --></a> can be rewritten
+as
+</p><!-- l. 301 --><p class='indent'>   \begin {equation} \label {eqn:activity_to_absorbed_dose_gamma} \dot {H} = \Gamma \frac {\alpha }{d^2}  \end {equation}<a id='x1-14004r5'></a>
+</p><!-- l. 304 --><p class='indent'>   Note than in eqn <a href='#x1-14004r5'>5<!-- tex4ht:ref: eqn:activity_to_absorbed_dose_gamma  --></a>, \(d\) needs to be in meters. If the medium changes from water to something else, say Si, or the
+scintillator, the \(Q\) factor changes and we need to find the appropriate constant for that medium. We can do
+this provided we know the mass energy absorption coefficient (MEAC) of air and the material in context
+[<a id='x1-14005'></a><a href='#cite.0_RadSafe1998Gamma'>6</a>].
+</p><!-- l. 307 --><p class='indent'>   \[\frac {D_{mat}}{D_{air}} = \frac {\text {MEAC}_{mat}}{\text {MEAC}_{air/water}}\]
+</p><!-- l. 309 --><p class='indent'>   [<a id='x1-14006'></a><a href='#cite.0_BNDHEPIrradiationApparatus'>3</a>] notes that for energies above 200 keV, the MEAC of Si and air are the same and for energies below that Si is roughly
+7 times more absorbent as compared to air. Eqn <a href='#x1-14004r5'>5<!-- tex4ht:ref: eqn:activity_to_absorbed_dose_gamma  --></a> can now be modified to
+                                                                                               
+                                                                                               
+</p><!-- l. 314 --><p class='indent'>   \begin {equation} \label {eqn:activity_to_absorbed_dose_gamma_any_mat} \dot {H}_{mat} = \frac {\text {MEAC}_{mat}}{\text {MEAC}_{air/water}} \, \Gamma \frac {\alpha }{d^2}  \end {equation}<a id='x1-14007r6'></a>
+</p><!-- l. 317 --><p class='noindent'>
+</p>
+   <h4 class='subsectionHead' id='kerma'><span class='titlemark'>1.6   </span> <a id='x1-150001.6'></a>Kerma</h4>
+<!-- l. 319 --><p class='noindent'><span class='cmti-10'>Kerma </span>(K) is the total kinetic energy transferred by a photon to a unit mass of the medium and includes
+</p><!-- l. 322 --><p class='indent'>
+     </p><dl class='enumerate-enumitem'><dt class='enumerate-enumitem'>
+  1. </dt><dd class='enumerate-enumitem'>Any collisions that lead to characteristic X-ray, Auger electron emission
+     </dd><dt class='enumerate-enumitem'>
+  2. </dt><dd class='enumerate-enumitem'>Any radiative losses through bremsstrahlung radiation</dd></dl>
+<!-- l. 326 --><p class='indent'>   Unlike dose, we do not make any assumptions about the energy released from the above processes - they may or may not
+be absorbed within the medium itself. This is illustrated in figure <a href='#kerma-vs-dose-radiologykeyquantificationdose-attix-attix-mentions-that-the-xaxis-is-in-logscale-'>3<!-- tex4ht:ref: fig:kerma_vs_dose  --></a> where the kinetic energy imparted decreases as depth
+increases (since there are less photons, the others were absorbed in accordance to Beer-Lambert’s law), but the dose
+matches kerma only beyond a certain point.
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 332 --><p class='noindent' id='kerma-vs-dose-radiologykeyquantificationdose-attix-attix-mentions-that-the-xaxis-is-in-logscale-'><img alt='PIC' height='200' src='images/kerma_vs_dose.png' width='200' /><img alt='PIC' height='150' src='images/kerma_vs_dose2.png' width='150' /><a id='x1-15003r3'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 3: </span><span class='content'>Kerma vs dose [<a href='#cite.0_RadiologyKeyQuantificationDose'>7</a>], [<a href='#cite.0_Attix1986'>8</a>]. [<a href='#cite.0_Attix1986'>8</a>] mentions that the x-axis is in log-scale                                 </span></figcaption><!-- tex4ht:label?: x1-15003r3  -->
+                                                                                               
+                                                                                               
+   </figure>
+   <h5 class='subsubsectionHead' id='mass-energy-transfer-coefficient'><span class='titlemark'>1.6.1   </span> <a id='x1-160001.6.1'></a>Mass Energy Transfer Coefficient</h5>
+<!-- l. 341 --><p class='noindent'>Given we know the photon flux and spectrum, or fluence (\(\psi \)), which is the product of the two, we define mass energy transfer
+coefficient (METC) as
+</p><!-- l. 343 --><p class='indent'>   \[\mu _{tr}/\rho = \frac {K}{\psi } \]
+</p><!-- l. 345 --><p class='indent'>   where \(K\) is the kerma as defined in the previous section.
+</p><!-- l. 347 --><p class='noindent'>
+</p>
+   <h5 class='subsubsectionHead' id='mass-energy-absorption-coefficient'><span class='titlemark'>1.6.2   </span> <a id='x1-170001.6.2'></a>Mass Energy Absorption Coefficient</h5>
+<!-- l. 349 --><p class='noindent'>From METC, we define mass energy absorption coefficient (MEAC) as [<a id='x1-17001'></a><a href='#cite.0_nist'>9</a>]
+</p><!-- l. 353 --><p class='indent'>   \begin {equation} \label {eqn:meac} \mu _{en}/\rho = (\mu _{tr}/\rho ) \, (1-g)  \end {equation}<a id='x1-17002r7'></a>
+</p><!-- l. 355 --><p class='indent'>   where \(g\) is the average fraction of secondary electron energy that is lost to radiative interactions such as bremsstrahlung
+radiation. Essentially, MEAC gives us the total energy that can be theoretically absorbed in the medium including the
+secondary electron and its own interactions. Whether this energy predicted by MEAC is absorbed by the system as dose
+depends on where we land in figure <a href='#kerma-vs-dose-radiologykeyquantificationdose-attix-attix-mentions-that-the-xaxis-is-in-logscale-'>3<!-- tex4ht:ref: fig:kerma_vs_dose  --></a>. Note that MEAC is the part of the kerma imparted to the secondary electron which
+is NOT lost as bremsstrahlung, which we assume not to be absorbed by the medium. e-h pair generation is done through
+the collision part and not the radiative losses part of the kerma delivered to the secondary electron, which is captured by
+MEAC.
+</p><!-- l. 361 --><p class='indent'>   In the dose build up region, we cannot use the estimations given by MEAC to calculate the dose [<a id='x1-17003'></a><a href='#cite.0_Attix1986'>8</a>]. The kerma
+calculation is still valid but not the dose. LAC and MAC are still valid, however, since they only estimate probability of the
+initial interaction between the incoming photon and the medium. Both LAC and MAC do not concern themselves in
+estimating what happens beyond the primary interaction.
+</p><!-- l. 365 --><p class='noindent'>
+</p>
+   <h4 class='subsectionHead' id='stopping-power'><span class='titlemark'>1.7   </span> <a id='x1-180001.7'></a>Stopping Power</h4>
+<!-- l. 367 --><p class='noindent'>We can calculate the average rate of energy loss per unit path travelled by a charged particle. This is called stopping power
+and has the units J/m or MeV/cm. We divide it with density of the material to get the mass stopping power (MSP) whose
+units are Jm\(^2\)/kg or Mev\(\cdot \)cm\(^2\)/gm.
+</p><!-- l. 370 --><p class='indent'>   There are two kinds of stopping power we’re mainly concerned with - collision stopping power and radiative stopping
+power. The collision stopping power is responsible for the e-h pair production while the radiative stopping
+power generated bremsstrahlung radiation that might escape the medium without depositing its energy [<a id='x1-18001'></a><a href='#cite.0_STARAppendix2005'>10</a>],
+[<a href='#cite.0_Attix1986'>8</a>].
+</p><!-- l. 375 --><p class='noindent'>
+</p>
+   <h4 class='subsectionHead' id='burlin-cavity-theory'><span class='titlemark'>1.8   </span> <a id='x1-190001.8'></a>Burlin Cavity Theory</h4>
+<!-- l. 377 --><p class='noindent'>A cavity theory describes the interaction of ionizing or non-ionizing radiation in a particular cavity which is of a different
+                                                                                               
+                                                                                               
+material than the medium it is in. Burlin Cavity theory extends the Bragg-Gray theory to gamma rays and small cavities.
+This is helpful because we have a small region of interaction in the p-epi and we can use this theory to understand how to
+model the dose received by it.
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 383 --><p class='noindent' id='different-cavity-sizes-receive-dose-differently-attix'><img alt='PIC' height='200' src='images/burlin_cavity_sizes.png' width='200' /><a id='x1-19001r4'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 4: </span><span class='content'>Different cavity sizes receive dose differently [<a href='#cite.0_Attix1986'>8</a>]                                               </span></figcaption><!-- tex4ht:label?: x1-19001r4  -->
+                                                                                               
+                                                                                               
+   </figure>
+<!-- l. 388 --><p class='indent'>   Figure <a href='#different-cavity-sizes-receive-dose-differently-attix'>4<!-- tex4ht:ref: fig:burlin_cavity_sizes  --></a> describes three conditions of cavity size relative to the range of the secondary electrons. In the “small” cavity,
+photon interactions within the cavity itself are negligible; the absorbed dose is delivered almost entirely by
+“crossers”—secondary electrons generated in the surrounding bulk medium that pass completely through the cavity. In the
+“intermediate” cavity, the dose is a mixture: it is delivered partly by electrons crossing in from the bulk medium, and partly
+by secondary electrons generated by photon interactions directly inside the cavity. Finally, in the “large” cavity, the dose is
+deposited entirely by secondary electrons that were generated by photon interactions within the cavity itself, fulfilling the
+conditions for charged particle equilibrium [<a id='x1-19003'></a><a href='#cite.0_Attix1986'>8</a>]. Cavity theory is also applicable when we are not in the equilibrium zone in
+figure <a href='#kerma-vs-dose-radiologykeyquantificationdose-attix-attix-mentions-that-the-xaxis-is-in-logscale-'>3<!-- tex4ht:ref: fig:kerma_vs_dose  --></a>.
+</p><!-- l. 393 --><p class='indent'>   While not rigorous, an easy way to summarize the result of this theory is that
+</p><!-- l. 395 --><p class='indent'>   \[\text {Dose delivered to the cavity} \propto x\cdot \text {Average Stopping Power} + (1-x) \cdot \text {MEAC}\]
+</p><!-- l. 398 --><p class='indent'>   where \(x\) is a fraction that depends on how big the cavity is. For small cavities \(x \rightarrow 1\), while for larger cavities, the dose is
+predicted from MEAC.
+</p>
+   <h4 class='subsectionHead' id='modeling'><span class='titlemark'>1.9   </span> <a id='x1-200001.9'></a>Modeling</h4>
+<!-- l. 403 --><p class='noindent'>From this theory we’ve studied so far, let’s make a model of our system. We have the following parameters in table
+<a href='#key-modeling-parameters'>2<!-- tex4ht:ref: tab:modeling_signal_gen  --></a>
+</p>
+   <div class='table'>
+                                                                                               
+                                                                                               
+<!-- l. 406 --><p class='indent'>   </p><figure class='float' id='x1-20001r2'><span id='key-modeling-parameters'></span>
+                                                                                               
+                                                                                               
+
+<figcaption class='caption'><span class='id'>Table 2: </span><span class='content'>Key Modeling Parameters                                                                  </span></figcaption><!-- tex4ht:label?: x1-20001r2  -->
+<div class='tabular'> <table class='tabular' id='TBL-4'><colgroup id='TBL-4-1g'><col id='TBL-4-1' /></colgroup><colgroup id='TBL-4-2g'><col id='TBL-4-2' /></colgroup><colgroup id='TBL-4-3g'><col id='TBL-4-3' /></colgroup><tr class='hline'><td></td><td></td><td></td></tr><tr id='TBL-4-1-' style='vertical-align:baseline;'><td class='td11' id='TBL-4-1-1' style='white-space:nowrap; text-align:center;'>        <span class='cmbx-10'>Parameter            </span></td><td class='td11' id='TBL-4-1-2' style='white-space:nowrap; text-align:center;'>   <span class='cmbx-10'>Value    </span></td><td class='td11' id='TBL-4-1-3' style='white-space:nowrap; text-align:center;'>           <span class='cmbx-10'>Comment                </span></td></tr><tr class='hline'><td></td><td></td><td></td></tr><tr id='TBL-4-2-' style='vertical-align:baseline;'><td class='td11' id='TBL-4-2-1' style='white-space:nowrap; text-align:center;'> Thickness of p-epi </td><td class='td11' id='TBL-4-2-2' style='white-space:nowrap; text-align:center;'> 10  \(\mu m\) </td><td class='td11' id='TBL-4-2-3' style='white-space:nowrap; text-align:center;'> Taken from LPMOS module XH018</td>
+</tr><tr class='hline'><td></td><td></td><td></td></tr><tr id='TBL-4-3-' style='vertical-align:baseline;'><td class='td11' id='TBL-4-3-1' style='white-space:nowrap; text-align:center;'>       Resistivity p-epi           </td><td class='td11' id='TBL-4-3-2' style='white-space:nowrap; text-align:center;'>   15 \(\Omega \cdot \)cm     </td><td class='td11' id='TBL-4-3-3' style='white-space:nowrap; text-align:center;'> Taken from LPMOS module XH018  </td>
+</tr><tr class='hline'><td></td><td></td><td></td></tr><tr id='TBL-4-4-' style='vertical-align:baseline;'><td class='td11' id='TBL-4-4-1' style='white-space:nowrap; text-align:center;'> Built-in voltage of pn junction  </td><td class='td11' id='TBL-4-4-2' style='white-space:nowrap; text-align:center;'>   0.7 V     </td><td class='td11' id='TBL-4-4-3' style='white-space:nowrap; text-align:center;'>                                </td>
+</tr><tr class='hline'><td></td><td></td><td></td></tr><tr id='TBL-4-5-' style='vertical-align:baseline;'><td class='td11' id='TBL-4-5-1' style='white-space:nowrap; text-align:center;'>     Reverse bias applied        </td><td class='td11' id='TBL-4-5-2' style='white-space:nowrap; text-align:center;'>   0.6 V     </td><td class='td11' id='TBL-4-5-3' style='white-space:nowrap; text-align:center;'>                                </td>
+</tr><tr class='hline'><td></td><td></td><td></td></tr><tr id='TBL-4-6-' style='vertical-align:baseline;'><td class='td11' id='TBL-4-6-1' style='white-space:nowrap; text-align:center;'>        Density of Si             </td><td class='td11' id='TBL-4-6-2' style='white-space:nowrap; text-align:center;'>  2.3 g/cm\(^3\)   </td><td class='td11' id='TBL-4-6-3' style='white-space:nowrap; text-align:center;'>                                </td>
+</tr><tr class='hline'><td></td><td></td><td></td></tr><tr id='TBL-4-7-' style='vertical-align:baseline;'><td class='td11' id='TBL-4-7-1' style='white-space:nowrap; text-align:center;'> Energy to create e-h pair in Si  </td><td class='td11' id='TBL-4-7-2' style='white-space:nowrap; text-align:center;'>   3.5 eV     </td><td class='td11' id='TBL-4-7-3' style='white-space:nowrap; text-align:center;'>       Not the same as \(E_g\) [<a id='x1-20002'></a><a href='#cite.0_zhou_development_nodate'>11</a>]           </td>
+</tr><tr class='hline'><td></td><td></td><td></td></tr><tr id='TBL-4-8-' style='vertical-align:baseline;'><td class='td11' id='TBL-4-8-1' style='white-space:nowrap; text-align:center;'>          Pixel sizes               </td><td class='td11' id='TBL-4-8-2' style='white-space:nowrap; text-align:center;'> 2\(\times \)2 \(\mu m^2\), 44 \(\times \)44 \(\mu m^2\)  </td><td class='td11' id='TBL-4-8-3' style='white-space:nowrap; text-align:center;'>       SENTRI, VISION 2.1           </td>
+</tr><tr class='hline'><td></td><td></td><td></td></tr></table>                                                                  </div>
+                                                                                               
+                                                                                               
+   </figure>
+   </div>
+<!-- l. 426 --><p class='indent'>   We want to estimate the signal we should see on average when a gamma photon of a certain energy interacts. Here is
+how I modeled it
+     </p><dl class='enumerate-enumitem'><dt class='enumerate-enumitem'>
+  1. </dt><dd class='enumerate-enumitem'>We first find the probability of interactions using MAC for Si [<a id='x1-20004'></a><a href='#cite.0_nist'>9</a>]. If we have \(N_0\) incoming gamma photons, on
+     average we expect number of hits given by \[n_{hit} = N_0 \times (1-\exp (-\mu _{\text {MAC}}t)) \] where \(t\) is the thickness of p-epi. We assume that any e-h pairs
+     generated in the wafer are completely lost to recombination.
+     </dd><dt class='enumerate-enumitem'>
+  2. </dt><dd class='enumerate-enumitem'>We need to find the average kerma deposited into the secondary electrons by these gamma photons that
+     hit. We assume that radiative losses will not contribute to e-h pair generation subsequently, and hence, pick
+     MEAC as the estimate here [<a href='#cite.0_nist'>9</a>]. For \(N_0\) incoming gamma photons, on average we expect an energy deposition of
+     \[E_{dep} = N_0 \times E_{photon} \times (1-\exp (-\mu _{\text {MEAC}}t))\]
+     </dd><dt class='enumerate-enumitem'>
+  3. </dt><dd class='enumerate-enumitem'>We want to know what energy was deposited on average per each hit \[E_{sec,e} = \frac {E_{dep}}{n_{hit}} = E_{photon} \frac { 1-\exp (-\mu _{\text {MEAC}}t)}{1-\exp (-\mu _{\text {MAC}}t)}\]
+     </dd><dt class='enumerate-enumitem'>
+  4. </dt><dd class='enumerate-enumitem'>Now that we have the expected energy value (\(E_{sec,e}\)) for each secondary electron, we use the average collisional
+     stopping power for Si [<a id='x1-20008'></a><a href='#cite.0_STARAppendix2005'>10</a>]. This gives us the dose deposited by the gamma interaction. We use this to calculate
+     the total number of e-h pairs generated \[n_{ehp} = \frac {E_{dose}}{\text {WF of Si}}\]
+     </dd><dt class='enumerate-enumitem'>
+  5. </dt><dd class='enumerate-enumitem'>We assume the e-h pairs are generated as a charge cloud at 10 \(\mu m\). We then calculate the recombination rate
+     and depletion depth using the resistivity values, and then calculate how many of these e-h pairs make it to
+     the depletion region. We also take into account a geometric factor (which is currently only 2D) to account
+     for the pixel size. The idea is that the charge cloud diffuses while some of it is being lost to recombination.
+     The portion that reaches through diffusion is collected within the pixel area. We expect that as the pixel area
+     increases, we get more collection of charges at the cost of parasitic capacitance. Note that we also assume that
+     whatever charges reach the drift region are collected with 100% efficiency.
+     </dd><dt class='enumerate-enumitem'>
+  6. </dt><dd class='enumerate-enumitem'>Finally, we assume two cases to calculate the voltage. One is where we assume a C-TIA and the parasitic
+     cap of the pixel does not matter. Here, increasing the area improves collection efficiency of the pixel and the
+     integration cap converts it to a voltage irrespective of the pixel’s parasitic cap. In the second calculation, we
+     take the conversion gain by scaling the pixel cap with area. As a reference, we use 1.5 fF for a 2\(\times \)2 \(\mu m\) pixel and
+     scale the capacitance with area linearly.
+     </dd></dl>
+<!-- l. 453 --><p class='indent'>   There are still a few assumptions I have to check - especially the ones with the recombination, 1D diffusion but 2D
+geometry factor, etc. The results of the modeling are presented below.
+</p>
+   <h5 class='subsubsectionHead' id='si-properties'><span class='titlemark'>1.9.1   </span> <a id='x1-210001.9.1'></a>Si Properties</h5>
+<!-- l. 458 --><p class='noindent'>Figure <a href='#mac-meac-and-average-collisional-stopping-power-of-si-as-pulled-from-nist-databases'>5<!-- tex4ht:ref: fig:mac_meac_estar_si  --></a> shows the relevant Si properties pulled from the NIST database to implement the above model. Radiative stopping
+power was ignored as discussed above.
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 463 --><p class='noindent' id='mac-meac-and-average-collisional-stopping-power-of-si-as-pulled-from-nist-databases'><img alt='PIC' height='250' src='images/mac_meac_estar_si.png' width='250' /><a id='x1-21001r5'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 5: </span><span class='content'>MAC, MEAC, and average collisional stopping power of Si as pulled from NIST databases           </span></figcaption><!-- tex4ht:label?: x1-21001r5  -->
+                                                                                               
+                                                                                               
+   </figure>
+<!-- l. 468 --><p class='indent'>   There is a plateau in the stopping power where the secondary electron is least ionizing. In this region, we use the term
+the radiation as minimum ionizing particle (MIP).
+</p>
+   <h5 class='subsubsectionHead' id='model-results-'><span class='titlemark'>1.9.2   </span> <a id='x1-220001.9.2'></a>Model Results </h5>
+<!-- l. 473 --><p class='noindent'>The results of the modeling are summarized in figure <a href='#top-left-probability-of-interaction-in-m-si-top-right-energy-transferred-to-the-secondary-electron-bottom-left-energy-deposited-by-the-secondary-electron-is-calculated-using-the-stopping-power-in-si-bottom-right-this-deposited-energy-creates-eh-pairs'>6<!-- tex4ht:ref: fig:modeling_results_si  --></a>.
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 477 --><p class='noindent' id='top-left-probability-of-interaction-in-m-si-top-right-energy-transferred-to-the-secondary-electron-bottom-left-energy-deposited-by-the-secondary-electron-is-calculated-using-the-stopping-power-in-si-bottom-right-this-deposited-energy-creates-eh-pairs'><img alt='PIC' height='350' src='images/edep_eh_pairs_si.png' width='350' /><a id='x1-22001r6'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 6: </span><span class='content'>(Top Left) Probability of interaction in 10 \(\mu m\) Si (Top Right) Energy transferred to the secondary electron
+(Bottom Left) Energy deposited by the secondary electron is calculated using the stopping power in Si (Bottom
+Right) This deposited energy creates e-h pairs                                                         </span></figcaption><!-- tex4ht:label?: x1-22001r6  -->
+                                                                                               
+                                                                                               
+   </figure>
+<!-- l. 485 --><p class='indent'>   We see that around 20 keV to 100 keV, the energy deposited by the secondary electron is roughly constant at around 20
+keV and roughly corresponds to 5500 e-h pairs. If all these e-h pairs are collected, it makes for the best possible signal at
+the pixel.
+</p>
+   <h5 class='subsubsectionHead' id='signal-at-the-pixel'><span class='titlemark'>1.9.3   </span> <a id='x1-230001.9.3'></a>Signal at the Pixel</h5>
+<!-- l. 491 --><p class='noindent'>Since the e-h pairs are assumed to be generated 10 \(\mu m\) deep, only those e-h pairs that survive after diffusion and recombination
+are collected at the pixel. The collection rate improves with pixel area and then tapers off as shown in figure <a href='#collection-efficiency-of-the-generated-eh-pairs-as-a-function-of-area-of-the-pixel'>7<!-- tex4ht:ref: fig:cce_vs_area  --></a>. It is
+interesting to note that only 0.2% is lost to recombination overall.
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 497 --><p class='noindent' id='collection-efficiency-of-the-generated-eh-pairs-as-a-function-of-area-of-the-pixel'><img alt='PIC' height='250' src='images/charge_collection_vs_area.png' width='250' /><a id='x1-23001r7'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 7: </span><span class='content'>Collection efficiency of the generated e-h pairs as a function of area of the pixel                     </span></figcaption><!-- tex4ht:label?: x1-23001r7  -->
+                                                                                               
+                                                                                               
+   </figure>
+<!-- l. 502 --><p class='indent'>   Although it might be tempting to conclude that we need as large a pixel as possible, depending on the topology we use
+to read out this signal, the parasitic capacitance of the pixel can be an SNR-killer.
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 507 --><p class='noindent' id='left-ideally-in-a-ctia-the-parasitic-capacitance-should-not-affect-the-signal-or-snr-while-in-direct-readout-like-that-in-sentri-the-parasitic-capacitance-can-kill-the-signal-despite-improvement-in-charge-collection-efficiency-for-a-bigger-pixel-right-heatmap-for-signal-collected-as-a-function-of-pixel-size-'><img alt='PIC' height='250' src='images/ctia_vs_cpd_area.png' width='250' /><img alt='PIC' height='150' src='images/cpd_heatmap.png' width='150' /> <a id='x1-23002r8'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 8: </span><span class='content'>(Left) Ideally, in a C-TIA the parasitic capacitance should not affect the signal or SNR while in direct
+readout like that in SENTRI, the parasitic capacitance can kill the signal despite improvement in charge collection
+efficiency for a bigger pixel (Right) Heatmap for signal collected as a function of pixel size                    </span></figcaption><!-- tex4ht:label?: x1-23002r8  -->
+                                                                                               
+                                                                                               
+   </figure>
+<!-- l. 514 --><p class='indent'>   As seen in figure <a href='#left-ideally-in-a-ctia-the-parasitic-capacitance-should-not-affect-the-signal-or-snr-while-in-direct-readout-like-that-in-sentri-the-parasitic-capacitance-can-kill-the-signal-despite-improvement-in-charge-collection-efficiency-for-a-bigger-pixel-right-heatmap-for-signal-collected-as-a-function-of-pixel-size-'>8<!-- tex4ht:ref: fig:signal_vs_area  --></a>, in the case of an ideal C-TIA, we benefit from the higher collection efficiency of a larger pixel
+whereas in the case of direction conversion like that in SENTRI, we lose conversion gain as the pixel size increases. A more
+detailed analysis on the circuit topologies will be done later. We also see from the heatmap that, unfortunately, the signal
+never goes beyond a few mV in a SENTRI-like architecture.
+</p>
+   <h5 class='subsubsectionHead' id='topas-modeling-and-simulation'><span class='titlemark'>1.9.4   </span> <a id='x1-240001.9.4'></a>TOPAS Modeling and Simulation</h5>
+<!-- l. 522 --><p class='noindent'>To test the validity of the above modeling exercise, a TOPAS model and simulation was used. In the TOPAS model, the
+gamma source was a point source which sits 0.1 \(\mu m\) above the 22\(\times \)22 \(\mu m\) pixel with a 2\(\times \)2 \(\mu m\) photodiode at the center. The source was
+modeled as a parallel beam the same size as the photodiode to maximize probability of interaction. An isotropic source
+could have been used but it does not matter too much since we divide the total energy deposited by the number of hits
+anyway.
+</p><!-- l. 527 --><p class='indent'>   Figure <a href='#the-shape-of-the-curves-matches-roughly-between-the-topas-simulations-and-theory-surprisingly-both-the-depletion-and-the-pepi-regions-have-the-same-energy-deposited-per-interaction-'>9<!-- tex4ht:ref: fig:topas_vs_theory_2x2_beam_2x2  --></a> shows the result for the first set of simulations. A volumetric scorer was used to calculate the sum of the energy
+deposited and the number of particles that deposited this energy across all the runs. These two metrics were divided to give
+the energy deposited into silicon by all the interactions - primary, secondary, and any other interactions (confirm this). The
+python model assumes nothing about the area and solves the problem in 1D whereas the area of the pixel limits the
+secondary electron travel in 3D space. In other words, some pixels can escape the scorer in TOPAS while this was not
+modeled in python. This could probably explain why the energy deposited per interaction does not vary too much between
+the 10 \(\mu m\) and 1.4 \(\mu m\) scorers.
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 534 --><p class='noindent' id='the-shape-of-the-curves-matches-roughly-between-the-topas-simulations-and-theory-surprisingly-both-the-depletion-and-the-pepi-regions-have-the-same-energy-deposited-per-interaction-'><img alt='PIC' height='250' src='images/topas_vs_theory_2x2_beam_2x2.png' width='250' /><a id='x1-24001r9'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 9: </span><span class='content'>The shape of the curves matches roughly between the TOPAS simulations and theory. Surprisingly, both
+the depletion and the p-epi regions have the same energy deposited per interaction.                          </span></figcaption><!-- tex4ht:label?: x1-24001r9  -->
+                                                                                               
+                                                                                               
+   </figure>
+<!-- l. 540 --><p class='indent'>   To test this theory, the area of the photo diode was increased (while also increasing the beam source size to match it)
+and see if there is a difference between both the depths is more evident.
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 544 --><p class='noindent' id='increasing-the-pixel-area-seems-to-show-closer-matching-with-theory'><img alt='PIC' height='250' src='images/topas_vs_theory_10x10_beam_10x10.png' width='250' /><img alt='PIC' height='250' src='images/topas_vs_theory_20x20_beam_20x20.png' width='250' /> <a id='x1-24002r10'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 10: </span><span class='content'>Increasing the pixel area seems to show closer matching with theory                             </span></figcaption><!-- tex4ht:label?: x1-24002r10  -->
+                                                                                               
+                                                                                               
+   </figure>
+<!-- l. 550 --><p class='indent'>   Figure <a href='#increasing-the-pixel-area-seems-to-show-closer-matching-with-theory'>10<!-- tex4ht:ref: fig:topas_vs_theory_10_20  --></a> shows the result when the area of the pixel was increased to side lengths 10 \(\mu m\) and 20 \(\mu m\). Firstly, we see the
+difference between the energy deposited in the depletion region vs. the p-epi. The theory is closer to the TOPAS simulations
+now as well. The goal of this exercise was not to match TOPAS sims to theory but to see what the python model was
+missing. Clearly, the secondary electron needs to be modeled as though it were in 3D space and could escape the volume of
+interest even if the depth was still within bounds. The TOPAS sims, on the other hand, currently ignore any secondary
+electron generation outside the fill factor area (for both depths) of the pixel that can possibly diffuse and contribute to the
+signal.
+</p>
+   <h4 class='subsectionHead' id='example-problem'><span class='titlemark'>1.10   </span> <a id='x1-250001.10'></a>Example Problem</h4>
+<!-- l. 565 --><p class='noindent'>Let us do an example. We have 0.1 \(\mu \)Ci of Cd-109 whose predominant peaks are 22 keV and 88 keV. We assume that the 22
+keV is absorbed by the encasing (vendors of disk sources seldom report this).
+                                                                                               
+                                                                                               
+</p><!-- l. 571 --><p class='indent'>
+                                                                                               
+                                                                                               
+</p>
+   <h3 class='sectionHead' id='gamma-spectroscopy-considerations'><span class='titlemark'>2   </span> <a id='x1-260002'></a>Gamma Spectroscopy Considerations</h3>
+<!-- l. 575 --><p class='noindent'>To recap, detection of gamma rays can occur only when the gamma photons transfer all or part of their energy to an
+electron, and then this secondary electron’s energy needs to be fully absorbed within the bulk and create charges that can
+be collected in some fashion for measurement. Therefore, it’s the beta particle/fast electron/secondary electron that matters
+more for spectroscopy and detection [<a id='x1-26001'></a><a href='#cite.0_Knoll2000'>2</a>]. The secondary electrons can lose energy within the bulk through the emission of
+characteristic X-rays, or bremsstrahlung emission.
+</p><!-- l. 580 --><p class='indent'>   A gamma ray detector should have the following properties [<a href='#cite.0_Knoll2000'>2</a>]
+     </p><dl class='enumerate-enumitem'><dt class='enumerate-enumitem'>
+  1. </dt><dd class='enumerate-enumitem'>It must act as a conversion medium in which gamma photons have a reasonable probability of interaction to
+     yield one or more secondary electrons
+     </dd><dt class='enumerate-enumitem'>
+  2. </dt><dd class='enumerate-enumitem'>It must be large enough (and dense enough) so that the secondary electrons fully dissipate their energy within
+     the detector without escaping out of the detection medium.</dd></dl>
+<!-- l. 587 --><p class='noindent'>
+</p>
+   <h4 class='subsectionHead' id='photoelectric-effect'><span class='titlemark'>2.1   </span> <a id='x1-270002.1'></a>Photoelectric Effect</h4>
+<!-- l. 589 --><p class='noindent'>As seen earlier, when a medium completely absorbs the gamma photon, the photoelectron knocked out from the inner shells
+of the atom has the residual energy \(h\nu _{gamma}-E_{binding}\). This vacancy is filled with characteristic X-ray emission, or Auger electron emission.
+The latter has extremely short range due to lower energy but the X-rays can actually out of the medium if the medium is
+not thick enough (or dense enough) to absorb them fully.
+</p><!-- l. 593 --><p class='indent'>   Does this X-ray escape matter? After all, the kinetic energy of the photoelectron is enough to estimate the gamma
+photon energy, provided we know the binding energy. In case, we do not know the binding energy, the X-rays and Auger
+electrons (and all other secondary processes) can give us a good estimate of the binding energy. Note that the binding
+energy can be in tens of keV or more for inner shell electrons, and this only increases with increasing atomic number. So if
+the X-rays do escape from the medium we can underestimate the incoming gamma energy even if it is fully PE absorbed by
+the medium.
+</p><!-- l. 597 --><p class='indent'>   PE absorption is roughly proportional to the atomic number and the incoming energy of the photon as follows
+[<a href='#cite.0_Knoll2000'>2</a>]
+</p><!-- l. 599 --><p class='indent'>   \[\text {Probability of PE absoprtion} \, \propto \frac {Z^{4-5}}{E^{3-4}}\]
+</p><!-- l. 601 --><p class='noindent'>
+</p>
+   <h4 class='subsectionHead' id='compton-scattering'><span class='titlemark'>2.2   </span> <a id='x1-280002.2'></a>Compton Scattering</h4>
+<!-- l. 603 --><p class='noindent'>The result of a Compton scattering interaction is the creation of a recoil electron and scattered gamma photon, with the
+division of energy between the two dependent on the scattering angle [<a href='#cite.0_Knoll2000'>2</a>]. The energy of the scattered gamma ray (\(h\nu '\)) in terms
+of the scattering angle \(\theta \) is given by
+</p><!-- l. 606 --><p class='indent'>   \[h\nu ' = \frac {h\nu }{1+\frac {h\nu }{m_0c^2}(1-\cos \theta )}\]
+</p><!-- l. 608 --><p class='indent'>   where \(m_0c^2\) is the rest mass energy of the electron and is equal to 511 keV. The kinetic energy of the recoil electron is simply
+\(h\nu - h \nu '\). When \(\theta = 0^\circ \), the scattered gamma photon barely loses any energy to the recoil electron and doesn’t change its direction. When \(\theta = 180^\circ \),
+the maximum energy possible is transferred to the recoil electron and the gamma photon is backscattered to its source with
+                                                                                               
+                                                                                               
+an energy
+</p><!-- l. 612 --><p class='indent'>   \[h\nu '_{\theta = \pi } = \frac {h\nu }{1+\frac {2h\nu }{m_0c^2}}\]
+</p><!-- l. 614 --><p class='indent'>   Note that in the end we’re interested in the recoil (secondary/fast) electron’s energy since this is what leads to detection
+as discussed earlier.
+</p><!-- l. 617 --><p class='indent'>   We define cross-section (\(\sigma \)) for interaction that gives us the probability that the gamma photons interact with the
+electrons in a given medium. In fact, if we know the electron density \(N\) of the medium in \(1/\text {cm}^3\), and we know probability of
+interaction through the cross-section \(\sigma \), the linear attenuation coefficient is given by [<a id='x1-28001'></a><a href='#cite.0_Knoll2000'>2</a>]
+</p><!-- l. 620 --><p class='indent'>   \[\mu = \sigma N\]
+</p><!-- l. 622 --><p class='indent'>   If we define a differential cross-section as shown in figure <a href='#left-compton-continuum-and-compton-edge-for-an-arbitrary-gamma-photon-and-medium-to-estimate-the-total-number-of-secondary-electrons-generated-right-the-same-curves-for-different-gamma-photon-energies-'>11<!-- tex4ht:ref: fig:compton_continuum  --></a>, we can calculate the total electrons generated/total
+cross-section for Compton absorption as follows. In the left figure,
+</p><!-- l. 625 --><p class='indent'>   \[N_{total} = \int _{0}^{\text {Compton Edge} }\frac {dN}{dE} dE\] and on the right figure
+</p><!-- l. 628 --><p class='indent'>   \[\sigma _{total} = \int _{0}^{\text {Compton Edge} } \gamma \frac {d\sigma }{d\epsilon } d(\epsilon /\gamma ) = \int _{0}^{\text {Compton Edge} } \frac {d\sigma }{d\epsilon } d\epsilon \]
+</p><!-- l. 630 --><p class='indent'>   Since the curves are generated by the Klein-Nishina formula for a give material, we can estimate the total interaction
+probability by calculating the area under these curves.
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 634 --><p class='noindent' id='left-compton-continuum-and-compton-edge-for-an-arbitrary-gamma-photon-and-medium-to-estimate-the-total-number-of-secondary-electrons-generated-right-the-same-curves-for-different-gamma-photon-energies-'><img alt='PIC' height='150' src='images/compton_continuum1.png' width='150' /><img alt='PIC' height='150' src='images/compton_continuum2.png' width='150' /> <a id='x1-28002r11'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 11: </span><span class='content'>(Left) Compton continuum and Compton edge for an arbitrary gamma photon and medium to estimate
+the total number of secondary electrons generated (Right) The same curves for different gamma photon energies. </span></figcaption><!-- tex4ht:label?: x1-28002r11  -->
+                                                                                               
+                                                                                               
+   </figure>
+<!-- l. 640 --><p class='indent'>   An interesting point to note is that lower energy photons do have higher cross-section (probability) for Compton
+interaction, but this is still much lower than PE absorption for suitably lower energies. As energy increases,
+the probability of PE absorption rapidly drops, however, due to the \(E^{-3.5}\) dependence as seen in the previous
+section.
+</p>
+   <h4 class='subsectionHead' id='detector-sizing'><span class='titlemark'>2.3   </span> <a id='x1-290002.3'></a>Detector Sizing</h4>
+<!-- l. 648 --><p class='noindent'>Let us start with the simplest case - a very large detector. In this scenario, the gamma photons (and the secondary
+electrons) and any secondary emissions are completely absorbed by the detector. While this is ideal, for most gamma
+photon energies of interest, the detector will end up being few tens of centimeters thick for complete absorption. [<a id='x1-29001'></a><a href='#cite.0_Knoll2000'>2</a>] notes
+that the total time taken for the entire absorption event, including all the secondary, tertiary, and further events, is less
+than a nanosecond in general. It is almost as if the detector absorbed the incoming photon in a single step for all practical
+purposes.
+</p><!-- l. 654 --><p class='indent'>   We next look at “small” detectors where the secondary electrons generated by the gamma photon are fully absorbed,
+but any secondary radiation such as the characteristic X-rays, or the scattered Compton photon are not fully absorbed.
+Though the scattered Compton photon is not absorbed, the recoil electron is considered to be fully absorbed by the
+medium. [<a href='#cite.0_Knoll2000'>2</a>] notes that for energies of interest, “small” size roughly corresponds to 1 or 2 cm. For such detectors, we
+expect to see partial PE absorption and a Compton continuum. We usually expect only one interaction in the
+detector.
+</p><!-- l. 658 --><p class='indent'>   In between the above two sizes, we see a mix of the above two behaviors. Instead of a simple interaction between the
+gamma and the medium, we now expect multiple interactions albeit with much lesser probability. The result is that we now
+have some energies beyond the Compton edge in the differential cross-section plots. Note that the Compton edge concept
+only applies for a single scattering event.
+</p><!-- l. 661 --><p class='indent'>   The above discussion is summarized in figure <a href='#left-large-center-small-right-intermediate-detector-'>12<!-- tex4ht:ref: fig:diff_det_sizes  --></a>. As always, the area under these curves gives us the total probability of
+interaction. We ignored pair-production in every case here.
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 666 --><p class='noindent' id='left-large-center-small-right-intermediate-detector-'><img alt='PIC' height='150' src='images/large_det.png' width='150' /><img alt='PIC' height='150' src='images/small_det.png' width='150' /><img alt='PIC' height='150' src='images/intermediate_det.png' width='150' /> <a id='x1-29002r12'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 12: </span><span class='content'>(Left) Large (Center) Small (Right) Intermediate detector                                     </span></figcaption><!-- tex4ht:label?: x1-29002r12  -->
+                                                                                               
+                                                                                               
+   </figure>
+<!-- l. 671 --><p class='indent'>   In SENTRI, we have a detection volume much smaller than the “small” detector. At best, we have the entire 750 \(\mu m\) of the
+substrate in which the e-h pairs can be generated. For us to see these charges, however, they will have to survive
+recombination and drift to the depletion region which is around 1.5 \(\mu m\). In such a scenario, we expect mostly Compton
+scattering and very little PE absorption. In the center plot of figure <a href='#left-large-center-small-right-intermediate-detector-'>12<!-- tex4ht:ref: fig:diff_det_sizes  --></a>, the Compton continuum will have much higher
+probability density than the PE peak. Compared to the same figure, the absolute heights are smaller than the “small”
+detector case since a large fraction of the secondary electron’s energy might escape the ASIC’s detection
+volume.
+</p>
+   <h5 class='subsubsectionHead' id='loss-mechanisms'><span class='titlemark'>2.3.1   </span> <a id='x1-300002.3.1'></a>Loss Mechanisms</h5>
+<!-- l. 679 --><p class='noindent'>What are the loss mechanisms we should consider in the case when we have detectors smaller than the ones discussed in the
+above section?
+</p><!-- l. 682 --><p class='indent'>
+     </p><dl class='enumerate-enumitem'><dt class='enumerate-enumitem'>
+  1. </dt><dd class='enumerate-enumitem'>Secondary electron escape. A significant fraction of the secondary and tertiary (those created by the secondary
+     electron) may escape from the detector surface. This means that the energy of the gamma is not fully collected.
+     </dd><dt class='enumerate-enumitem'>
+  2. </dt><dd class='enumerate-enumitem'>Bremsstrahlung  escape.  Even  if  the  secondary  electron  is  fully  stopped  within  the  detector,  if  the
+     bremsstrahlung radiation escapes out, we will never know accurately how much energy the secondary electron
+     had. The primary mechanism through which the secondary electron loses its energy is bremsstrahlung emission
+     and this needs to be fully absorbed by the detector to give an estimate of the initial gamma photon energy.
+     </dd><dt class='enumerate-enumitem'>
+  3. </dt><dd class='enumerate-enumitem'>Characteristic X-ray escape. Even in case of PE absorption, if the characteristic X-ray photon escapes we can
+     never reconstruct the energy information of the binding energy.</dd></dl>
+<!-- l. 694 --><p class='noindent'>
+</p>
+   <h4 class='subsectionHead' id='example-problem1'><span class='titlemark'>2.4   </span> <a id='x1-310002.4'></a>Example Problem</h4>
+<!-- l. 696 --><p class='noindent'>Given the volume of Si in SENTRI, find the probability of absorption for different energies. Further, see if you can split
+them into PE and Compton. From there, see what are the chances that the secondary electron interacts with/escapes from
+the ASIC. Finally, use this to estimate how many e-h pairs are generated by this secondary electron, or overall gamma
+photon interaction.
+</p><!-- l. 699 --><p class='indent'>   Can this be verified in TOPAS?
+</p><!-- l. 705 --><p class='noindent'>
+</p>
+   <h4 class='subsectionHead' id='generic-detector-model'><span class='titlemark'>2.5   </span> <a id='x1-320002.5'></a>Generic Detector Model</h4>
+<!-- l. 707 --><p class='noindent'>Before we look at semiconductor detectors specifically, let’s look at some detector models. The goal of the detector system
+(not just the sensing element, but the circuit and everything along the readout chain) is to either estimate the
+energy deposited (spectroscopy) or simply count the number of events that cross a certain threshold (pulse
+counting).
+                                                                                               
+                                                                                               
+</p><!-- l. 710 --><p class='noindent'>
+</p>
+   <h5 class='subsubsectionHead' id='pulse-mode'><span class='titlemark'>2.5.1   </span> <a id='x1-330002.5.1'></a>Pulse Mode</h5>
+<!-- l. 712 --><p class='noindent'>In the sensing element, let us assume that the charge generated by the radiation interaction event takes a time \(t_c\) to be fully
+collected. In other words, the total change \(Q\) deposited is \(Q = \int i(t) \, dt\) as measured by the FE of the detector. Let’s also assume that the
+detector has a dominant pole \(\tau =RC\) (or RC time constant) which can either be greater than or lesser than \(t_c\). Figure <a href='#pulse-mode-operation-with-different-characteristic-time-constants-of-the-detector'>13<!-- tex4ht:ref: fig:pulse_mode  --></a> illustrates
+both these cases.
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 718 --><p class='noindent' id='pulse-mode-operation-with-different-characteristic-time-constants-of-the-detector'><img alt='PIC' height='200' src='images/pulse_mode.png' width='200' /><a id='x1-33001r13'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 13: </span><span class='content'>Pulse mode operation with different characteristic time constants of the detector                   </span></figcaption><!-- tex4ht:label?: x1-33001r13  -->
+                                                                                               
+                                                                                               
+   </figure>
+<!-- l. 723 --><p class='indent'>   The case \(RC \ll t_c\) is useful for high count rate events when accurate energy estimate is not necessary [<a id='x1-33002'></a><a href='#cite.0_Knoll2000'>2</a>]. In the other case where
+\(RC \gg t_c\), the time taken to for the voltage pulse to reach its maxima is determined by the detector (not the dominant pole) while
+the slow discharge is set by \(\tau \). If the capacitance is fixed (which need not be the case in a reverse biased junction), then we
+can estimate the charge \(Q=V/C\).
+</p><!-- l. 726 --><p class='indent'>   Pulse mode operation is useful for spectroscopic and low count rate applications. Information about each individual
+interaction is captured, assuming there is no pulse pile up.
+</p>
+   <h5 class='subsubsectionHead' id='current-mode'><span class='titlemark'>2.5.2   </span> <a id='x1-340002.5.2'></a>Current Mode</h5>
+<!-- l. 731 --><p class='noindent'>Let’s assume that \(\tau \gg t_c\), i.e., the average time between pulses is less than the readout circuit’s response time. The average
+current, \(I_0\), can be used to determine the number of events and the charge per interaction.
+</p><!-- l. 736 --><p class='indent'>   \begin {equation}  \label {eqn:current_mode_avg} I_0 = rQ = r\frac {E}{W}q  \end {equation}<a id='x1-34001r8'></a>
+</p><!-- l. 740 --><p class='indent'>   where \(r\) is the event rate, \(E\) is the average energy deposited per event, \(W\) is the work function/energy to produce an e-h pair,
+and \(q\) is simply the charge of an electron.
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 747 --><p class='noindent' id='current-mode-operation'><img alt='PIC' height='200' src='images/current_mode.png' width='200' /><img alt='PIC' height='200' src='images/current_mode2.png' width='200' /><a id='x1-34002r14'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 14: </span><span class='content'>Current mode operation                                                                  </span></figcaption><!-- tex4ht:label?: x1-34002r14  -->
+                                                                                               
+                                                                                               
+   </figure>
+<!-- l. 755 --><p class='indent'>   As shown in figure <a href='#current-mode-operation'>14<!-- tex4ht:ref: fig:current_mode  --></a>, there is statistical uncertainty at any given instant of time but the average is still given by eqn <a href='#x1-34001r8'>8<!-- tex4ht:ref: eqn:current_mode_avg  --></a>.
+The standard deviation in number of counts is simply \(\sigma = \sqrt {r\tau }\) and the standard deviation in the instantaneous current measured is
+given by
+</p><!-- l. 759 --><p class='indent'>   \[\sigma _{I(t)} = \frac {I_0}{\sqrt {r\tau }}\]
+</p><!-- l. 761 --><p class='indent'>   The instantaneous current can fluctuate up or down because of the current response curve shown at the top of figure <a href='#pulse-mode-operation-with-different-characteristic-time-constants-of-the-detector'>13<!-- tex4ht:ref: fig:pulse_mode  --></a>.
+The current from the sensing element is varying.
+</p><!-- l. 763 --><p class='indent'>   Current mode operation is useful for high count rate applications. Instead of current, we can also measure the mean
+square voltage and arrive at similar results.
+</p>
+   <h4 class='subsectionHead' id='pulse-height-spectra'><span class='titlemark'>2.6   </span> <a id='x1-350002.6'></a>Pulse Height Spectra</h4>
+<!-- l. 769 --><p class='noindent'>Pulse amplitude gives us insight into the energy deposited during an interaction. Since we have a finite resolution, we can
+count \(\Delta N\) counts in a bin that is \(\Delta E\) wide around the energy \(E\). The width of the bin dictates how many counts are sorted into this.
+To remove this dependence on bin width, we can choose to plot \(\delta N/\Delta E\) vs. \(E\) instead of simply \(\Delta N\) vs. \(E\). We can substitute \(\Delta E\) with \(\Delta H\) where \(H\)
+is the amplitude of the detector signal in current or voltage. In the limit that \(\Delta H \rightarrow 0\), we arrive at the differential pulse height
+distribution plot, i.e., \(dN/dH\) vs. \(H\).
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 776 --><p class='noindent' id='differential-pulse-height-distribution'><img alt='PIC' height='200' src='images/diff_pulse_ht.png' width='200' /><a id='x1-35001r15'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 15: </span><span class='content'>Differential pulse height distribution                                                        </span></figcaption><!-- tex4ht:label?: x1-35001r15  -->
+                                                                                               
+                                                                                               
+   </figure>
+<!-- l. 781 --><p class='indent'>   In figure <a href='#differential-pulse-height-distribution'>15<!-- tex4ht:ref: fig:diff_pulse_ht  --></a>, the number of counts between and two amplitudes (or energies) is simply the hatched area under the
+distribution
+</p><!-- l. 783 --><p class='indent'>   \[N_{12} = \int _{H_1}^{H_2} \frac {dN}{dH} \, dH\]
+</p><!-- l. 785 --><p class='indent'>   This is the same as summing the number of counts in each bin in the discrete case.
+</p>
+   <h4 class='subsectionHead' id='energy-resolution'><span class='titlemark'>2.7   </span> <a id='x1-360002.7'></a>Energy Resolution</h4>
+<!-- l. 790 --><p class='noindent'>Figure <a href='#energy-resolution-from-the-differential-pulse-height-distribution'>16<!-- tex4ht:ref: fig:resolution_diff_pulse_ht  --></a> shows how we can extract resolution from the differential pulse height distribution. If the average charged
+particles produced in interactions is \(N\), we can show that the resolution of the detector within the Poisson statistical limit is
+(assuming no other sources of noise) inversely proportional to
+</p><!-- l. 793 --><p class='indent'>   \[R \propto \frac {1}{\sqrt {N}}\]
+</p><!-- l. 796 --><p class='indent'>   This shows that we need the sensing element to produce a large number of charge carriers to improve
+energy resolution. Semiconductor diodes are good for this purpose and have shown to achieve 1% resolution
+[<a id='x1-36001'></a><a href='#cite.0_Knoll2000'>2</a>].
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 801 --><p class='noindent' id='energy-resolution-from-the-differential-pulse-height-distribution'><img alt='PIC' height='200' src='images/resolution.png' width='200' /><a id='x1-36002r16'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 16: </span><span class='content'>Energy resolution from the differential pulse height distribution                                 </span></figcaption><!-- tex4ht:label?: x1-36002r16  -->
+                                                                                               
+                                                                                               
+   </figure>
+   <h4 class='subsectionHead' id='dead-time'><span class='titlemark'>2.8   </span> <a id='x1-370002.8'></a>Dead Time</h4>
+<!-- l. 811 --><p class='noindent'>There is a minimum amount of time that must separate two consecutive incident events so that they can be recorder as two
+distinct pulses. This is known as dead time. Obviously, we want to minimize dead time to minimize any loss in number of
+counts.
+</p><!-- l. 814 --><p class='indent'>   Figure <a href='#types-of-dead-time'>17<!-- tex4ht:ref: fig:dead_time_types  --></a> shows the two possible kinds of dead time. In the non-paralyzable dead time case, a second event that occurs
+within the dead time does not effect the dead time. In the paralyzable case, the event within the dead time can actually
+increase the dead time.
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 820 --><p class='noindent' id='types-of-dead-time'><img alt='PIC' height='150' src='images/dead_time_types.png' width='150' /><a id='x1-37001r17'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 17: </span><span class='content'>Types of dead time                                                                      </span></figcaption><!-- tex4ht:label?: x1-37001r17  -->
+                                                                                               
+                                                                                               
+   </figure>
+                                                                                               
+                                                                                               
+<!-- l. 827 --><p class='indent'>
+                                                                                               
+                                                                                               
+</p>
+   <h3 class='sectionHead' id='semiconductor-detectors'><span class='titlemark'>3   </span> <a id='x1-380003'></a>Semiconductor Detectors</h3>
+<!-- l. 831 --><p class='noindent'>Since the ionization energy of Si and Ge are a few eV, a large number of charged particles are generated when a gamma
+interacts with them. Therefore, semiconductor-based detectors are known to have the best energy resolution [<a id='x1-38001'></a><a href='#cite.0_Knoll2000'>2</a>]. The
+drawbacks include the small size and susceptibility to radiation damage. [<a href='#cite.0_Knoll2000'>2</a>] notes that Si is used for charged particle
+spectroscopy while Ge is used mainly for gamma ray spectroscopy. We will look at the reason for this a bit later in the
+notes.
+</p><!-- l. 836 --><p class='noindent'>
+</p>
+   <h4 class='subsectionHead' id='charge-carriers'><span class='titlemark'>3.1   </span> <a id='x1-390003.1'></a>Charge Carriers</h4>
+<!-- l. 838 --><p class='noindent'>The probability per unit time that an e-h pair is thermally generated in an intrinsic semiconductor is
+</p><!-- l. 840 --><p class='indent'>   \[p(T) = CT^{1.5} \, \exp \bigg (-\frac {E_g}{2kT}\bigg )\]
+</p><!-- l. 842 --><p class='indent'>   Clearly, it’s a strong function of bandgap and temperature. If we assume all electrons/holes are created at a
+single point, diffusion broadens the distribution to a Gaussian function as a function of time with standard
+deviation
+</p><!-- l. 847 --><p class='indent'>   \begin {equation} \label {eqn:charge_diffusion_std_dev} \sigma = \sqrt {2Dt}  \end {equation}<a id='x1-39001r9'></a>
+</p><!-- l. 849 --><p class='indent'>   where \(D\) is the diffusion coefficient and \(t\) is the elapsed time. We can further estimate \(D\) as
+</p><!-- l. 851 --><p class='indent'>   \[D= \mu \frac {kT}{e} \approx \mu \times 0.0253 \, \text {V at 293 K} \]
+</p><!-- l. 854 --><p class='indent'>   where \(\mu \) is the mobility of the charge carrier whose distribution we’re looking at.
+</p><!-- l. 856 --><p class='indent'>   If we now apply an electric field, the carriers have a net drift velocity in the direction of (or opposite to) the field.
+Assuming we don’t hit saturation velocity, this drift velocity can be written in terms of mobility and electric field as
+follows
+</p><!-- l. 859 --><p class='indent'>   \[v = \mu |\vec {E}|\]
+</p><!-- l. 861 --><p class='indent'>   We can now rewrite eqn <a href='#x1-39001r9'>9<!-- tex4ht:ref: eqn:charge_diffusion_std_dev  --></a> as
+</p><!-- l. 863 --><p class='indent'>   \[\sigma = \sqrt {\frac {2kT x}{e |\vec {E}|}}\]
+</p><!-- l. 865 --><p class='indent'>   where \(x\) is the drift distance \(v\cdot t\). The FWHM of the Gaussian effectively broadens in presence of electric
+field.
+</p><!-- l. 867 --><p class='noindent'>
+</p>
+   <h4 class='subsectionHead' id='interaction-with-charged-particles'><span class='titlemark'>3.2   </span> <a id='x1-400003.2'></a>Interaction with Charged Particles</h4>
+<!-- l. 869 --><p class='noindent'>Since the secondary (or recoil) electron generated from a gamma photon interaction can be treated similar to a beta particle
+(fast electron), we can look at the general principles of interaction of ionizing radiation with semiconductors to understand
+gamma ray spectroscopy.
+</p><!-- l. 872 --><p class='indent'>   Say the total energy deposited by the charged particle is \(E\) and the average pair-creation energy is \(\epsilon \), then the expected
+total number of charge carriers is roughly \(E/\epsilon \). This assumes total absorption of the charged particle without any of the loss
+mechanisms mentioned in the previous section. In Si, this energy is roughly 3.5 eV at room temperature. In reality, however,
+we do not always see \(E/\epsilon \) number of e-h pairs generated. This is because we assumed a Poisson model along the track of
+the charge particle for the e-h pair generation. All the events may not necessarily be independent and this
+assumption fails. To account for this, we introduce a dimensionless constant called the Fano factor. It is defined
+                                                                                               
+                                                                                               
+as
+</p><!-- l. 879 --><p class='indent'>   \begin {equation}  F = \frac {\text {observed statistical variance}}{E/\epsilon }  \end {equation}<a id='x1-40001r10'></a>
+</p><!-- l. 881 --><p class='indent'>   Note that variance is equal to number of events in a Poisson distribution. \(F\) for Si is around 0.12 [<a id='x1-40002'></a><a href='#cite.0_Knoll2000'>2</a>].
+</p><!-- l. 884 --><p class='indent'>   The probability of interaction for gamma rays is independent of doping since the dopants are extremely sparse in
+quantity [<a href='#cite.0_Knoll2000'>2</a>].
+</p><!-- l. 887 --><p class='noindent'>
+</p>
+   <h5 class='subsubsectionHead' id='pulse-formation'><span class='titlemark'>3.2.1   </span> <a id='x1-410003.2.1'></a>Pulse Formation</h5>
+<!-- l. 889 --><p class='noindent'>A quick note on the pulse formation. Since electrons and holes have different mobilities, it takes unequal amount of time for
+them to be collected. Instead of a Dirac delta-like pulse, we might see a broader pulse with a kink as shown in figure
+<a href='#pulse-formation1'>18<!-- tex4ht:ref: fig:pulse_formation  --></a>.
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 894 --><p class='noindent' id='pulse-formation1'><img alt='PIC' height='150' src='images/pulse_formation_semiconductor.png' width='150' /><a id='x1-41001r18'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 18: </span><span class='content'>Pulse formation                                                                         </span></figcaption><!-- tex4ht:label?: x1-41001r18  -->
+                                                                                               
+                                                                                               
+   </figure>
+   <h4 class='subsectionHead' id='reverse-biasing'><span class='titlemark'>3.3   </span> <a id='x1-420003.3'></a>Reverse Biasing</h4>
+<!-- l. 901 --><p class='noindent'>We want to apply reverse bias so that the electric field is large enough so that the charge carriers are accelerated without
+being lost to traps and recombination. In addition, the greater the depletion depth, more charge carriers created by the
+gamma ray interaction are swept away by the electric field as opposed to letting diffusion do the job (poorly). In practice,
+we want the entire Si to be depleted so that we have the maximum volume over which the radiation produced charge
+carriers can be collected.
+</p><!-- l. 905 --><p class='indent'>   We see that to increase the depletion width (or depth since the diode extends into the substrate), we can increase the
+voltage or decrease the doping of the lighter doped side. Intrinsic or ‘compensated’ semiconductors are preferred to decrease
+the doping concentration.
+</p><!-- l. 910 --><p class='indent'>   \begin {equation}  \label {eqn:depletion_width} d \propto \sqrt {\frac {V}{N_{A/D}}}  \end {equation}<a id='x1-42001r11'></a>
+</p><!-- l. 913 --><p class='indent'>   The capacitance of the depletion region is inversely proportional to \(d\). Since we want a small detector capacitance,
+increasing the voltage benefits us on the circuit design too.
+</p><!-- l. 915 --><p class='indent'>   [<a id='x1-42002'></a><a href='#cite.0_Knoll2000'>2</a>] notes that commercial silicon detectors with 50-200 \(\mu m\) depletion thicknesses are good enough for transmission
+detectors. These can serve as dosimeters but not spectroscopes.
+</p><!-- l. 920 --><p class='noindent'>
+</p>
+   <h4 class='subsectionHead' id='conventional-semiconductor-detectors'><span class='titlemark'>3.4   </span> <a id='x1-430003.4'></a>Conventional Semiconductor Detectors</h4>
+<!-- l. 922 --><p class='noindent'>Traditionally, the detectors sit on top of the readout ICs (ROICs) as shown in figure <a href='#detector-roic-stack-'>19<!-- tex4ht:ref: fig:detector_roic_stack  --></a>. Such a configuration is also known
+as a hybrid active pixel [<a id='x1-43001'></a><a href='#cite.0_TurchettaIniewski2016'>12</a>]. We look at different detectors here.
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 927 --><p class='noindent' id='detector-roic-stack-'><img alt='PIC' height='250' src='images/detector_roic.png' width='250' /><a id='x1-43002r19'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 19: </span><span class='content'>Detector + ROIC stack                                                                  </span></figcaption><!-- tex4ht:label?: x1-43002r19  -->
+                                                                                               
+                                                                                               
+   </figure>
+<!-- l. 932 --><p class='indent'>   The main hurdle for monolithic integration is the fact that we need a highly resistive silicon substrate for the detector
+(to maximize depletion thickness) while this is not the case for the ROIC.
+</p>
+   <h5 class='subsubsectionHead' id='pin-diodes'><span class='titlemark'>3.4.1   </span> <a id='x1-440003.4.1'></a>p-i-n Diodes</h5>
+<!-- l. 937 --><p class='noindent'><span class='cmti-10'>p-i-n </span>diodes are useful for soft X-ray detection (around 20-30 keV). A thickness of 300 \(\mu m\) is useful for detection of these lower
+energy X-rays. The sensitivity of these diodes (counts/mR of exposure rate) depends on incoming energy and as expected,
+decreases several orders of magnitude with increasing energy.
+</p><!-- l. 940 --><p class='indent'>   MAC for Si is within 10% of soft tissue for gamma photon energies between 150 keV to 1 MeV. This could be exploited
+to calculate the total dose received by an organ provided the detector is thick enough to absorb the gamma
+photon.
+</p><!-- l. 944 --><p class='noindent'>
+</p>
+   <h5 class='subsubsectionHead' id='avalanche-detectors'><span class='titlemark'>3.4.2   </span> <a id='x1-450003.4.2'></a>Avalanche Detectors</h5>
+<!-- l. 946 --><p class='noindent'>TODO: read more about avalanche diodes and SPADs operation
+</p><!-- l. 948 --><p class='indent'>   Avalanche diodes have been used in low-energy X-ray detectors and portable gamma ray monitors.
+</p><!-- l. 951 --><p class='noindent'>
+</p>
+   <h5 class='subsubsectionHead' id='drift-detectors'><span class='titlemark'>3.4.3   </span> <a id='x1-460003.4.3'></a>Drift Detectors</h5>
+<!-- l. 953 --><p class='noindent'>In drift detectors, we apply a potential gradient such that the electrons and holes drift towards widely spaced cathode and
+anode. Depending on the time between the holes and electrons take to reach their respective electrode, we can determine
+the position within the detector where the gamma photon interacted. A couple of examples are illustrated in figure
+<a href='#left-linear-right-ring-silicon-drift-detectors-sdds-electrons-are-collected-at-the-anode-after-they-drift-through-the-entire-detector-while-the-holes-are-collected-at-the-cathode-'>20<!-- tex4ht:ref: fig:sdd  --></a>.
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 959 --><p class='noindent' id='left-linear-right-ring-silicon-drift-detectors-sdds-electrons-are-collected-at-the-anode-after-they-drift-through-the-entire-detector-while-the-holes-are-collected-at-the-cathode-'><img alt='PIC' height='250' src='images/lineari_sdd.png' width='250' /><img alt='PIC' height='250' src='images/ring_sdd.png' width='250' /><a id='x1-46001r20'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 20: </span><span class='content'>(Left) Linear (Right) Ring Silicon drift detectors (SDDs). Electrons are collected at the anode after they
+drift through the entire detector while the holes are collected at the cathode.                               </span></figcaption><!-- tex4ht:label?: x1-46001r20  -->
+                                                                                               
+                                                                                               
+   </figure>
+<!-- l. 966 --><p class='indent'>   One advantage of SDDs is the smaller parasitic capacitance they introduced to the ROIC. Smaller capacitance leads to
+lower noise floor and improved SNR. This is also advantageous in counting rate applications where we can have shorter
+shaping times (higher BWs) since noise is lower than other detectors. Pixel-based designs also have the above advantage
+with parasitic capacitance.
+</p>
+   <h5 class='subsubsectionHead' id='ccds'><span class='titlemark'>3.4.4   </span> <a id='x1-470003.4.4'></a>CCDs</h5>
+<!-- l. 973 --><p class='noindent'>CCDs integrate the charge collected over the exposure period (integration period) and then read out the entire frame. The
+readout time maybe longer than the integration period and this is one disadvantage. One way to circumvent this issue of
+dead time is to store and read out frame B (say half the pixels) while frame A (other half of the pixels) is being captured,
+and switch the order when both operations are done. CCDs have been used to detect single X-ray photon in a pixel due to
+their low readout noise. [<a id='x1-47001'></a><a href='#cite.0_Knoll2000'>2</a>] notes that in spectroscopy mode, we limit single hit per pixel in CCDs so that we can determine
+individual photon energy.
+</p><!-- l. 978 --><p class='indent'>   Another issue is that in some CCDs the whole bulk is not depleted. In this case the electrons generated in the
+undepleted Si are at the mercy of diffusion and can spread to multiple pixels while being collected. There is also loss of
+signal due to recombination in the undepleted Si.
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 983 --><p class='noindent' id='undepleted-si-can-cause-loss-of-signal-due-to-recombination-and-the-leftover-electrons-can-spread-across-multiple-pixels-'><img alt='PIC' height='250' src='images/ccd_undepleted.png' width='250' /><a id='x1-47002r21'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 21: </span><span class='content'>Undepleted Si can cause loss of signal due to recombination and the leftover electrons can spread across
+multiple pixels                                                                                   </span></figcaption><!-- tex4ht:label?: x1-47002r21  -->
+                                                                                               
+                                                                                               
+   </figure>
+   <h5 class='subsubsectionHead' id='ge-detectors'><span class='titlemark'>3.4.5   </span> <a id='x1-480003.4.5'></a>Ge Detectors</h5>
+<!-- l. 993 --><p class='noindent'>As seen from eqn <a href='#x1-42001r11'>11<!-- tex4ht:ref: eqn:depletion_width  --></a>, we need to square the applied voltages to increase depletion widths, or drastically improve
+the purity of the substrate. High purity Ge (HPG) detectors can create depletion thicknesses in order of
+a cm [<a id='x1-48001'></a><a href='#cite.0_Knoll2000'>2</a>] with a few hundreds of volts of reverse bias. Therefore, they are commonly used for gamma ray
+detection.
+</p><!-- l. 997 --><p class='noindent'>
+</p>
+   <h5 class='subsubsectionHead' id='lidrifted-si-detectors'><span class='titlemark'>3.4.6   </span> <a id='x1-490003.4.6'></a>Li-drifted Si Detectors</h5>
+<!-- l. 999 --><p class='noindent'>Instead of HPGe, we can compensate the p-substrate with Li to nullify the dopant concentration. We can then achieve up to
+5-10 mm of active thickness within Si too.
+</p><!-- l. 1002 --><p class='noindent'>
+</p>
+   <h5 class='subsubsectionHead' id='other-semiconductors'><span class='titlemark'>3.4.7   </span> <a id='x1-500003.4.7'></a>Other Semiconductors</h5>
+<!-- l. 1005 --><p class='noindent'>CdTe, GaAs, PbI\(_2\), HgI\(_2\), and Cd\(_{1-\text {x}}\)Zn\(_\text {x}\)Te (CZT) are some other popular semiconductors for gamma detection.
+</p><!-- l. 1007 --><p class='noindent'>
+</p>
+   <h4 class='subsectionHead' id='cmos-image-sensors'><span class='titlemark'>3.5   </span> <a id='x1-510003.5'></a>CMOS Image Sensors</h4>
+<!-- l. 1009 --><p class='noindent'>In CMOS imagers, the fundamental unit is a reverse biased photodiode. The fill factor of the pixel determines the
+radiation-sensitive area. The main difference between using CMOS imagers for imaging versus radiation detection is that in
+the former case the signal is predominantly generated in the depletion region alone while in the latter case the signal can be
+generated in the entire bulk. In fact, we want the signal to be generated in the bulk so that the secondary electron does
+not escape without delivering all of its energy within the bulk. The problem, however, with CMOS pixels
+is that the depletion region is limited to a few microns (or less). Hence, there is a lot of signal loss. This
+could be a challenge for spectroscopy and dose estimation but might not be a big issue for rate counting
+applications.
+</p><!-- l. 1015 --><p class='indent'>   Since the photodiodes are not generally fully depleted, let’s look at what is the active volume which
+contributes to signal generation. In XH018 LPMOS module, we see that the p-epi layer is 10 \(\mu m\) deep with a
+resistivity of 15 \(\Omega \cdot \text {cm}\). The p-substrate itself is 725 \(\mu m\) thick and has a resistivity 1000\(\times \) greater than the epi layer. We
+can, therefore, assume that the e-h pairs generated in the substrate will recombine almost fully and that
+the signal is primarily generated in the epi layer and is transported through diffusion as shown in figure <a href='#signal-generated-in-pepi-vs-the-substrate'>22<!-- tex4ht:ref: fig:pepi_vs_sub  --></a>
+[<a id='x1-51001'></a><a href='#cite.0_zhou_development_nodate'>11</a>].
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 1023 --><p class='noindent' id='signal-generated-in-pepi-vs-the-substrate'><img alt='PIC' height='250' src='images/epi_vs_sub_undepleted_cmos_pixel.png' width='250' /><a id='x1-51002r22'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 22: </span><span class='content'>Signal generated in p-epi vs. the substrate                                                   </span></figcaption><!-- tex4ht:label?: x1-51002r22  -->
+                                                                                               
+                                                                                               
+   </figure>
+   <h5 class='subsubsectionHead' id='issue-with-pmos-devices'><span class='titlemark'>3.5.1   </span> <a id='x1-520003.5.1'></a>Issue with PMOS Devices</h5>
+<!-- l. 1031 --><p class='noindent'>A signal generated in the p-epi layer can diffuse and spread out. If there is a PMOS device in the vicinity of the diode, the
+n-well layer, which is reverse biased w.r.t the substrate, can steal some of the charges before they can reach the diode of
+interest. This is shown in figure <a href='#pmos-devices-can-steal-the-generated-signal'>23<!-- tex4ht:ref: fig:issue_with_pmos  --></a>.
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 1036 --><p class='noindent' id='pmos-devices-can-steal-the-generated-signal'><img alt='PIC' height='250' src='images/issue_with_pmos.png' width='250' /><a id='x1-52001r23'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 23: </span><span class='content'>PMOS devices can steal the generated signal                                                </span></figcaption><!-- tex4ht:label?: x1-52001r23  -->
+                                                                                               
+                                                                                               
+   </figure>
+<!-- l. 1041 --><p class='indent'>   In SENTRI, we see that there are a few PMOS devices but they are spaced out as much as possible from the diode as
+shown in figure <a href='#sentri-pixel-layout'>24<!-- tex4ht:ref: fig:sentri_pixel_layout  --></a>. I’m not sure if we can do any better in layout since we need these PMOS devices for the
+rest of the circuits. The PMOS devices in SENTRI are all min. sized and are much smaller than the diode
+(\(2 \mu m \, \times 2 \,\mu m\)).
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 1048 --><p class='noindent' id='sentri-pixel-layout'><img alt='PIC' height='250' src='images/sentri_pixel_layout.png' width='250' /><a id='x1-52002r24'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 24: </span><span class='content'>SENTRI pixel layout                                                                    </span></figcaption><!-- tex4ht:label?: x1-52002r24  -->
+                                                                                               
+                                                                                               
+   </figure>
+   <h5 class='subsubsectionHead' id='t-and-t-pixels'><span class='titlemark'>3.5.2   </span> <a id='x1-530003.5.2'></a>3T and 4T Pixels</h5>
+<!-- l. 1055 --><p class='noindent'>Figure <a href='#left-t-right-t-pixels'>25<!-- tex4ht:ref: fig:3t_4t_pixels  --></a> shows the two popular pixel architectures for CMOS imagers. 4T pixels offer CDS and hence, noise
+performance but require a special CMOS process required to fabricate the pinned photodiode and the transfer
+gate.
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 1060 --><p class='noindent' id='left-t-right-t-pixels'><img alt='PIC' height='150' src='images/3t.png' width='150' /><img alt='PIC' height='150' src='images/4t.png' width='150' /><a id='x1-53001r25'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 25: </span><span class='content'>(Left) 3T (Right) 4T pixels                                                               </span></figcaption><!-- tex4ht:label?: x1-53001r25  -->
+                                                                                               
+                                                                                               
+   </figure>
+<!-- l. 1065 --><p class='indent'>   Since both of these architectures do not have any PMOS devices nearby, we might not have much losses due to PMOS
+n-well [<a id='x1-53002'></a><a href='#cite.0_TurchettaIniewski2016'>12</a>]. I’m still skeptical as to how this can avoid the PMOS devices in the rest of the signal chain. Maybe in these
+cases the diodes are much larger and fill factors are huge?
+</p><!-- l. 1070 --><p class='indent'>   [<a href='#cite.0_TurchettaIniewski2016'>12</a>] notes that 4T pixels suffer from radioactive damage and this can affect the pinning voltage, well capacity (floating
+diffusion node), and increase noise, degrade charge transfer efficiency. TODO: Take a look at some of these studies to see
+how much dose can actually cause damage to these pixels.
+</p>
+   <h5 class='subsubsectionHead' id='case-studies'><span class='titlemark'>3.5.3   </span> <a id='x1-540003.5.3'></a>Case Studies</h5>
+<!-- l. 1076 --><p class='noindent'>Let us look at a few studies that use CMOS image sensors for radiation detection.
+</p><!-- l. 1079 --><p class='indent'>   [<a id='x1-54001'></a><a href='#cite.0_coath_low_2010'>13</a>] s one of the earlier works I could find that uses 4T pixels for radiation sensing. They have a specialized
+process that has a deep p-well and a high-resistivity p-epi layer to maximize the depletion width and minimize
+crosstalk between the charges generated in different pixels. This is demonstrated in figure <a href='#deep-pwell-and-highly-resistive-substrate-as-shown-in-coathlow-from-left-to-right-the-resistivity-of-the-pepi-increases-'>26<!-- tex4ht:ref: fig:deep_pwell  --></a>. The paper
+tested out pixel pitches varying from 6 \(\mu m\) to 45 \(\mu m\). The floating diffusion cap was estimated to be around 2.3
+fF.
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 1085 --><p class='noindent' id='deep-pwell-and-highly-resistive-substrate-as-shown-in-coathlow-from-left-to-right-the-resistivity-of-the-pepi-increases-'><img alt='PIC' height='250' src='images/deep_pwell.png' width='250' /><a id='x1-54002r26'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 26: </span><span class='content'>Deep p-well and highly resistive substrate as shown in [<a href='#cite.0_coath_low_2010'>13</a>]. From left to right the resistivity of the p-epi
+increases.                                                                                       </span></figcaption><!-- tex4ht:label?: x1-54002r26  -->
+                                                                                               
+                                                                                               
+   </figure>
+<!-- l. 1093 --><p class='indent'>   [<a id='x1-54004'></a><a href='#cite.0_guerrini_design_2013'>14</a>] also uses 4T pixels for radiation detection. Their chip is able to withstand 1 kGy of total ionizing dose (TID) while
+being latch-up free and can detect up to \(10^7\) particles/cm\(^2\)/s. They note that they used a high resistivity epi so that the
+depletion layer extends well into the p-epi layer which is around 12 \(\mu m\) thick. The ASIC is a 50\(\times \)51 pixel array with pixel pitch
+of 20 \(\mu m\). The output of the pixel is digitized using a 3-bit column-parallel ADC at a rate of 10,000 fps (4 \(\mu s\)
+conversion time per sample). There are two ADCs per column, one at the top and one at the bottom, to get away
+with 25 channels as opposed to 50. The ADC uses a single comparator instead of seven as expected in a
+conventional flash ADC, and adds the threshold to the signal and then compares if RESET - (SAMPLE +
+THRESHOLD) ¿ 0. There are 7 thresholds corresponding to a 3-bit output. The ADC top-level schematic is
+illustrated figure <a href='#adc-schematic-in-guerrinidesign'>27<!-- tex4ht:ref: fig:hmrm_adc  --></a>. This paper also reports increase in dark noise as the pixel receives higher dose (above a
+kGy).
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 1103 --><p class='noindent' id='adc-schematic-in-guerrinidesign'><img alt='PIC' height='150' src='images/hmrm_adc.png' width='150' /><a id='x1-54005r27'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 27: </span><span class='content'>ADC schematic in [<a href='#cite.0_guerrini_design_2013'>14</a>]                                                                   </span></figcaption><!-- tex4ht:label?: x1-54005r27  -->
+                                                                                               
+                                                                                               
+   </figure>
+<!-- l. 1110 --><p class='indent'>   [<a id='x1-54007'></a><a href='#cite.0_aglieri_rinella_charge_2021'>15</a>] uses TowerJazz 180 nm CMOS imaging process with a high-resistivity (¿ 1 k\(\Omega \)cm) p-epi and applies a reverse bias of
+-6 V between the substrate and the p-epi as shown in figure <a href='#left-crosssection-of-the-photodiode-right-schematic-used-in-aglieririnellacharge'>28<!-- tex4ht:ref: fig:tower_jazz_pixel_xsection  --></a>. Three different p-epi thicknesses - 18, 25, and 30 \(\mu m\), and
+different pixel pitches ranging from 20-50 \(\mu m\) were tested.
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 1116 --><p class='noindent' id='left-crosssection-of-the-photodiode-right-schematic-used-in-aglieririnellacharge'><img alt='PIC' height='150' src='images/towerjazz_pixel_xsection.png' width='150' /><img alt='PIC' height='250' src='images/towerjazz_pixel_schematic.png' width='250' /><a id='x1-54008r28'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 28: </span><span class='content'>(Left) Cross-section of the photodiode (Right) Schematic used in [<a href='#cite.0_aglieri_rinella_charge_2021'>15</a>]                            </span></figcaption><!-- tex4ht:label?: x1-54008r28  -->
+                                                                                               
+                                                                                               
+   </figure>
+<!-- l. 1122 --><p class='indent'>   One curious thing is that this paper uses PMOS devices despite the fact that the pn junction could steal some of the
+charges away. My guess is that since they are relying more on drift than diffusion, this choice is reasonably justifiable. The
+pixel schematic and operation are described in figure <a href='#left-crosssection-of-the-photodiode-right-schematic-used-in-aglieririnellacharge'>28<!-- tex4ht:ref: fig:tower_jazz_pixel_xsection  --></a>. During the RESET phase, the sensing node is pulled up to 0.8 V
+using M2. There is finite leakage but when charge is deposited there is a \(\Delta V\) drop in voltage at the sensing node. Between
+resets the signal is continuously monitored for a sudden drop in any of the 64 channels and this triggers a readout sequence.
+I’m not too sure if I understand how the frame rates are being defined or what are the samples of interest - do we ignore
+events before the reset? Looks like not, but then we do we take the entire sample and then define this trigger event at
+all?
+</p><!-- l. 1135 --><p class='indent'>   [<a id='x1-54010'></a><a href='#cite.0_zhou_development_nodate'>11</a>]
+                                                                                               
+                                                                                               
+</p><!-- l. 1146 --><p class='indent'>
+                                                                                               
+                                                                                               
+</p>
+   <h3 class='sectionHead' id='math-refresher'><span class='titlemark'>4   </span> <a id='x1-550004'></a>Math Refresher</h3>
+<!-- l. 1152 --><p class='noindent'>Let’s quickly run through some useful math concepts.
+</p><!-- l. 1154 --><p class='noindent'>
+</p>
+   <h4 class='subsectionHead' id='frequency-distribution-mean-variance'><span class='titlemark'>4.1   </span> <a id='x1-560004.1'></a>Frequency Distribution, Mean, Variance</h4>
+<!-- l. 1157 --><p class='noindent'>Say we have a collection of \(N\) independent measurements of the same physical quantity
+</p><!-- l. 1159 --><p class='indent'>   \[x_1,x_2,x_3, \dots , x_i, \dots x_N\]
+</p><!-- l. 1161 --><p class='indent'>   We define a frequency distribution function \(F(x)\) which accounts for the relative frequency with which particular \(x_i\) shows up
+in the dataset.
+</p><!-- l. 1163 --><p class='indent'>   \[F(x) = \frac {\text {number of occurrences of $x_i$}}{\text {number of measurements } (N)} \]
+</p><!-- l. 1165 --><p class='indent'>   Note that \(F(x)\) is automatically normalized, in other words,
+</p><!-- l. 1167 --><p class='indent'>   \[\sum _{i=1}^{\infty } F(x_i) = 1\]
+</p><!-- l. 1169 --><p class='indent'>   The first moment of the frequency distribution gives us the mean of the distribution
+</p><!-- l. 1173 --><p class='indent'>   \begin {equation} \label {eqn:mean_from_fd} \bar {x}_e = x_i \, \sum _{i=1}^{\infty } F(x_i)  \end {equation}<a id='x1-56001r12'></a>
+</p><!-- l. 1175 --><p class='indent'>   We can now define a residual, or how far a given measurement is from the mean, as
+</p><!-- l. 1177 --><p class='indent'>   \[d_i = x_i - \bar {x}_e\]
+</p><!-- l. 1179 --><p class='indent'>   It is obvious to see that \(\sum _{i=1}^{\infty } d_i = 0\) (also true for finite number of measurements \(N\)). In practice, since we can never collect
+infinitely many data points, we make the distinction between the true mean \(\bar {x}\) and the experimental mean
+\(\bar {x}_e\).
+</p><!-- l. 1182 --><p class='indent'>   For a large data set, we define the sample variance as follows
+</p><!-- l. 1186 --><p class='indent'>   \begin {equation} \label {eqn:variance} \sigma ^2 \approx \frac {1}{N} \sum _{i=1}^{N} \, (x_i - \bar {x}_e)^2  \end {equation}<a id='x1-56002r13'></a>
+</p><!-- l. 1188 --><p class='indent'>   We can also write the variance in terms of \(F(x)\) as
+</p><!-- l. 1192 --><p class='indent'>   \begin {equation} \label {eqn:variance_from_fd} \sigma ^2 = \sum _{i=0}^{\infty } \, (x_i - \bar {x})^2 \, F(x)  \end {equation}<a id='x1-56003r14'></a>
+</p><!-- l. 1194 --><p class='indent'>   If we have \(N\) measurements and calculate the mean once, we can calculate the variance using an expression derived from
+eqn <a href='#x1-56003r14'>14<!-- tex4ht:ref: eqn:variance_from_fd  --></a> [<a id='x1-56004'></a><a href='#cite.0_Knoll2000'>2</a>]
+</p><!-- l. 1196 --><p class='indent'>   \[\sigma ^2 = \bar {x^2} - \bar {x}^2\]
+</p><!-- l. 1198 --><p class='indent'>   We define standard deviation (\(\sigma \)) as the square root of variance and gives us the ‘typical’ value for the difference between
+a given measurement and the mean of the distribution.
+</p><!-- l. 1200 --><p class='noindent'>
+</p>
+   <h4 class='subsectionHead' id='statistical-models'><span class='titlemark'>4.2   </span> <a id='x1-570004.2'></a>Statistical Models</h4>
+<!-- l. 1202 --><p class='noindent'>Under certain conditions, we can predict the distribution function that will describe the results of many repetitions of a
+given measurement. We define a measurement as counting the number of successes resulting from a given number of trials.
+Each trial is assumed to be a binary process in that only two results are possible: Either the trial is a success or it is not a
+success. For everything that follows, we also assume that the probability of success is a constant for all trials
+[<a href='#cite.0_Knoll2000'>2</a>].
+                                                                                               
+                                                                                               
+</p><!-- l. 1206 --><p class='indent'>   But what is a trial and a success in real situations? If rolling a die is a trial, we can define success as the chance of a
+certain number. Similarly, if we are observing a radioactive nucleus for time \(t\), which is the trial, then the success metric is
+observing the nucleus decay during this time period. The number of trials is equivalent to the number of nuclei under
+observation [<a href='#cite.0_Knoll2000'>2</a>].
+</p><!-- l. 1211 --><p class='noindent'>
+</p>
+   <h5 class='subsubsectionHead' id='binomial-distribution'><span class='titlemark'>4.2.1   </span> <a id='x1-580004.2.1'></a>Binomial Distribution</h5>
+<!-- l. 1214 --><p class='noindent'>If we have \(n\) trials with each trial having a constant probability of success \(p\), then the probability of counting exactly \(x\) successes
+is given by
+</p><!-- l. 1218 --><p class='indent'>   \begin {equation} \label {eqn:binomial_distri} P(x) = \frac {n !}{(n-x)! \, x!} \, p^x \, (1-p)^{n-x}  \end {equation}<a id='x1-58001r15'></a>
+</p><!-- l. 1220 --><p class='indent'>   Some important properties of the binomial distribution are
+</p><!-- l. 1223 --><p class='indent'>
+     </p><dl class='enumerate-enumitem'><dt class='enumerate-enumitem'>
+  1. </dt><dd class='enumerate-enumitem'>It is normalized, i.e., \(\sum _{x=0}^{n} P(x) = 1\)
+     </dd><dt class='enumerate-enumitem'>
+  2. </dt><dd class='enumerate-enumitem'>The average number of successes, \(\bar {x} = \sum _{x=0}^{n} xP(x)\), has a simple closed-form expression \[\bar {x} = pn\] Note that \(\bar {x}\) is also known as the
+     expectation value. The above result makes intuitive sense because the probability of success in each trial is a
+     constant and since each trial is independent of the other, the total number of expected successes is \(p+p+ \cdots +p\) for \(n\) times
+     </dd><dt class='enumerate-enumitem'>
+  3. </dt><dd class='enumerate-enumitem'>The predicted variance is given by \[\sigma ^2 = np(1-p) = \sqrt {\bar {x}(1-p)}\]
+     </dd></dl>
+<!-- l. 1235 --><p class='noindent'>
+</p>
+   <h5 class='subsubsectionHead' id='poisson-distribution'><span class='titlemark'>4.2.2   </span> <a id='x1-590004.2.2'></a>Poisson Distribution</h5>
+<!-- l. 1238 --><p class='noindent'>Under the approximation that the probability of success is small (and constant, of course), the binomial distribution in eqn
+<a href='#x1-58001r15'>15<!-- tex4ht:ref: eqn:binomial_distri  --></a> reduces to a Poisson distribution
+</p><!-- l. 1242 --><p class='indent'>   \begin {equation} \label {eqn:poisson_distri} P(x) = \frac {(pn)^x \, \exp (-pn)}{x!} = \frac {(\bar {x})^x \, \exp (-\bar {x})}{x!}  \end {equation}<a id='x1-59001r16'></a>
+</p><!-- l. 1244 --><p class='indent'>   The property \(\bar {x} = pn\) holds for the Poisson distribution as well. In case of nuclear decay, we have a very large \(n\) (number of
+nuclei) and the observation window is much shorter than the half-life (so a very small \(p\)). Hence, a Poisson distribution
+usually describes nuclear decay very well.
+</p><!-- l. 1247 --><p class='indent'>   The first two properties of the binomial distribution also hold for the Poisson distribution. In addition, the third
+property simplifies to yield
+</p><!-- l. 1249 --><p class='indent'>   \[\sigma ^2 = \bar {x} = np\]
+</p><!-- l. 1251 --><p class='indent'>   In other words, the standard deviation is just the square root of the mean of the distribution.
+</p><!-- l. 1255 --><p class='noindent'>
+</p>
+   <h5 class='subsubsectionHead' id='gaussian-distribution'><span class='titlemark'>4.2.3   </span> <a id='x1-600004.2.3'></a>Gaussian Distribution</h5>
+                                                                                               
+                                                                                               
+<!-- l. 1257 --><p class='noindent'>In addition to \(p \ll 1\), if the mean of the distribution is large, the binomial distribution simplifies to a Gaussian
+distribution
+</p><!-- l. 1261 --><p class='indent'>   \begin {equation} \label {eqn:gaussian_distri} P(x) = \frac {1}{\sqrt {2 \pi \bar {x}}} \, \exp \bigg (- \frac {(x-\bar {x})^2}{2\bar {x}}\bigg )  \end {equation}<a id='x1-60001r17'></a>
+</p><!-- l. 1263 --><p class='indent'>   All the three properties of the Poisson distribution hold true for the Gaussian distribution as well. In addition, the
+distribution is symmetric about the mean.
+</p><!-- l. 1267 --><p class='noindent'>
+</p>
+   <h5 class='subsubsectionHead' id='chisquared-test'><span class='titlemark'>4.2.4   </span> <a id='x1-610004.2.4'></a>Chi-Squared Test</h5>
+<!-- l. 1269 --><p class='noindent'>Say you want to match the experimental observations to one of the statistical models above. If we start
+with a Poisson distribution, we first match the mean of the observed data to the true mean since we do not
+have a better predictor, and therefore, \(\bar {x} = \bar {x}_e\). It is unlikely that the variance predicted by the statistical model
+matches exactly to the one predicted by the Poisson distribution. How do we qualitatively determine this
+difference?
+</p><!-- l. 1274 --><p class='indent'>   We define a new parameter \(\chi ^2\) to capture this as defined below
+</p><!-- l. 1278 --><p class='indent'>   \begin {equation} \label {eqn:chi_squared} \chi ^2 = \frac {1}{\bar {x}_e} \sum _{i=1}^{N} (x_i-\bar {x_e})^2 = \frac {(N-1)s^2}{\bar {x}_e}  \end {equation}<a id='x1-61001r18'></a>
+</p><!-- l. 1280 --><p class='indent'>   where \(s\) is the variance of the data collected (as opposed to \(\sigma ^2\) which is the variance of the statistical model). The degree to
+which \(s^2/\bar {x_e}\) deviates from unity gives us a measure for the difference between the observed and predicted variance. Once we
+calculate the \(\chi ^2\) value for the experimental set, we can use standard tables to identify a \(p\)-value (not the same as chance of
+success \(p\) from before). A low \(p\)-value (say 0.02) indicates that there are abnormally large fluctuations in the collected
+data and a very high \(p\)-value (say 0.98) indicates that there are abnormally low fluctuations (data could be
+fraudulent). A \(p\)-value of 0.5 is a perfect fit to the Poisson distribution and shows that the system behaves as
+expected.
+</p><!-- l. 1286 --><p class='noindent'>
+</p>
+   <h4 class='subsectionHead' id='examples-studies'><span class='titlemark'>4.3   </span> <a id='x1-620004.3'></a>Examples Studies</h4>
+<!-- l. 1289 --><p class='noindent'>Let us look at a few cases where we can apply the above statistics to help us design experiments or determine
+spec.
+</p><!-- l. 1292 --><p class='noindent'>
+</p>
+   <h5 class='subsubsectionHead' id='optimizing-counting-experiments'><span class='titlemark'>4.3.1   </span> <a id='x1-630004.3.1'></a>Optimizing Counting Experiments</h5>
+<!-- l. 1294 --><p class='noindent'>TODO: I didn’t quite follow the Currie Equation derivation
+</p><!-- l. 1296 --><p class='noindent'>
+</p>
+   <h5 class='subsubsectionHead' id='distribution-of-time-intervals-between-decays'><span class='titlemark'>4.3.2   </span> <a id='x1-640004.3.2'></a>Distribution of Time Intervals between Decays</h5>
+<!-- l. 1298 --><p class='noindent'>A Poisson random process is one which has a constant probability of occurrence per unit time [<a id='x1-64001'></a><a href='#cite.0_Knoll2000'>2</a>]. The process has no
+memory and the probability per unit time is constant regardless of past behavior.
+                                                                                               
+                                                                                               
+</p><!-- l. 1301 --><p class='indent'>   We now ask, what is the distribution function that describes the time interval between two occurrences of such a random
+process? Say the first event occurred at time \(t=0\), what is the probability that the next event occurs between the time \(t\) and \(t+dt\)?
+Note that we need a finite (and an arbitrarily small) time interval to get a non-zero probability from the probability
+distribution function. Two independent events must occur. Firstly, there should be no event from time \(t=0\) to \(t\), and next, an
+event must take place within \(dt\) time interval. \(P(0)\) gives us the probability that no events happened in all the trials (or time
+intervals in this case). If the average rate of occurrence of the event is \(r\), then \(r\, dt\) gives the probability of occurrence in that time
+interval. Therefore,
+</p><!-- l. 1307 --><p class='indent'>   \[I_1(t) \, dt = P(0) \times r \, dt = r \exp (-rt) \, dt\]
+</p><!-- l. 1309 --><p class='indent'>   The corresponding probability distribution function is
+</p><!-- l. 1313 --><p class='indent'>   \begin {equation} \label {eqn:time_btw_two_events} I_1(t)= r \exp (-rt)  \end {equation}<a id='x1-64002r19'></a>
+</p><!-- l. 1315 --><p class='indent'>   Eqn <a href='#x1-64002r19'>19<!-- tex4ht:ref: eqn:time_btw_two_events  --></a> now gives us the distribution function for intervals between adjacent random events. It is an exponentially
+decaying function w.r.t to the interval length as shown in figure <a href='#it-as-a-function-of-time-interval'>29<!-- tex4ht:ref: fig:pdf_time_interval  --></a>. Two interesting things to note are that - the most
+probable time interval is zero, and the average interval length is \(1/r\). The fact that we chose time \(t=0\) to be the start point does
+not have much significance here. Hence, we can also use the distribution in eqn <a href='#x1-64002r19'>19<!-- tex4ht:ref: eqn:time_btw_two_events  --></a> to determine the time-to-next
+event.
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 1322 --><p class='noindent' id='it-as-a-function-of-time-interval'><img alt='PIC' height='150' src='images/pdf_time_interval.png' width='150' /><a id='x1-64003r29'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 29: </span><span class='content'>\(I_1(t)\) as a function of time interval                                                             </span></figcaption><!-- tex4ht:label?: x1-64003r29  -->
+                                                                                               
+                                                                                               
+   </figure>
+<!-- l. 1327 --><p class='indent'>   Instead of reporting each and every count, some detector systems report data after reaching \(N\) counts. How
+do we estimate the time between two reporting events? We can extend the above logic as follows. From \(t=0\)
+to \(t\), there are \(N-1\) events seen by the detector, and in the next \(dt\) interval, we find the probability that an event
+occurs.
+</p><!-- l. 1331 --><p class='indent'>   \[I_N(t) \, dt = P(N-1) \times r \, dt = \frac {(rt)^{N-1}\exp (-rt)}{(N-1)!} r \, dt\]
+</p><!-- l. 1333 --><p class='indent'>   The average interval between two reported events is \(N/r\) and the most probable time between reports is \((N-1)/r\). For \(N=1\), we see
+that this expression collapses to eqn <a href='#x1-64002r19'>19<!-- tex4ht:ref: eqn:time_btw_two_events  --></a>. Figure <a href='#int-as-a-function-of-time-interval-and-for-different-n'>30<!-- tex4ht:ref: fig:pdf_time_interval_n_events  --></a> plots for this distribution function for a few values of
+\(N\).
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 1339 --><p class='noindent' id='int-as-a-function-of-time-interval-and-for-different-n'><img alt='PIC' height='150' src='images/pdf_time_interval_n_events.png' width='150' /><a id='x1-64004r30'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 30: </span><span class='content'>\(I_N(t)\) as a function of time interval and for different \(N\)                                              </span></figcaption><!-- tex4ht:label?: x1-64004r30  -->
+                                                                                               
+                                                                                               
+   </figure>
+                                                                                               
+                                                                                               
+<!-- l. 1345 --><p class='indent'>
+                                                                                               
+                                                                                               
+</p>
+   <h3 class='sectionHead' id='cmos-frontends-for-radiation-detectors'><span class='titlemark'>5   </span> <a id='x1-650005'></a>CMOS Front-ends for Radiation Detectors</h3>
+<!-- l. 1349 --><p class='noindent'>We’ll follow the analysis from certain chapters in [<a id='x1-65001'></a><a href='#cite.0_Rivetti2015'>16</a>] here. We go through some basics of TIAs and then see how to use
+these as charge-sensitive amplifiers (CSAs). We’ll also do noise analysis, effect of parasitics on CSAs, and some
+transistor-level designs in the radiation detector space. Then we move on to basics of pulse shaping - both time-invariant
+and time-invariant shapers.
+</p><!-- l. 1354 --><p class='noindent'>
+</p>
+   <h4 class='subsectionHead' id='input-model'><span class='titlemark'>5.1   </span> <a id='x1-660005.1'></a>Input Model</h4>
+<!-- l. 1357 --><p class='noindent'>In figure <a href='#pulse-mode-operation-with-different-characteristic-time-constants-of-the-detector'>13<!-- tex4ht:ref: fig:pulse_mode  --></a>, we saw that most detectors operate in the regime where \(\tau \ll RC\) of the FE circuits. In this regime, we can model the
+input as a Dirac Delta function
+</p><!-- l. 1363 --><p class='indent'>   \begin {equation}  \label {eqn:input_model_td} i_{in}(t) = Q_{in}\delta (t)  \end {equation}<a id='x1-66001r20'></a>
+</p><!-- l. 1365 --><p class='indent'>   The input spectrum is a wideband constant and has the units A/Hz (or C).
+</p><!-- l. 1370 --><p class='indent'>   \begin {equation}  \label {eqn:input_model_spectrum} I_{in}(s) = Q_{in}  \end {equation}<a id='x1-66002r21'></a>
+</p><!-- l. 1372 --><p class='indent'>   Note that eqn <a href='#x1-66002r21'>21<!-- tex4ht:ref: eqn:input_model_spectrum  --></a> is not the power spectrum since it has units of A/Hz as opposed to A\(^2\)/Hz. Squaring this does, however,
+give us the energy spectrum of the input. Check TIA design notes for more info. The constant energy spectrum leads us to
+the conclusion that the power spectrum delivered by a Dirac Delta pulse is zero. Instead, we can compare the energy, or
+equivalently, the charge seen at the input.
+</p><!-- l. 1376 --><p class='noindent'>
+</p>
+   <h4 class='subsectionHead' id='direct-detection-of-current'><span class='titlemark'>5.2   </span> <a id='x1-670005.2'></a>Direct Detection of Current</h4>
+<!-- l. 1378 --><p class='noindent'>The simplest idea to detect current is through pass it through some impedance and measure the voltage as shown in figure
+<a href='#direct-detection-of-current-using-an-impedance'>31<!-- tex4ht:ref: fig:direct_conversion_current_sense  --></a> [<a id='x1-67001'></a><a href='#cite.0_IEEESolidStateCircuitsSummer2025'>17</a>].
+</p>
+   <figure class='figure'> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<!-- l. 1384 --><p class='noindent' id='direct-detection-of-current-using-an-impedance'><img alt='PIC' height='150' src='images/direct_conversion_current_sense.png' width='150' /><a id='x1-67002r31'></a>
+</p>
+<figcaption class='caption'><span class='id'>Figure 31: </span><span class='content'>Direct detection of current using an impedance                                               </span></figcaption><!-- tex4ht:label?: x1-67002r31  -->
+                                                                                               
+                                                                                               
+   </figure>
+   <h4 class='subsectionHead' id='tia'><span class='titlemark'>5.3   </span> <a id='x1-680005.3'></a>TIA</h4>
+<!-- l. 1393 --><p class='noindent'>Let us quickly review TIAs before jumping into CSAs. We’ll first look at TIAs with an ideal op-amp and then substitute the
+op-amp with a single pole system. We’ll also look at noise analysis and the difference between C-TIA and R-TIA in this
+regard. We’ll also look at some
+</p><!-- l. 1396 --><p class='indent'>   Say the
+                                                                                               
+                                                                                               
+</p><!-- l. 1400 --><p class='indent'>
+                                                                                               
+                                                                                               
+</p>
+   <h3 class='sectionHead' id='readout-schemes'><span class='titlemark'>6   </span> <a id='x1-690006'></a>Readout Schemes</h3>
+                                                                                               
+                                                                                               
+<!-- l. 1407 --><p class='noindent'>
+                                                                                               
+                                                                                               
+</p>
+   <h3 class='sectionHead' id='analog-frontends-for-radiation-detectors'><span class='titlemark'>7   </span> <a id='x1-700007'></a>Analog Front-ends for Radiation Detectors</h3>
+                                                                                               
+                                                                                               
+<!-- l. 1412 --><p class='noindent'>
+                                                                                               
+                                                                                               
+</p>
+   <h3 class='sectionHead' id='medipix-and-timepix'><span class='titlemark'>8   </span> <a id='x1-710008'></a>MediPix and TimePix</h3>
+                                                                                               
+                                                                                               
+<!-- l. 1417 --><p class='noindent'>
+                                                                                               
+                                                                                               
+</p>
+   <h3 class='sectionHead' id='questions-'><span class='titlemark'>9   </span> <a id='x1-720009'></a>Questions </h3>
+<!-- l. 1422 --><p class='noindent'>
+     </p><dl class='enumerate-enumitem'><dt class='enumerate-enumitem'>
+  1. </dt><dd class='enumerate-enumitem'>Single photon detection - how can we justify increasing the size of the PD if we want to spatially detect single
+     photon?
+     </dd><dt class='enumerate-enumitem'>
+  2. </dt><dd class='enumerate-enumitem'>Temporally, how do we detect single photons - as in if there are two hits back to back in the same PD, how
+     do we detect both the pulses?
+     </dd><dt class='enumerate-enumitem'>
+  3. </dt><dd class='enumerate-enumitem'>How does the collection efficiency/signal strength increase with PD size - both mechanism and direction
+     (increase vs. decrease)? What about SNR?
+     </dd><dt class='enumerate-enumitem'>
+  4. </dt><dd class='enumerate-enumitem'>Probability of interaction through PE and Compton for different energies vs. thickness for Si - how does this
+     affect spectroscopy? Can we ever hope to accurately estimate individual photon’s energy, or can we only do
+     statistical estimates?
+     </dd><dt class='enumerate-enumitem'>
+  5. </dt><dd class='enumerate-enumitem'>Probability of multiple interactions in case of Compton scattering - can we just do product of individual event
+     probabilities?
+     </dd><dt class='enumerate-enumitem'>
+  6. </dt><dd class='enumerate-enumitem'>Timescales and distance-scales for diffusion and recombination of generated e-h pairs in Si - can TOPAS
+     simulate these or TCAD?
+     </dd><dt class='enumerate-enumitem'>
+  7. </dt><dd class='enumerate-enumitem'>If the interaction happens in the entire volume, how can we localize the interaction to each pixel? Do we then
+     take bin neighboring pixels to determine the energy of a single gamma?
+     </dd><dt class='enumerate-enumitem'>
+  8. </dt><dd class='enumerate-enumitem'>Knowing all this theory, can we now predict the mV input for SENTRI and VISION? How does this scale
+     with increasing PD size?
+     </dd><dt class='enumerate-enumitem'>
+  9. </dt><dd class='enumerate-enumitem'>Integration time vs. SNR and registering multiple hits - if we do register multiple hits how do we do counts?
+     Do we just pick integration time based on statistics? If so, doesn’t that depend on the activity (which is
+     unknown to us to begin with)?
+     </dd><dt class='enumerate-enumitem'>
+ 10. </dt><dd class='enumerate-enumitem'>In the end, we do calibration for CPS and get away with poor dynamic range in terms of counting rate of
+     SENTRI ASIC (my guess is this dilution experiment won’t work when there’s a lot of violations). Maybe we
+     can do this with energy too and then get away without having to use TOPAS?</dd></dl>
+                                                                                               
+                                                                                               
+<!-- l. 1439 --><p class='noindent'>
+                                                                                               
+                                                                                               
+</p>
+   <h3 class='sectionHead' id='references'><a id='x1-73000'></a>References</h3>
+<!-- l. 1443 --><p class='noindent'>
+     </p><dl class='thebibliography'><dt class='thebibliography' id='X0-NationalToxicologyProgram2021'>
+ [1]  </dt><dd class='thebibliography' id='bib-1'>
+     <!-- l. 1443 --><p class='noindent'><a id='cite.0_NationalToxicologyProgram2021'></a>National Toxicology Program. <span class='cmti-10'>15th Report on Carcinogens</span>. Research Triangle Park, NC: National Toxicology
+     Program, Dec. 2021. <span class='cmcsc-10'><span class='small-caps'>url</span></span>: <a class='url' href='https://www.ncbi.nlm.nih.gov/books/NBK304365/'><span class='cmtt-10'>https://www.ncbi.nlm.nih.gov/books/NBK304365/</span></a>.
+     </p></dd><dt class='thebibliography' id='X0-Knoll2000'>
+ [2]  </dt><dd class='thebibliography' id='bib-2'>
+     <!-- l. 1443 --><p class='noindent'><a id='cite.0_Knoll2000'></a>Glenn F. Knoll. <span class='cmti-10'>Radiation Detection and Measurement</span>. 3rd. New York, NY: John Wiley &amp; Sons, Inc., 2000.
+     <span class='cmcsc-10'><span class='small-caps'>isbn</span></span>: 0-471-07338-5.
+     </p></dd><dt class='thebibliography' id='X0-BNDHEPIrradiationApparatus'>
+ [3]  </dt><dd class='thebibliography' id='bib-3'>
+     <!-- l. 1443 --><p class='noindent'><a id='cite.0_BNDHEPIrradiationApparatus'></a>Brandeis       University       High       Energy       Physics       (BNDHEP).       <span class='cmti-10'>Irradiation      Apparatus</span>.
+     <a class='url' href='https://www.bndhep.net/Irradiation/Apparatus.html'><span class='cmtt-10'>https://www.bndhep.net/Irradiation/Apparatus.html</span></a>. Accessed: 2026-06-19.
+     </p></dd><dt class='thebibliography' id='X0-Peplow2020'>
+ [4]  </dt><dd class='thebibliography' id='bib-4'>
+     <!-- l. 1443 --><p class='noindent'><a id='cite.0_Peplow2020'></a>Douglas E. Peplow. “Specific Gamma-Ray Dose Constants with Current Emission Data”. In: <span class='cmti-10'>Health Physics</span>
+     118.4 (Apr. 2020), pp. 402–416. <span class='cmcsc-10'><span class='small-caps'>doi</span></span>: <a href='https://doi.org/10.1097/HP.0000000000001136'>10.1097/HP.0000000000001136</a>.
+     </p></dd><dt class='thebibliography' id='X0-IEMGammaConstants'>
+ [5]  </dt><dd class='thebibliography' id='bib-5'>
+     <!-- l. 1443 --><p class='noindent'><a id='cite.0_IEMGammaConstants'></a>Integrated      Environmental      Management,      Inc.      (IEM).      <span class='cmti-10'>Gamma-Ray     Dose     Constants</span>.
+     <a class='url' href='http://www.iem-inc.com/information/tools/gamma-ray-dose-constants'><span class='cmtt-10'>http://www.iem-inc.com/information/tools/gamma-ray-dose-constants</span></a>. Accessed: 2026-06-19.
+     </p></dd><dt class='thebibliography' id='X0-RadSafe1998Gamma'>
+ [6]  </dt><dd class='thebibliography' id='bib-6'>
+     <!-- l. 1443 --><p class='noindent'><a id='cite.0_RadSafe1998Gamma'></a>RADSAFE Mailing List Archive. <span class='cmti-10'>Gamma-Ray Dose Constants and Mass Energy Absorption Coefficients</span>.
+     <a class='url' href='http://health.phys.iit.edu/extended_archive/9802/msg00361.html'><span class='cmtt-10'>http://health.phys.iit.edu/extended_archive/9802/msg00361.html</span></a>. Accessed: 2026-06-19. Feb. 1998.
+     </p></dd><dt class='thebibliography' id='X0-RadiologyKeyQuantificationDose'>
+ [7]  </dt><dd class='thebibliography' id='bib-7'>
+     <!-- l. 1443 --><p class='noindent'><a id='cite.0_RadiologyKeyQuantificationDose'></a>Radiology                     Key.                      <span class='cmti-10'>Quantification                  and                  Measurement
+     of Dose</span>. <a class='url' href='https://radiologykey.com/quantification-and-measurement-of-dose/'><span class='cmtt-10'>https://radiologykey.com/quantification-and-measurement-of-dose/</span></a>. Accessed: 2026-06-24.
+     Apr. 2016.
+     </p></dd><dt class='thebibliography' id='X0-Attix1986'>
+ [8]  </dt><dd class='thebibliography' id='bib-8'>
+     <!-- l. 1443 --><p class='noindent'><a id='cite.0_Attix1986'></a>Frank Herbert Attix. <span class='cmti-10'>Introduction to Radiological Physics and Radiation Dosimetry</span>. New York, NY: John
+     Wiley &amp; Sons, Inc., 1986. <span class='cmcsc-10'><span class='small-caps'>isbn</span></span>: 978-0-471-01146-0.
+     </p></dd><dt class='thebibliography' id='X0-nist'>
+ [9]  </dt><dd class='thebibliography' id='bib-9'>
+     <!-- l. 1443 --><p class='noindent'><a id='cite.0_nist'></a>J. H.                                      Hubbell                                      and                                      S. M.
+     Seltzer. <span class='cmti-10'>Tables of X-Ray Mass Attenuation Coefficients and Mass Energy-Absorption Coefficients. Section 3:
+     The Mass Energy-Absorption Coefficient,</span> \(\mu _{en}/\rho \). Version 1.4. Accessed: 2026-06-24. National Institute of Standards
+     and Technology (NIST). 2004. <span class='cmcsc-10'><span class='small-caps'>url</span></span>: <a class='url' href='https://physics.nist.gov/PhysRefData/XrayMassCoef/chap3.html'><span class='cmtt-10'>https://physics.nist.gov/PhysRefData/XrayMassCoef/chap3.html</span></a>.
+     </p></dd><dt class='thebibliography' id='X0-STARAppendix2005'>
+[10]  </dt><dd class='thebibliography' id='bib-10'>
+     <!-- l. 1443 --><p class='noindent'><a id='cite.0_STARAppendix2005'></a>M. J.  Berger  et  al.  <span class='cmti-10'>ESTAR,  PSTAR,  and  ASTAR  Databases.  Appendix:  Composition  of  Material</span>.
+     Version 1.2.3. Accessed: 2026-06-24. National Institute of Standards and Technology (NIST). 2005. <span class='cmcsc-10'><span class='small-caps'>url</span></span>:
+     <a class='url' href='https://physics.nist.gov/PhysRefData/Star/Text/appendix.html'><span class='cmtt-10'>https://physics.nist.gov/PhysRefData/Star/Text/appendix.html</span></a>.
+     </p></dd><dt class='thebibliography' id='X0-zhou_development_nodate'>
+[11]  </dt><dd class='thebibliography' id='bib-11'>
+                                                                                               
+                                                                                               
+     <!-- l. 1443 --><p class='noindent'><a id='cite.0_zhou_development_nodate'></a>Yang Zhou. “Development of a CMOS pixel sensor for embedded space dosimeter with low weight and minimal
+     power dissipation”. en. In: ().
+     </p></dd><dt class='thebibliography' id='X0-TurchettaIniewski2016'>
+[12]  </dt><dd class='thebibliography' id='bib-12'>
+     <!-- l. 1443 --><p class='noindent'><a id='cite.0_TurchettaIniewski2016'></a>Renato Turchetta and Krzysztof Iniewski, eds. <span class='cmti-10'>Analog Electronics for Radiation Detection</span>. Devices, Circuits,
+     and Systems. Boca Raton, FL: CRC Press, 2016. <span class='cmcsc-10'><span class='small-caps'>isbn</span></span>: 978-1498703567.
+     </p></dd><dt class='thebibliography' id='X0-coath_low_2010'>
+[13]  </dt><dd class='thebibliography' id='bib-13'>
+     <!-- l. 1443 --><p class='noindent'><a id='cite.0_coath_low_2010'></a>Rebecca E. Coath et al.  “A Low Noise Pixel Architecture for Scientific CMOS Monolithic Active Pixel
+     Sensors”.  In:  <span class='cmti-10'>IEEE  Transactions  on  Nuclear  Science  </span>57.5  (Oct.  2010),  pp. 2490–2496.  <span class='cmcsc-10'><span class='small-caps'>issn</span></span>:  1558-1578.
+     <span class='cmcsc-10'><span class='small-caps'>doi</span></span>:  <a href='https://doi.org/10.1109/TNS.2010.2052469'>10.1109/TNS.2010.2052469</a>.  <span class='cmcsc-10'><span class='small-caps'>url</span></span>:  <a class='url' href='https://ieeexplore.ieee.org/document/5512562/'><span class='cmtt-10'>https://ieeexplore.ieee.org/document/5512562/</span></a> (visited  on
+     06/23/2026).
+     </p></dd><dt class='thebibliography' id='X0-guerrini_design_2013'>
+[14]  </dt><dd class='thebibliography' id='bib-14'>
+     <!-- l. 1443 --><p class='noindent'><a id='cite.0_guerrini_design_2013'></a>N. Guerrini et al. “Design and characterisation of a highly miniaturised radiation monitor HMRM”. en. In:
+     <span class='cmti-10'>Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and
+     Associated Equipment </span>731 (Dec. 2013), pp. 154–159. <span class='cmcsc-10'><span class='small-caps'>issn</span></span>: 01689002. <span class='cmcsc-10'><span class='small-caps'>doi</span></span>: <a href='https://doi.org/10.1016/j.nima.2013.06.073'>10.1016/j.nima.2013.06.073</a>. <span class='cmcsc-10'><span class='small-caps'>url</span></span>:
+     <a class='url' href='https://linkinghub.elsevier.com/retrieve/pii/S0168900213009066'><span class='cmtt-10'>https://linkinghub.elsevier.com/retrieve/pii/S0168900213009066</span></a> (visited on 06/19/2026).
+     </p></dd><dt class='thebibliography' id='X0-aglieri_rinella_charge_2021'>
+[15]  </dt><dd class='thebibliography' id='bib-15'>
+     <!-- l. 1443 --><p class='noindent'><a id='cite.0_aglieri_rinella_charge_2021'></a>G. Aglieri Rinella et al. “Charge collection properties of TowerJazz 180 nm CMOS Pixel Sensors in dependence
+     of pixel geometries and bias parameters, studied using a dedicated test-vehicle: The Investigator chip”. en.
+     In: <span class='cmti-10'>Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors
+     and Associated Equipment </span>988 (Feb. 2021), p. 164859. <span class='cmcsc-10'><span class='small-caps'>issn</span></span>: 01689002. <span class='cmcsc-10'><span class='small-caps'>doi</span></span>: <a href='https://doi.org/10.1016/j.nima.2020.164859'>10.1016/j.nima.2020.164859</a>. <span class='cmcsc-10'><span class='small-caps'>url</span></span>:
+     <a class='url' href='https://linkinghub.elsevier.com/retrieve/pii/S0168900220312560'><span class='cmtt-10'>https://linkinghub.elsevier.com/retrieve/pii/S0168900220312560</span></a> (visited on 06/22/2026).
+     </p></dd><dt class='thebibliography' id='X0-Rivetti2015'>
+[16]  </dt><dd class='thebibliography' id='bib-16'>
+     <!-- l. 1443 --><p class='noindent'><a id='cite.0_Rivetti2015'></a>Angelo Rivetti. <span class='cmti-10'>CMOS: Front-End Electronics for Radiation Sensors</span>. Devices, Circuits, and Systems. Boca
+     Raton, FL: CRC Press, 2015. <span class='cmcsc-10'><span class='small-caps'>isbn</span></span>: 978-1-4665-6810-5.
+     </p></dd><dt class='thebibliography' id='X0-IEEESolidStateCircuitsSummer2025'>
+[17]  </dt><dd class='thebibliography' id='bib-17'>
+     <!-- l. 1443 --><p class='noindent'><a id='cite.0_IEEESolidStateCircuitsSummer2025'></a>“IEEE Solid-State Circuits Magazine”. In: <span class='cmti-10'>IEEE Solid-State Circuits Magazine </span>17.3 (2025). <span class='cmcsc-10'><span class='small-caps'>issn</span></span>: 1943-0582.</p></dd></dl>
+    
+</body> 
+</html>

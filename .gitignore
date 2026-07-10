@@ -1,0 +1,25 @@
+#Ignore all junk and temp files
+*.4ct
+*.4tc
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.dvi
+*.fdb_latexmk
+*.fls
+*.idv
+*.lg
+*.log
+*.out
+*.pytxcode
+*.run.xml
+*.tmp
+*.toc
+*.xref
+
+#I only need the .tex and .bib files for back up
+
+/.vscode/
+/docs/
+/scripts/
