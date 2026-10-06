@@ -1,11 +1,16 @@
  
 /* start css.sty */
+.cmmi-7{font-size:70%;font-style: italic;}
+.cmmi-10{font-style: italic;}
 .cmr-17{font-size:170%;}
 .cmr-12{font-size:120%;}
+.cmr-8{font-size:80%;}
+.cmsy-8{font-size:80%;}
 .cmtt-10{font-family: monospace,monospace;}
 .cmti-10{ font-style: italic;}
 .cmr-9{font-size:90%;}
 .cmbx-10{ font-weight: bold;}
+.cmbsy-10{font-weight: bold;}
 .small-caps{font-variant: small-caps; }
 p{margin-top:0;margin-bottom:0}
 p.indent{text-indent:0;}
@@ -201,6 +206,8 @@ div.subfigure {text-align:center;display:inline-block; max-width:45%;}
 #TBL-4-1{border-right:1px solid black;}
 #TBL-4-2{border-right:1px solid black;}
 #TBL-4-3{border-right:1px solid black;}
+#TBL-5-1{border-left: 1px solid black;}
+#TBL-5-1{border-right:1px solid black;}
+#TBL-5-2{border-right:1px solid black;}
 /* end css.sty */
-
 
