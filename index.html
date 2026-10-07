@@ -20,7 +20,7 @@
 <h2 class='titleHead'>Radiation Detection and Detector Hardware Notes</h2>
  <div class='author'><span class='cmr-12'>Chandrahaas Vadali</span></div>
 <br />
-<div class='date'><span class='cmr-12'>July 10, 2026</span></div>
+<div class='date'><span class='cmr-12'>October 6, 2026</span></div>
    </div>
    <h3 class='likesectionHead' id='contents'><a id='x1-1000'></a>Contents</h3>
    <div class='tableofcontents'>
@@ -91,15 +91,20 @@
                                                                                                
 <br />   <span class='subsubsectionToc'>4.3.1 <a href='#optimizing-counting-experiments' id='QQ2-1-93'>Optimizing Counting Experiments</a></span>
 <br />   <span class='subsubsectionToc'>4.3.2 <a href='#distribution-of-time-intervals-between-decays' id='QQ2-1-94'>Distribution of Time Intervals between Decays</a></span>
-<br />   <span class='sectionToc'>5 <a href='#cmos-frontends-for-radiation-detectors' id='QQ2-1-97'>CMOS Front-ends for Radiation Detectors</a></span>
-<br />   <span class='subsectionToc'>5.1 <a href='#input-model' id='QQ2-1-98'>Input Model</a></span>
-<br />   <span class='subsectionToc'>5.2 <a href='#direct-detection-of-current' id='QQ2-1-99'>Direct Detection of Current</a></span>
-<br />   <span class='subsectionToc'>5.3 <a href='#tia' id='QQ2-1-101'>TIA</a></span>
-<br />   <span class='sectionToc'>6 <a href='#readout-schemes' id='QQ2-1-102'>Readout Schemes</a></span>
-<br />   <span class='sectionToc'>7 <a href='#analog-frontends-for-radiation-detectors' id='QQ2-1-103'>Analog Front-ends for Radiation Detectors</a></span>
-<br />   <span class='sectionToc'>8 <a href='#medipix-and-timepix' id='QQ2-1-104'>MediPix and TimePix</a></span>
-<br />   <span class='sectionToc'>9 <a href='#questions-' id='QQ2-1-105'>Questions </a></span>
-<br />   <span class='sectionToc'><a href='#references' id='QQ2-1-106'>References</a></span>
+<br />   <span class='subsectionToc'>4.4 <a href='#example-problems' id='QQ2-1-97'>Example Problems</a></span>
+<br />   <span class='subsubsectionToc'>4.4.1 <a href='#count-rate-vs-photodiode-size' id='QQ2-1-98'>Count rate vs. photodiode size</a></span>
+<br />   <span class='sectionToc'>5 <a href='#cmos-frontends-for-radiation-detectors' id='QQ2-1-100'>CMOS Front-ends for Radiation Detectors</a></span>
+<br />   <span class='subsectionToc'>5.1 <a href='#input-model' id='QQ2-1-101'>Input Model</a></span>
+<br />   <span class='subsectionToc'>5.2 <a href='#equivalent-noise-charge' id='QQ2-1-102'>Equivalent Noise Charge</a></span>
+<br />   <span class='subsectionToc'>5.3 <a href='#direct-detection-of-current' id='QQ2-1-103'>Direct Detection of Current</a></span>
+<br />   <span class='subsectionToc'>5.4 <a href='#tia' id='QQ2-1-105'>TIA</a></span>
+<br />   <span class='subsubsectionToc'>5.4.1 <a href='#ideal-opamps' id='QQ2-1-106'>Ideal Op-amps</a></span>
+<br />   <span class='subsubsectionToc'>5.4.2 <a href='#real-ota' id='QQ2-1-108'>Real OTA</a></span>
+<br />   <span class='sectionToc'>6 <a href='#readout-schemes' id='QQ2-1-110'>Readout Schemes</a></span>
+<br />   <span class='sectionToc'>7 <a href='#analog-frontends-for-radiation-detectors' id='QQ2-1-111'>Analog Front-ends for Radiation Detectors</a></span>
+<br />   <span class='sectionToc'>8 <a href='#medipix-and-timepix' id='QQ2-1-112'>MediPix and TimePix</a></span>
+<br />   <span class='sectionToc'>9 <a href='#questions-' id='QQ2-1-113'>Questions </a></span>
+<br />   <span class='sectionToc'><a href='#references' id='QQ2-1-114'>References</a></span>
    </div>
 <!-- l. 36 --><p class='indent'>
                                                                                                
@@ -1426,34 +1431,106 @@ that this expression collapses to eqn <a href='#x1-64002r19'>19<!-- tex4ht:ref: 
                                                                                                
                                                                                                
    </figure>
+   <h4 class='subsectionHead' id='example-problems'><span class='titlemark'>4.4   </span> <a id='x1-650004.4'></a>Example Problems</h4>
+<!-- l. 1346 --><p class='noindent'>
+</p>
+   <h5 class='subsubsectionHead' id='count-rate-vs-photodiode-size'><span class='titlemark'>4.4.1   </span> <a id='x1-660004.4.1'></a>Count rate vs. photodiode size</h5>
+<!-- l. 1347 --><p class='noindent'>Given what we’ve learnt so far, it is possible to get an estimate of number of counts that we can expect in a
+given thickness of Si but different areas of the photodiode? We’ve seen in previous modeling efforts how to
+estimate the signal given the photodiode size. In particular, given a certain activity, assuming some solid
+angle subtended by the chip, a certain frame rate and dead time for the readout, can we estimate the counts
+we should see as a function of diode size? We take the 3T-pixel + C-TIA architecture from Joosung’s chip
+and pit it against the 4T-pixel in Surin’s chip to see what factor about the architecture accounts for more
+counts.
+</p><!-- l. 1353 --><p class='indent'>   We can split the problem into the following calculations
+</p><!-- l. 1356 --><p class='indent'>
+     </p><dl class='enumerate-enumitem'><dt class='enumerate-enumitem'>
+  1. </dt><dd class='enumerate-enumitem'>Both chips have a p-epi thickness of 10 \(\mu m\). Increasing thickness and area increase the chance of interaction.
+     Therefore, we assume that the gamma is absorbed at a depth of 10 \(\mu m\). This is similar to the previous modeling
+     exercise we did for estimating the signal.
+     </dd><dt class='enumerate-enumitem'>
+  2. </dt><dd class='enumerate-enumitem'>We then go through the calculations to find the signal as a function of diode size and architecture, just like
+     before. There is already one major assumption here that the secondary electrons generated by the gamma <span class='cmti-10'>also</span>
+     has 10 \(\mu m\) to travel and dissipate energy. This sort of breaks conservation of momentum (since the secondary
+     electron goes <span class='cmti-10'>up </span>by 10 \(\mu m\) ), or assumes that the gamma deposited the energy at a much shallower depth that
+     10 \(\mu m\) and then the electrons continue down in the same direction. So this model is a very optimistic one.
+     </dd><dt class='enumerate-enumitem'>
+  3. </dt><dd class='enumerate-enumitem'>We now need to add dynamics. Assuming the above step occurs in a few ns, we assume that the integration
+     time or read out time is \(\times 1000\) larger. Let’s calculate how many counts we expect per 100 frames in each chip. We
+     also assume that the half-life of the Let’s say we have the following parameters
+     <div class='table'>
+     <!-- l. 1365 --><p class='noindent'></p><figure class='float'>
+<div class='center'>
+<!-- l. 1366 --><p class='noindent' id='modeling-parameters'>
+<a id='x1-66004r3'></a>
+</p>
+<figcaption class='caption'><span class='id'>Table 3: </span><span class='content'>Modeling Parameters                                                                      </span></figcaption><!-- tex4ht:label?: x1-66004r3  -->
                                                                                                
                                                                                                
-<!-- l. 1345 --><p class='indent'>
+<div class='tabular'> <table class='tabular' id='TBL-5'><colgroup id='TBL-5-1g'><col id='TBL-5-1' /></colgroup><colgroup id='TBL-5-2g'><col id='TBL-5-2' /></colgroup><tr class='hline'><td></td><td></td></tr><tr id='TBL-5-1-' style='vertical-align:baseline;'><td class='td11' id='TBL-5-1-1' style='white-space:nowrap; text-align:center;'>          <span class='cmbx-10'>Parameter              </span></td><td class='td11' id='TBL-5-1-2' style='white-space:nowrap; text-align:center;'>              <span class='cmbx-10'>Units/Comments                    </span></td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-5-2-' style='vertical-align:baseline;'><td class='td11' id='TBL-5-2-1' style='white-space:nowrap; text-align:center;'>            Activity \(A_i\)                   </td><td class='td11' id='TBL-5-2-2' style='white-space:nowrap; text-align:center;'>                      \(\mu \)Ci                                  </td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-5-3-' style='vertical-align:baseline;'><td class='td11' id='TBL-5-3-1' style='white-space:nowrap; text-align:center;'>          Gamma yield \(y_\gamma \)               </td><td class='td11' id='TBL-5-3-2' style='white-space:nowrap; text-align:center;'>                      %                                  </td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-5-4-' style='vertical-align:baseline;'><td class='td11' id='TBL-5-4-1' style='white-space:nowrap; text-align:center;'>         Integration time \(t_{int}\)              </td><td class='td11' id='TBL-5-4-2' style='white-space:nowrap; text-align:center;'>                     ms                                  </td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-5-5-' style='vertical-align:baseline;'><td class='td11' id='TBL-5-5-1' style='white-space:nowrap; text-align:center;'>           Dead time \(t_d\)                 </td><td class='td11' id='TBL-5-5-2' style='white-space:nowrap; text-align:center;'>                     ms                                  </td></tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-5-6-' style='vertical-align:baseline;'><td class='td11' id='TBL-5-6-1' style='white-space:nowrap; text-align:center;'> Area of PD  \(a_{PD}\) </td><td class='td11' id='TBL-5-6-2' style='white-space:nowrap; text-align:center;'>  \(\mu m^2\)</td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-5-7-' style='vertical-align:baseline;'><td class='td11' id='TBL-5-7-1' style='white-space:nowrap; text-align:center;'>    Collection expansion factor \(C_e\)      </td><td class='td11' id='TBL-5-7-2' style='white-space:nowrap; text-align:center;'> Accounts for gamma collection outside the PD (¿1)  </td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-5-8-' style='vertical-align:baseline;'><td class='td11' id='TBL-5-8-1' style='white-space:nowrap; text-align:center;'> Distance between source and chip \(d\)  </td><td class='td11' id='TBL-5-8-2' style='white-space:nowrap; text-align:center;'>                     cm                                  </td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-5-9-' style='vertical-align:baseline;'><td class='td11' id='TBL-5-9-1' style='white-space:nowrap; text-align:center;'>        Thickness of p-epi \(t_p\)            </td><td class='td11' id='TBL-5-9-2' style='white-space:nowrap; text-align:center;'>                       \(\mu m\)                       </td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-5-10-' style='vertical-align:baseline;'><td class='td11' id='TBL-5-10-1' style='white-space:nowrap; text-align:center;'>         RMS noise floor \(v_{n,floor}\)              </td><td class='td11' id='TBL-5-10-2' style='white-space:nowrap; text-align:center;'>                  mV (check)                            </td>
+</tr><tr class='hline'><td></td><td></td></tr><tr id='TBL-5-11-' style='vertical-align:baseline;'><td class='td11' id='TBL-5-11-1' style='white-space:nowrap; text-align:center;'> Integration cap (or FD cap in 4T) \(C_{int}\)  </td><td class='td11' id='TBL-5-11-2' style='white-space:nowrap; text-align:center;'>                      fF                                  </td>
+</tr><tr class='hline'><td></td><td></td></tr></table>                                                              </div>
+</div>
+     </figure>
+     </div>
+     <!-- l. 1389 --><p class='noindent'>Let’s assume we’re operating in the regime of integration times where the RMS noise from the PD is ‘cancelled’ by
+     CDS. The only other noise sources are from the rest of the readout chain and we assume that to be a constant \(v_{n,floor}\). Any
+     gamma that needs to be detected needs to generate a signal above \(v_{n,floor}\). In one frame, the total number of decays that lead
+     to gamma emission is \(A_i \times y_\gamma \times (t_{int}+t_d)\).
+     </p></dd><dt class='enumerate-enumitem'>
+  4. </dt><dd class='enumerate-enumitem'>Next thing we need to do is to find the angle subtended by the pixel at the source. We assume a point source and a
+     fixed distance \(d\) such that we’re in the far-field w.r.t the area of the diode. The solid angle subtended is \(\Omega \approx \frac {a_{PD}C_e}{d^2}\). Fraction of
+     gammas that actually reach the photodiode is \(\Omega /4\pi \).
+     <!-- l. 1396 --><p class='noindent'>\[N_{\text {incident,tot}} = A_i \times y_\gamma \times (t_{int}+t_d) \times \frac {a_{PD}C_e}{4\pi d^2} \]
+     </p><!-- l. 1398 --><p class='noindent'>We assume that we lose those gammas that are incident during the dead time. Therefore, \[N_{\text {incident}} = \frac {t_{int}}{t_{int}+t_d} N_{\text {incident,tot}}\]
+     </p></dd><dt class='enumerate-enumitem'>
+  5. </dt><dd class='enumerate-enumitem'>We plug this \(N_{\text {incident}}\) to the previous energy deposition modeling exercise.
+     </dd></dl>
+                                                                                               
+                                                                                               
+<!-- l. 1410 --><p class='indent'>
                                                                                                
                                                                                                
 </p>
-   <h3 class='sectionHead' id='cmos-frontends-for-radiation-detectors'><span class='titlemark'>5   </span> <a id='x1-650005'></a>CMOS Front-ends for Radiation Detectors</h3>
-<!-- l. 1349 --><p class='noindent'>We’ll follow the analysis from certain chapters in [<a id='x1-65001'></a><a href='#cite.0_Rivetti2015'>16</a>] here. We go through some basics of TIAs and then see how to use
+   <h3 class='sectionHead' id='cmos-frontends-for-radiation-detectors'><span class='titlemark'>5   </span> <a id='x1-670005'></a>CMOS Front-ends for Radiation Detectors</h3>
+<!-- l. 1414 --><p class='noindent'>We’ll follow the analysis from certain chapters in [<a id='x1-67001'></a><a href='#cite.0_Rivetti2015'>16</a>] here. We go through some basics of TIAs and then see how to use
 these as charge-sensitive amplifiers (CSAs). We’ll also do noise analysis, effect of parasitics on CSAs, and some
 transistor-level designs in the radiation detector space. Then we move on to basics of pulse shaping - both time-invariant
 and time-invariant shapers.
-</p><!-- l. 1354 --><p class='noindent'>
+</p><!-- l. 1419 --><p class='noindent'>
 </p>
-   <h4 class='subsectionHead' id='input-model'><span class='titlemark'>5.1   </span> <a id='x1-660005.1'></a>Input Model</h4>
-<!-- l. 1357 --><p class='noindent'>In figure <a href='#pulse-mode-operation-with-different-characteristic-time-constants-of-the-detector'>13<!-- tex4ht:ref: fig:pulse_mode  --></a>, we saw that most detectors operate in the regime where \(\tau \ll RC\) of the FE circuits. In this regime, we can model the
+   <h4 class='subsectionHead' id='input-model'><span class='titlemark'>5.1   </span> <a id='x1-680005.1'></a>Input Model</h4>
+<!-- l. 1422 --><p class='noindent'>In figure <a href='#pulse-mode-operation-with-different-characteristic-time-constants-of-the-detector'>13<!-- tex4ht:ref: fig:pulse_mode  --></a>, we saw that most detectors operate in the regime where \(\tau \ll RC\) of the FE circuits. In this regime, we can model the
 input as a Dirac Delta function
-</p><!-- l. 1363 --><p class='indent'>   \begin {equation}  \label {eqn:input_model_td} i_{in}(t) = Q_{in}\delta (t)  \end {equation}<a id='x1-66001r20'></a>
-</p><!-- l. 1365 --><p class='indent'>   The input spectrum is a wideband constant and has the units A/Hz (or C).
-</p><!-- l. 1370 --><p class='indent'>   \begin {equation}  \label {eqn:input_model_spectrum} I_{in}(s) = Q_{in}  \end {equation}<a id='x1-66002r21'></a>
-</p><!-- l. 1372 --><p class='indent'>   Note that eqn <a href='#x1-66002r21'>21<!-- tex4ht:ref: eqn:input_model_spectrum  --></a> is not the power spectrum since it has units of A/Hz as opposed to A\(^2\)/Hz. Squaring this does, however,
+</p><!-- l. 1428 --><p class='indent'>   \begin {equation}  \label {eqn:input_model_td} i_{in}(t) = Q_{in}\delta (t)  \end {equation}<a id='x1-68001r20'></a>
+</p><!-- l. 1430 --><p class='indent'>   The input spectrum is a wideband constant and has the units A/Hz (or C).
+</p><!-- l. 1435 --><p class='indent'>   \begin {equation}  \label {eqn:input_model_spectrum} I_{in}(s) = Q_{in}  \end {equation}<a id='x1-68002r21'></a>
+</p><!-- l. 1437 --><p class='indent'>   Note that eqn <a href='#x1-68002r21'>21<!-- tex4ht:ref: eqn:input_model_spectrum  --></a> is not the power spectrum since it has units of A/Hz as opposed to A\(^2\)/Hz. Squaring this does, however,
 give us the energy spectrum of the input. Check TIA design notes for more info. The constant energy spectrum leads us to
 the conclusion that the power spectrum delivered by a Dirac Delta pulse is zero. Instead, we can compare the energy, or
 equivalently, the charge seen at the input.
-</p><!-- l. 1376 --><p class='noindent'>
+</p><!-- l. 1441 --><p class='noindent'>
 </p>
-   <h4 class='subsectionHead' id='direct-detection-of-current'><span class='titlemark'>5.2   </span> <a id='x1-670005.2'></a>Direct Detection of Current</h4>
-<!-- l. 1378 --><p class='noindent'>The simplest idea to detect current is through pass it through some impedance and measure the voltage as shown in figure
-<a href='#direct-detection-of-current-using-an-impedance'>31<!-- tex4ht:ref: fig:direct_conversion_current_sense  --></a> [<a id='x1-67001'></a><a href='#cite.0_IEEESolidStateCircuitsSummer2025'>17</a>].
+   <h4 class='subsectionHead' id='equivalent-noise-charge'><span class='titlemark'>5.2   </span> <a id='x1-690005.2'></a>Equivalent Noise Charge</h4>
+<!-- l. 1443 --><p class='noindent'>We can define an input quantity - equivalent noise charge (ENC) - as the number of “noise electrons” seen at the input [<a href='#cite.0_Rivetti2015'>16</a>].
+This can be obtained by taking the output \(V_{rms}\) for all the noise sources and then dividing by the peak voltage seen at the
+output for an input charge of 1 of electron (\(q_e\)).
+</p><!-- l. 1450 --><p class='indent'>   \begin {equation}  \label {eqn:enc_def} \mathrm {ENC} = \frac {V_{n,rms}}{\text {peak conversion gain}\times q_e}  \end {equation}<a id='x1-69001r22'></a>
+</p><!-- l. 1452 --><p class='indent'>   In eqn <a href='#x1-69001r22'>22<!-- tex4ht:ref: eqn:enc_def  --></a>, the conversion gain usually has units \(V/C\), \(q_e\) is the charge of an electron (\(C\)), which leads to ENC beign unitless.
+Note that we can make the input unitless by dividing \(Q_{in}\) by \(q_e\) to find SNR.
+</p><!-- l. 1457 --><p class='noindent'>
+</p>
+   <h4 class='subsectionHead' id='direct-detection-of-current'><span class='titlemark'>5.3   </span> <a id='x1-700005.3'></a>Direct Detection of Current</h4>
+<!-- l. 1459 --><p class='noindent'>The simplest idea to detect current is through pass it through some impedance and measure the voltage as shown in figure
+<a href='#direct-detection-of-current-using-an-impedance'>31<!-- tex4ht:ref: fig:direct_conversion_current_sense  --></a> [<a id='x1-70001'></a><a href='#cite.0_IEEESolidStateCircuitsSummer2025'>17</a>].
 </p>
    <figure class='figure'> 
 
@@ -1461,46 +1538,145 @@ equivalently, the charge seen at the input.
                                                                                                
                                                                                                
                                                                                                
-<!-- l. 1384 --><p class='noindent' id='direct-detection-of-current-using-an-impedance'><img alt='PIC' height='150' src='images/direct_conversion_current_sense.png' width='150' /><a id='x1-67002r31'></a>
+<!-- l. 1465 --><p class='noindent' id='direct-detection-of-current-using-an-impedance'><img alt='PIC' height='150' src='images/direct_conversion_current_sense.png' width='150' /><a id='x1-70002r31'></a>
 </p>
-<figcaption class='caption'><span class='id'>Figure 31: </span><span class='content'>Direct detection of current using an impedance                                               </span></figcaption><!-- tex4ht:label?: x1-67002r31  -->
+<figcaption class='caption'><span class='id'>Figure 31: </span><span class='content'>Direct detection of current using an impedance                                               </span></figcaption><!-- tex4ht:label?: x1-70002r31  -->
                                                                                                
                                                                                                
    </figure>
-   <h4 class='subsectionHead' id='tia'><span class='titlemark'>5.3   </span> <a id='x1-680005.3'></a>TIA</h4>
-<!-- l. 1393 --><p class='noindent'>Let us quickly review TIAs before jumping into CSAs. We’ll first look at TIAs with an ideal op-amp and then substitute the
+<!-- l. 1470 --><p class='indent'>   While simple and intuitive, it suffers from a couple of drawbacks
+     </p><dl class='enumerate-enumitem'><dt class='enumerate-enumitem'>
+  1. </dt><dd class='enumerate-enumitem'>Conversion gain is dependent on both the parasitic impedance of the diode and the sensing impedance. There
+     is always some current division between \(Z_{\text {sense}}\) and \(Z_{\text {out}}\) that introduces a finite error in measuring \(I_{\text {sense}}\)
+     </dd><dt class='enumerate-enumitem'>
+  2. </dt><dd class='enumerate-enumitem'>Increasing \(Z_{\text {sense}}\) increases the signal seen at the output. It also decreases the noise contribution (in case this is
+     a resistor \(\bar {i^2_n} = 4kT/R \)) and consequently SNR goes up as \(\sqrt {Z_{\text {sense}}}\). However, increasing \(Z_{\text {sense}}\) makes the current division problem
+     mentioned above worse
+     </dd></dl>
+<!-- l. 1482 --><p class='indent'>   This method of conversion is employed in imaging pixels, specifically 3T pixels. The parasitic capacitance of the
+pixel itself sets the conversion gain. It works out in imaging because we’re looking to minimize pixel pitch
+while maximizing fill factors. A smaller diode capacitance (higher conversion gain and SNR) suits well in this
+application.
+</p>
+   <h4 class='subsectionHead' id='tia'><span class='titlemark'>5.4   </span> <a id='x1-710005.4'></a>TIA</h4>
+<!-- l. 1492 --><p class='noindent'>Let us quickly review TIAs before jumping into CSAs. We’ll first look at TIAs with an ideal op-amp and then substitute the
 op-amp with a single pole system. We’ll also look at noise analysis and the difference between C-TIA and R-TIA in this
-regard. We’ll also look at some
-</p><!-- l. 1396 --><p class='indent'>   Say the
+regard.
+</p><!-- l. 1495 --><p class='noindent'>
+</p>
+   <h5 class='subsubsectionHead' id='ideal-opamps'><span class='titlemark'>5.4.1   </span> <a id='x1-720005.4.1'></a>Ideal Op-amps</h5>
+<!-- l. 1499 --><p class='noindent'>Let us look at the R-TIA in figure <a href='#x1-72001r1'>31a<!-- tex4ht:ref: fig:rtia_sch  --></a> with an ideal op-amp. The parasitic capacitance of the diode does not matter
+here.
+</p>
+   <figure class='figure' id='x1-72003r32'><span id='tia-topologies-including-input-parasitic-capacitance-cpd-biasing-picture-not-shown-above-'></span> 
+
                                                                                                
                                                                                                
-</p><!-- l. 1400 --><p class='indent'>
+                                                                                               
+                                                                                               
+<div class='subfigure'>
+<!-- l. 1507 --><p class='noindent'></p><!-- l. 1535 --><p class='noindent'>                           <img alt='CiRv−+pinfodut ' src='radiation_detector_notes0x.svg' />
+<a id='x1-72001r1'></a>
+</p>
+<div class='caption'><span class='id'><span class='cmr-9'>(a) </span></span><span class='content'><span class='cmr-9'>R-TIA</span>
+</span></div>                                              </div>                                                                                    <div class='subfigure'>
+<!-- l. 1541 --><p class='noindent'></p><!-- l. 1568 --><p class='noindent'>                           <img alt='CiCv−+pinfodut ' src='radiation_detector_notes1x.svg' />
+<a id='x1-72002r2'></a>
+</p>
+<div class='caption'><span class='id'><span class='cmr-9'>(b) </span></span><span class='content'><span class='cmr-9'>C-TIA</span>
+</span></div>                                              </div>
+
+<div class='caption'><span class='id'>Figure 32: </span><span class='content'>TIA topologies including input parasitic capacitance \(C_{pd}\). Biasing picture not shown above.
+</span></div>
+                                                                                               
+                                                                                               
+   </figure>
+     <dl class='enumerate-enumitem'><dt class='enumerate-enumitem'>
+  1. </dt><dd class='enumerate-enumitem'>The op-amp is assumed to have infinite gain and bandwidth. The transfer function is given by \begin {equation} \label {eqn:ideal_rtia_tf} \frac {v_{out}}{i_{in}} = -R_f  \end {equation}<a id='x1-72005r23'></a>
+     </dd><dt class='enumerate-enumitem'>
+  2. </dt><dd class='enumerate-enumitem'>Let’s assume for now the op-amp is noiseless. We have shot noise from the diode and the thermal noise of the feedback
+     resistor. The thermal noise of the resistor appears at the input as is. This is because the inverting terminal is perfectly
+     at virtual ground and there is no additional current that can be sunk into gnd, leaving the thermal noise current
+     circulating within \(R_f\).
+     <!-- l. 1587 --><p class='noindent'>\[\overline {i^2}_{n,R_f} = \frac {4kT}{R_f}\]
+     </p><!-- l. 1589 --><p class='noindent'>Increasing \(R_f\) increases conversion gain and reduces IRN.
+</p>
+     </dd></dl>
+<!-- l. 1594 --><p class='indent'>   There is DC feedback in the R-TIA topology which can set the input bias. This is absent in the C-TIA in figure <a href='#x1-72002r2'>31b<!-- tex4ht:ref: fig:ctia_sch  --></a>. We
+can use a reset switch or a bleeding resistor to set the input bias.
+     </p><dl class='enumerate-enumitem'><dt class='enumerate-enumitem'>
+  1. </dt><dd class='enumerate-enumitem'>The op-amp is assumed to have infinite gain and bandwidth. The transfer function is given by \begin {equation} \label {eqn:ideal_ctia_tf} \frac {v_{out}}{i_{in}} = -\frac {1}{sC_f}  \end {equation}<a id='x1-72008r24'></a> Note that <span class='cmti-10'>decreasing</span> \(C_f\)
+     increases conversion gain here.
+     </dd><dt class='enumerate-enumitem'>
+  2. </dt><dd class='enumerate-enumitem'>If we continue assuming for now the op-amp is noiseless, we only have the shot noise from the dark current of the
+     diode.
+     </dd></dl>
+   <h5 class='subsubsectionHead' id='real-ota'><span class='titlemark'>5.4.2   </span> <a id='x1-730005.4.2'></a>Real OTA</h5>
+<!-- l. 1612 --><p class='noindent'>Let us now replace the ideal op-amp with a real \(g_m\) generator as shown in figure <a href='#with-more-realistic-gmblocks'>33<!-- tex4ht:ref: fig:tia_topologies_real_ota  --></a>. We now consider the following
+</p><!-- l. 1615 --><p class='indent'>
+     </p><dl class='enumerate-enumitem'><dt class='enumerate-enumitem'>
+  1. </dt><dd class='enumerate-enumitem'>A finite \(G_m\) and output impedance \(R_{out}\)
+     </dd><dt class='enumerate-enumitem'>
+  2. </dt><dd class='enumerate-enumitem'>Finite bandwidth but a single pole response \(\omega _p\) that is set internally (dominant pole approximation)
+     </dd><dt class='enumerate-enumitem'>
+  3. </dt><dd class='enumerate-enumitem'>IRN in terms of both voltage \(v_{n,op}\) and current sources \(i_{n,op}\) - we do not make any assumptions on color of the noise
+     just yet</dd></dl>
+<!-- l. 1620 --><p class='indent'>   In these analyses, we ignore the load cap driven by these ckts. We assume there is a suitable buffer cascaded with the
+TIA stage that can drive the output loads.
+</p>
+   <figure class='figure' id='x1-73006r33'><span id='with-more-realistic-gmblocks'></span> 
+
+                                                                                               
+                                                                                               
+                                                                                               
+                                                                                               
+<div class='subfigure'>
+<!-- l. 1626 --><p class='noindent'></p><!-- l. 1663 --><p class='noindent'>                     <img alt='G−+CiRRv
+impnfooudutt ' src='radiation_detector_notes2x.svg' />
+<a id='x1-73004r1'></a>
+</p>
+<div class='caption'><span class='id'><span class='cmr-9'>(a) </span></span><span class='content'><span class='cmr-9'>R-TIA</span>
+</span></div>                                              </div>                                                                                    <div class='subfigure'>
+<!-- l. 1669 --><p class='noindent'></p><!-- l. 1706 --><p class='noindent'>                     <img alt='G−+CiiCRvmpnfooudutt ' src='radiation_detector_notes3x.svg' />
+<a id='x1-73005r2'></a>
+</p>
+<div class='caption'><span class='id'><span class='cmr-9'>(b) </span></span><span class='content'><span class='cmr-9'>C-TIA</span>
+</span></div>                                              </div>
+
+<div class='caption'><span class='id'>Figure 33: </span><span class='content'>With more realistic \(G_m\)-blocks
+</span></div>
+                                                                                               
+                                                                                               
+   </figure>
+                                                                                               
+                                                                                               
+<!-- l. 1720 --><p class='indent'>
                                                                                                
                                                                                                
 </p>
-   <h3 class='sectionHead' id='readout-schemes'><span class='titlemark'>6   </span> <a id='x1-690006'></a>Readout Schemes</h3>
+   <h3 class='sectionHead' id='readout-schemes'><span class='titlemark'>6   </span> <a id='x1-740006'></a>Readout Schemes</h3>
                                                                                                
                                                                                                
-<!-- l. 1407 --><p class='noindent'>
-                                                                                               
-                                                                                               
-</p>
-   <h3 class='sectionHead' id='analog-frontends-for-radiation-detectors'><span class='titlemark'>7   </span> <a id='x1-700007'></a>Analog Front-ends for Radiation Detectors</h3>
-                                                                                               
-                                                                                               
-<!-- l. 1412 --><p class='noindent'>
+<!-- l. 1727 --><p class='noindent'>
                                                                                                
                                                                                                
 </p>
-   <h3 class='sectionHead' id='medipix-and-timepix'><span class='titlemark'>8   </span> <a id='x1-710008'></a>MediPix and TimePix</h3>
+   <h3 class='sectionHead' id='analog-frontends-for-radiation-detectors'><span class='titlemark'>7   </span> <a id='x1-750007'></a>Analog Front-ends for Radiation Detectors</h3>
                                                                                                
                                                                                                
-<!-- l. 1417 --><p class='noindent'>
+<!-- l. 1732 --><p class='noindent'>
                                                                                                
                                                                                                
 </p>
-   <h3 class='sectionHead' id='questions-'><span class='titlemark'>9   </span> <a id='x1-720009'></a>Questions </h3>
-<!-- l. 1422 --><p class='noindent'>
+   <h3 class='sectionHead' id='medipix-and-timepix'><span class='titlemark'>8   </span> <a id='x1-760008'></a>MediPix and TimePix</h3>
+                                                                                               
+                                                                                               
+<!-- l. 1737 --><p class='noindent'>
+                                                                                               
+                                                                                               
+</p>
+   <h3 class='sectionHead' id='questions-'><span class='titlemark'>9   </span> <a id='x1-770009'></a>Questions </h3>
+<!-- l. 1742 --><p class='noindent'>
      </p><dl class='enumerate-enumitem'><dt class='enumerate-enumitem'>
   1. </dt><dd class='enumerate-enumitem'>Single photon detection - how can we justify increasing the size of the PD if we want to spatially detect single
      photon?
@@ -1536,92 +1712,92 @@ regard. We’ll also look at some
      can do this with energy too and then get away without having to use TOPAS?</dd></dl>
                                                                                                
                                                                                                
-<!-- l. 1439 --><p class='noindent'>
+<!-- l. 1759 --><p class='noindent'>
                                                                                                
                                                                                                
 </p>
-   <h3 class='sectionHead' id='references'><a id='x1-73000'></a>References</h3>
-<!-- l. 1443 --><p class='noindent'>
+   <h3 class='sectionHead' id='references'><a id='x1-78000'></a>References</h3>
+<!-- l. 1763 --><p class='noindent'>
      </p><dl class='thebibliography'><dt class='thebibliography' id='X0-NationalToxicologyProgram2021'>
  [1]  </dt><dd class='thebibliography' id='bib-1'>
-     <!-- l. 1443 --><p class='noindent'><a id='cite.0_NationalToxicologyProgram2021'></a>National Toxicology Program. <span class='cmti-10'>15th Report on Carcinogens</span>. Research Triangle Park, NC: National Toxicology
+     <!-- l. 1763 --><p class='noindent'><a id='cite.0_NationalToxicologyProgram2021'></a>National Toxicology Program. <span class='cmti-10'>15th Report on Carcinogens</span>. Research Triangle Park, NC: National Toxicology
      Program, Dec. 2021. <span class='cmcsc-10'><span class='small-caps'>url</span></span>: <a class='url' href='https://www.ncbi.nlm.nih.gov/books/NBK304365/'><span class='cmtt-10'>https://www.ncbi.nlm.nih.gov/books/NBK304365/</span></a>.
      </p></dd><dt class='thebibliography' id='X0-Knoll2000'>
  [2]  </dt><dd class='thebibliography' id='bib-2'>
-     <!-- l. 1443 --><p class='noindent'><a id='cite.0_Knoll2000'></a>Glenn F. Knoll. <span class='cmti-10'>Radiation Detection and Measurement</span>. 3rd. New York, NY: John Wiley &amp; Sons, Inc., 2000.
+     <!-- l. 1763 --><p class='noindent'><a id='cite.0_Knoll2000'></a>Glenn F. Knoll. <span class='cmti-10'>Radiation Detection and Measurement</span>. 3rd. New York, NY: John Wiley &amp; Sons, Inc., 2000.
      <span class='cmcsc-10'><span class='small-caps'>isbn</span></span>: 0-471-07338-5.
      </p></dd><dt class='thebibliography' id='X0-BNDHEPIrradiationApparatus'>
  [3]  </dt><dd class='thebibliography' id='bib-3'>
-     <!-- l. 1443 --><p class='noindent'><a id='cite.0_BNDHEPIrradiationApparatus'></a>Brandeis       University       High       Energy       Physics       (BNDHEP).       <span class='cmti-10'>Irradiation      Apparatus</span>.
+     <!-- l. 1763 --><p class='noindent'><a id='cite.0_BNDHEPIrradiationApparatus'></a>Brandeis       University       High       Energy       Physics       (BNDHEP).       <span class='cmti-10'>Irradiation      Apparatus</span>.
      <a class='url' href='https://www.bndhep.net/Irradiation/Apparatus.html'><span class='cmtt-10'>https://www.bndhep.net/Irradiation/Apparatus.html</span></a>. Accessed: 2026-06-19.
      </p></dd><dt class='thebibliography' id='X0-Peplow2020'>
  [4]  </dt><dd class='thebibliography' id='bib-4'>
-     <!-- l. 1443 --><p class='noindent'><a id='cite.0_Peplow2020'></a>Douglas E. Peplow. “Specific Gamma-Ray Dose Constants with Current Emission Data”. In: <span class='cmti-10'>Health Physics</span>
+     <!-- l. 1763 --><p class='noindent'><a id='cite.0_Peplow2020'></a>Douglas E. Peplow. “Specific Gamma-Ray Dose Constants with Current Emission Data”. In: <span class='cmti-10'>Health Physics</span>
      118.4 (Apr. 2020), pp. 402–416. <span class='cmcsc-10'><span class='small-caps'>doi</span></span>: <a href='https://doi.org/10.1097/HP.0000000000001136'>10.1097/HP.0000000000001136</a>.
      </p></dd><dt class='thebibliography' id='X0-IEMGammaConstants'>
  [5]  </dt><dd class='thebibliography' id='bib-5'>
-     <!-- l. 1443 --><p class='noindent'><a id='cite.0_IEMGammaConstants'></a>Integrated      Environmental      Management,      Inc.      (IEM).      <span class='cmti-10'>Gamma-Ray     Dose     Constants</span>.
+     <!-- l. 1763 --><p class='noindent'><a id='cite.0_IEMGammaConstants'></a>Integrated      Environmental      Management,      Inc.      (IEM).      <span class='cmti-10'>Gamma-Ray     Dose     Constants</span>.
      <a class='url' href='http://www.iem-inc.com/information/tools/gamma-ray-dose-constants'><span class='cmtt-10'>http://www.iem-inc.com/information/tools/gamma-ray-dose-constants</span></a>. Accessed: 2026-06-19.
      </p></dd><dt class='thebibliography' id='X0-RadSafe1998Gamma'>
  [6]  </dt><dd class='thebibliography' id='bib-6'>
-     <!-- l. 1443 --><p class='noindent'><a id='cite.0_RadSafe1998Gamma'></a>RADSAFE Mailing List Archive. <span class='cmti-10'>Gamma-Ray Dose Constants and Mass Energy Absorption Coefficients</span>.
+     <!-- l. 1763 --><p class='noindent'><a id='cite.0_RadSafe1998Gamma'></a>RADSAFE Mailing List Archive. <span class='cmti-10'>Gamma-Ray Dose Constants and Mass Energy Absorption Coefficients</span>.
      <a class='url' href='http://health.phys.iit.edu/extended_archive/9802/msg00361.html'><span class='cmtt-10'>http://health.phys.iit.edu/extended_archive/9802/msg00361.html</span></a>. Accessed: 2026-06-19. Feb. 1998.
      </p></dd><dt class='thebibliography' id='X0-RadiologyKeyQuantificationDose'>
  [7]  </dt><dd class='thebibliography' id='bib-7'>
-     <!-- l. 1443 --><p class='noindent'><a id='cite.0_RadiologyKeyQuantificationDose'></a>Radiology                     Key.                      <span class='cmti-10'>Quantification                  and                  Measurement
+     <!-- l. 1763 --><p class='noindent'><a id='cite.0_RadiologyKeyQuantificationDose'></a>Radiology                     Key.                      <span class='cmti-10'>Quantification                  and                  Measurement
      of Dose</span>. <a class='url' href='https://radiologykey.com/quantification-and-measurement-of-dose/'><span class='cmtt-10'>https://radiologykey.com/quantification-and-measurement-of-dose/</span></a>. Accessed: 2026-06-24.
      Apr. 2016.
      </p></dd><dt class='thebibliography' id='X0-Attix1986'>
  [8]  </dt><dd class='thebibliography' id='bib-8'>
-     <!-- l. 1443 --><p class='noindent'><a id='cite.0_Attix1986'></a>Frank Herbert Attix. <span class='cmti-10'>Introduction to Radiological Physics and Radiation Dosimetry</span>. New York, NY: John
+     <!-- l. 1763 --><p class='noindent'><a id='cite.0_Attix1986'></a>Frank Herbert Attix. <span class='cmti-10'>Introduction to Radiological Physics and Radiation Dosimetry</span>. New York, NY: John
      Wiley &amp; Sons, Inc., 1986. <span class='cmcsc-10'><span class='small-caps'>isbn</span></span>: 978-0-471-01146-0.
      </p></dd><dt class='thebibliography' id='X0-nist'>
  [9]  </dt><dd class='thebibliography' id='bib-9'>
-     <!-- l. 1443 --><p class='noindent'><a id='cite.0_nist'></a>J. H.                                      Hubbell                                      and                                      S. M.
+     <!-- l. 1763 --><p class='noindent'><a id='cite.0_nist'></a>J. H.                                      Hubbell                                      and                                      S. M.
      Seltzer. <span class='cmti-10'>Tables of X-Ray Mass Attenuation Coefficients and Mass Energy-Absorption Coefficients. Section 3:
      The Mass Energy-Absorption Coefficient,</span> \(\mu _{en}/\rho \). Version 1.4. Accessed: 2026-06-24. National Institute of Standards
      and Technology (NIST). 2004. <span class='cmcsc-10'><span class='small-caps'>url</span></span>: <a class='url' href='https://physics.nist.gov/PhysRefData/XrayMassCoef/chap3.html'><span class='cmtt-10'>https://physics.nist.gov/PhysRefData/XrayMassCoef/chap3.html</span></a>.
      </p></dd><dt class='thebibliography' id='X0-STARAppendix2005'>
 [10]  </dt><dd class='thebibliography' id='bib-10'>
-     <!-- l. 1443 --><p class='noindent'><a id='cite.0_STARAppendix2005'></a>M. J.  Berger  et  al.  <span class='cmti-10'>ESTAR,  PSTAR,  and  ASTAR  Databases.  Appendix:  Composition  of  Material</span>.
+     <!-- l. 1763 --><p class='noindent'><a id='cite.0_STARAppendix2005'></a>M. J.  Berger  et  al.  <span class='cmti-10'>ESTAR,  PSTAR,  and  ASTAR  Databases.  Appendix:  Composition  of  Material</span>.
      Version 1.2.3. Accessed: 2026-06-24. National Institute of Standards and Technology (NIST). 2005. <span class='cmcsc-10'><span class='small-caps'>url</span></span>:
      <a class='url' href='https://physics.nist.gov/PhysRefData/Star/Text/appendix.html'><span class='cmtt-10'>https://physics.nist.gov/PhysRefData/Star/Text/appendix.html</span></a>.
      </p></dd><dt class='thebibliography' id='X0-zhou_development_nodate'>
 [11]  </dt><dd class='thebibliography' id='bib-11'>
                                                                                                
                                                                                                
-     <!-- l. 1443 --><p class='noindent'><a id='cite.0_zhou_development_nodate'></a>Yang Zhou. “Development of a CMOS pixel sensor for embedded space dosimeter with low weight and minimal
+     <!-- l. 1763 --><p class='noindent'><a id='cite.0_zhou_development_nodate'></a>Yang Zhou. “Development of a CMOS pixel sensor for embedded space dosimeter with low weight and minimal
      power dissipation”. en. In: ().
      </p></dd><dt class='thebibliography' id='X0-TurchettaIniewski2016'>
 [12]  </dt><dd class='thebibliography' id='bib-12'>
-     <!-- l. 1443 --><p class='noindent'><a id='cite.0_TurchettaIniewski2016'></a>Renato Turchetta and Krzysztof Iniewski, eds. <span class='cmti-10'>Analog Electronics for Radiation Detection</span>. Devices, Circuits,
+     <!-- l. 1763 --><p class='noindent'><a id='cite.0_TurchettaIniewski2016'></a>Renato Turchetta and Krzysztof Iniewski, eds. <span class='cmti-10'>Analog Electronics for Radiation Detection</span>. Devices, Circuits,
      and Systems. Boca Raton, FL: CRC Press, 2016. <span class='cmcsc-10'><span class='small-caps'>isbn</span></span>: 978-1498703567.
      </p></dd><dt class='thebibliography' id='X0-coath_low_2010'>
 [13]  </dt><dd class='thebibliography' id='bib-13'>
-     <!-- l. 1443 --><p class='noindent'><a id='cite.0_coath_low_2010'></a>Rebecca E. Coath et al.  “A Low Noise Pixel Architecture for Scientific CMOS Monolithic Active Pixel
+     <!-- l. 1763 --><p class='noindent'><a id='cite.0_coath_low_2010'></a>Rebecca E. Coath et al.  “A Low Noise Pixel Architecture for Scientific CMOS Monolithic Active Pixel
      Sensors”.  In:  <span class='cmti-10'>IEEE  Transactions  on  Nuclear  Science  </span>57.5  (Oct.  2010),  pp. 2490–2496.  <span class='cmcsc-10'><span class='small-caps'>issn</span></span>:  1558-1578.
      <span class='cmcsc-10'><span class='small-caps'>doi</span></span>:  <a href='https://doi.org/10.1109/TNS.2010.2052469'>10.1109/TNS.2010.2052469</a>.  <span class='cmcsc-10'><span class='small-caps'>url</span></span>:  <a class='url' href='https://ieeexplore.ieee.org/document/5512562/'><span class='cmtt-10'>https://ieeexplore.ieee.org/document/5512562/</span></a> (visited  on
      06/23/2026).
      </p></dd><dt class='thebibliography' id='X0-guerrini_design_2013'>
 [14]  </dt><dd class='thebibliography' id='bib-14'>
-     <!-- l. 1443 --><p class='noindent'><a id='cite.0_guerrini_design_2013'></a>N. Guerrini et al. “Design and characterisation of a highly miniaturised radiation monitor HMRM”. en. In:
+     <!-- l. 1763 --><p class='noindent'><a id='cite.0_guerrini_design_2013'></a>N. Guerrini et al. “Design and characterisation of a highly miniaturised radiation monitor HMRM”. en. In:
      <span class='cmti-10'>Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and
      Associated Equipment </span>731 (Dec. 2013), pp. 154–159. <span class='cmcsc-10'><span class='small-caps'>issn</span></span>: 01689002. <span class='cmcsc-10'><span class='small-caps'>doi</span></span>: <a href='https://doi.org/10.1016/j.nima.2013.06.073'>10.1016/j.nima.2013.06.073</a>. <span class='cmcsc-10'><span class='small-caps'>url</span></span>:
      <a class='url' href='https://linkinghub.elsevier.com/retrieve/pii/S0168900213009066'><span class='cmtt-10'>https://linkinghub.elsevier.com/retrieve/pii/S0168900213009066</span></a> (visited on 06/19/2026).
      </p></dd><dt class='thebibliography' id='X0-aglieri_rinella_charge_2021'>
 [15]  </dt><dd class='thebibliography' id='bib-15'>
-     <!-- l. 1443 --><p class='noindent'><a id='cite.0_aglieri_rinella_charge_2021'></a>G. Aglieri Rinella et al. “Charge collection properties of TowerJazz 180 nm CMOS Pixel Sensors in dependence
+     <!-- l. 1763 --><p class='noindent'><a id='cite.0_aglieri_rinella_charge_2021'></a>G. Aglieri Rinella et al. “Charge collection properties of TowerJazz 180 nm CMOS Pixel Sensors in dependence
      of pixel geometries and bias parameters, studied using a dedicated test-vehicle: The Investigator chip”. en.
      In: <span class='cmti-10'>Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors
      and Associated Equipment </span>988 (Feb. 2021), p. 164859. <span class='cmcsc-10'><span class='small-caps'>issn</span></span>: 01689002. <span class='cmcsc-10'><span class='small-caps'>doi</span></span>: <a href='https://doi.org/10.1016/j.nima.2020.164859'>10.1016/j.nima.2020.164859</a>. <span class='cmcsc-10'><span class='small-caps'>url</span></span>:
      <a class='url' href='https://linkinghub.elsevier.com/retrieve/pii/S0168900220312560'><span class='cmtt-10'>https://linkinghub.elsevier.com/retrieve/pii/S0168900220312560</span></a> (visited on 06/22/2026).
      </p></dd><dt class='thebibliography' id='X0-Rivetti2015'>
 [16]  </dt><dd class='thebibliography' id='bib-16'>
-     <!-- l. 1443 --><p class='noindent'><a id='cite.0_Rivetti2015'></a>Angelo Rivetti. <span class='cmti-10'>CMOS: Front-End Electronics for Radiation Sensors</span>. Devices, Circuits, and Systems. Boca
+     <!-- l. 1763 --><p class='noindent'><a id='cite.0_Rivetti2015'></a>Angelo Rivetti. <span class='cmti-10'>CMOS: Front-End Electronics for Radiation Sensors</span>. Devices, Circuits, and Systems. Boca
      Raton, FL: CRC Press, 2015. <span class='cmcsc-10'><span class='small-caps'>isbn</span></span>: 978-1-4665-6810-5.
      </p></dd><dt class='thebibliography' id='X0-IEEESolidStateCircuitsSummer2025'>
 [17]  </dt><dd class='thebibliography' id='bib-17'>
-     <!-- l. 1443 --><p class='noindent'><a id='cite.0_IEEESolidStateCircuitsSummer2025'></a>“IEEE Solid-State Circuits Magazine”. In: <span class='cmti-10'>IEEE Solid-State Circuits Magazine </span>17.3 (2025). <span class='cmcsc-10'><span class='small-caps'>issn</span></span>: 1943-0582.</p></dd></dl>
+     <!-- l. 1763 --><p class='noindent'><a id='cite.0_IEEESolidStateCircuitsSummer2025'></a>“IEEE Solid-State Circuits Magazine”. In: <span class='cmti-10'>IEEE Solid-State Circuits Magazine </span>17.3 (2025). <span class='cmcsc-10'><span class='small-caps'>issn</span></span>: 1943-0582.</p></dd></dl>
     
 </body> 
 </html>
