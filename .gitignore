@@ -17,6 +17,8 @@
 *.tmp
 *.toc
 *.xref
+*.svg
+
 
 #I only need the .tex and .bib files for back up
 
